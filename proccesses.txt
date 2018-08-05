@@ -1,0 +1,242 @@
+UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  0 08:28 ?        00:00:02 /sbin/init splash
+root         2     0  0 08:28 ?        00:00:00 [kthreadd]
+root         4     2  0 08:28 ?        00:00:00 [kworker/0:0H]
+root         6     2  0 08:28 ?        00:00:00 [mm_percpu_wq]
+root         7     2  0 08:28 ?        00:00:00 [ksoftirqd/0]
+root         8     2  0 08:28 ?        00:00:00 [rcu_sched]
+root         9     2  0 08:28 ?        00:00:00 [rcu_bh]
+root        10     2  0 08:28 ?        00:00:00 [migration/0]
+root        11     2  0 08:28 ?        00:00:00 [watchdog/0]
+root        12     2  0 08:28 ?        00:00:00 [cpuhp/0]
+root        13     2  0 08:28 ?        00:00:00 [cpuhp/1]
+root        14     2  0 08:28 ?        00:00:00 [watchdog/1]
+root        15     2  0 08:28 ?        00:00:00 [migration/1]
+root        16     2  0 08:28 ?        00:00:00 [ksoftirqd/1]
+root        18     2  0 08:28 ?        00:00:00 [kworker/1:0H]
+root        19     2  0 08:28 ?        00:00:00 [cpuhp/2]
+root        20     2  0 08:28 ?        00:00:00 [watchdog/2]
+root        21     2  0 08:28 ?        00:00:00 [migration/2]
+root        22     2  0 08:28 ?        00:00:00 [ksoftirqd/2]
+root        24     2  0 08:28 ?        00:00:00 [kworker/2:0H]
+root        25     2  0 08:28 ?        00:00:00 [cpuhp/3]
+root        26     2  0 08:28 ?        00:00:00 [watchdog/3]
+root        27     2  0 08:28 ?        00:00:00 [migration/3]
+root        28     2  0 08:28 ?        00:00:00 [ksoftirqd/3]
+root        30     2  0 08:28 ?        00:00:00 [kworker/3:0H]
+root        31     2  0 08:28 ?        00:00:00 [kdevtmpfs]
+root        32     2  0 08:28 ?        00:00:00 [netns]
+root        33     2  0 08:28 ?        00:00:00 [rcu_tasks_kthre]
+root        34     2  0 08:28 ?        00:00:00 [kauditd]
+root        38     2  0 08:28 ?        00:00:00 [khungtaskd]
+root        39     2  0 08:28 ?        00:00:00 [oom_reaper]
+root        40     2  0 08:28 ?        00:00:00 [writeback]
+root        41     2  0 08:28 ?        00:00:00 [kcompactd0]
+root        42     2  0 08:28 ?        00:00:00 [ksmd]
+root        43     2  0 08:28 ?        00:00:00 [khugepaged]
+root        44     2  0 08:28 ?        00:00:00 [crypto]
+root        45     2  0 08:28 ?        00:00:00 [kintegrityd]
+root        46     2  0 08:28 ?        00:00:00 [kblockd]
+root        48     2  0 08:28 ?        00:00:00 [ata_sff]
+root        49     2  0 08:28 ?        00:00:00 [md]
+root        50     2  0 08:28 ?        00:00:00 [edac-poller]
+root        51     2  0 08:28 ?        00:00:00 [kworker/0:2]
+root        52     2  0 08:28 ?        00:00:00 [devfreq_wq]
+root        53     2  0 08:28 ?        00:00:00 [watchdogd]
+root        56     2  0 08:28 ?        00:00:00 [kswapd0]
+root        57     2  0 08:28 ?        00:00:00 [ecryptfs-kthrea]
+root        99     2  0 08:28 ?        00:00:00 [kthrotld]
+root       100     2  0 08:28 ?        00:00:00 [acpi_thermal_pm]
+root       102     2  0 08:28 ?        00:00:00 [kworker/1:2]
+root       104     2  0 08:28 ?        00:00:00 [kworker/3:2]
+root       108     2  0 08:28 ?        00:00:00 [ipv6_addrconf]
+root       117     2  0 08:28 ?        00:00:00 [kstrp]
+root       134     2  0 08:28 ?        00:00:00 [charger_manager]
+root       185     2  0 08:28 ?        00:00:00 [nvme-wq]
+root       186     2  0 08:28 ?        00:00:00 [kworker/u9:0]
+root       187     2  0 08:28 ?        00:00:00 [i915/signal:0]
+root       188     2  0 08:28 ?        00:00:00 [i915/signal:1]
+root       189     2  0 08:28 ?        00:00:00 [i915/signal:2]
+root       190     2  0 08:28 ?        00:00:00 [i915/signal:3]
+root       191     2  0 08:28 ?        00:00:00 [i915/signal:4]
+root       194     2  0 08:28 ?        00:00:00 [kworker/u8:4]
+root       266     2  0 08:28 ?        00:00:00 [raid5wq]
+root       308     2  0 08:28 ?        00:00:00 [jbd2/nvme0n1p3-]
+root       309     2  0 08:28 ?        00:00:00 [ext4-rsv-conver]
+root       352     2  0 08:28 ?        00:00:00 [kworker/3:1H]
+root       355     1  0 08:28 ?        00:00:00 /lib/systemd/systemd-journald
+root       394     1  0 08:28 ?        00:00:00 /lib/systemd/systemd-udevd
+root       406     2  0 08:28 ?        00:00:00 [kworker/0:1H]
+root       407     2  0 08:28 ?        00:00:00 [kworker/2:1H]
+root       429     2  0 08:28 ?        00:00:00 [kworker/2:2]
+root       466     2  0 08:28 ?        00:00:00 [kmemstick]
+root       475     2  0 08:28 ?        00:00:03 [irq/51-DLL075B:]
+root       481     2  0 08:28 ?        00:00:00 [kdmflush]
+root       482     2  0 08:28 ?        00:00:00 [cfg80211]
+root       500     2  0 08:28 ?        00:00:00 [irq/133-mei_me]
+root       533     2  0 08:28 ?        00:00:00 [ath10k_wq]
+root       535     2  0 08:28 ?        00:00:00 [ath10k_aux_wq]
+root       543     2  0 08:28 ?        00:00:00 [kworker/u9:1]
+root       573     2  0 08:28 ?        00:00:00 [bioset]
+root       576     2  0 08:28 ?        00:00:00 [kcryptd_io]
+root       577     2  0 08:28 ?        00:00:00 [kcryptd]
+root       580     2  0 08:28 ?        00:00:00 [dmcrypt_write]
+root       582     2  0 08:28 ?        00:00:00 [bioset]
+systemd+   670     1  0 08:28 ?        00:00:00 /lib/systemd/systemd-timesyncd
+systemd+   676     1  0 08:28 ?        00:00:00 /lib/systemd/systemd-resolved
+root       768     1  0 08:28 ?        00:00:00 /usr/sbin/ModemManager
+root       769     1  0 08:28 ?        00:00:00 /usr/sbin/acpid
+root       770     1  0 08:28 ?        00:00:01 /usr/sbin/thermald --no-daemon --dbus-enable
+message+   771     1  0 08:28 ?        00:00:01 /usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+root       774     1  0 08:28 ?        00:00:00 /usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers
+avahi      777     1  0 08:28 ?        00:00:01 avahi-daemon: running [pop-os.local]
+root       778     1  0 08:28 ?        00:00:00 /lib/systemd/systemd-logind
+root       781     1  0 08:28 ?        00:00:00 /sbin/wpa_supplicant -u -s -O /run/wpa_supplicant
+root       782     1  0 08:28 ?        00:00:00 /usr/lib/accountsservice/accounts-daemon
+root       783     1  0 08:28 ?        00:00:00 /usr/lib/udisks2/udisksd
+root       787     1  0 08:28 ?        00:00:01 /usr/sbin/NetworkManager --no-daemon
+root       788     1  0 08:28 ?        00:00:00 /usr/sbin/irqbalance --foreground
+root       793     1  0 08:28 ?        00:00:00 /usr/bin/system76-power daemon
+avahi      795   777  0 08:28 ?        00:00:00 avahi-daemon: chroot helper
+root       796     1  0 08:28 ?        00:00:00 /usr/sbin/cron -f
+root       800     1  0 08:28 ?        00:00:00 /usr/sbin/cupsd -l
+syslog     810     1  0 08:28 ?        00:00:00 /usr/sbin/rsyslogd -n
+root       821     1  0 08:28 ?        00:00:00 /usr/lib/bluetooth/bluetoothd
+root       822     2  0 08:28 ?        00:00:00 [kworker/1:1H]
+root       838     1  0 08:28 ?        00:00:00 /usr/lib/policykit-1/polkitd --no-debug
+root       839     1  0 08:28 ?        00:00:00 /usr/sbin/cups-browsed
+root       897     1  0 08:28 ?        00:00:00 /usr/sbin/gdm3
+root       903   897  0 08:28 ?        00:00:00 gdm-session-worker [pam/gdm-launch-environment]
+root       917     2  0 08:28 ?        00:00:00 [iprt-VBoxWQueue]
+root       923     2  0 08:28 ?        00:00:00 [iprt-VBoxTscThr]
+gdm        943     1  0 08:28 ?        00:00:00 /lib/systemd/systemd --user
+gdm        944   943  0 08:28 ?        00:00:00 (sd-pam)
+gdm        955   903  0 08:28 tty1     00:00:00 /usr/lib/gdm3/gdm-wayland-session gnome-session --autostart /usr/share/gdm/greeter/autostart
+gdm        957   943  0 08:28 ?        00:00:00 /usr/bin/dbus-daemon --session --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+gdm        968   955  0 08:28 tty1     00:00:00 /usr/lib/gnome-session/gnome-session-binary --autostart /usr/share/gdm/greeter/autostart
+gdm        983   968  0 08:28 tty1     00:00:05 /usr/bin/gnome-shell
+root       990     1  0 08:28 ?        00:00:00 /usr/lib/upower/upowerd
+gdm       1010   983  0 08:28 tty1     00:00:00 /usr/bin/Xwayland :1024 -rootless -terminate -accessx -core -listen 4 -listen 5 -displayfd 6
+gdm       1017   943  0 08:28 ?        00:00:00 /usr/lib/at-spi2-core/at-spi-bus-launcher
+gdm       1022  1017  0 08:28 ?        00:00:00 /usr/bin/dbus-daemon --config-file=/usr/share/defaults/at-spi2/accessibility.conf --nofork --print-address 3
+gdm       1024   943  0 08:28 ?        00:00:00 /usr/lib/at-spi2-core/at-spi2-registryd --use-gnome-session
+gdm       1028   943  0 08:28 ?        00:00:00 /usr/bin/pulseaudio --daemonize=no
+rtkit     1029     1  0 08:28 ?        00:00:00 /usr/lib/rtkit/rtkit-daemon
+gdm       1046   983  0 08:28 tty1     00:00:00 ibus-daemon --xim --panel disable
+gdm       1049  1046  0 08:28 tty1     00:00:00 /usr/lib/ibus/ibus-dconf
+gdm       1052     1  0 08:28 tty1     00:00:00 /usr/lib/ibus/ibus-x11 --kill-daemon
+gdm       1054   943  0 08:28 ?        00:00:00 /usr/lib/ibus/ibus-portal
+root      1067     1  0 08:28 ?        00:00:00 /usr/lib/x86_64-linux-gnu/boltd
+root      1068     1  0 08:28 ?        00:00:03 /usr/lib/packagekit/packagekitd
+gdm       1069   968  0 08:28 tty1     00:00:00 /usr/lib/gnome-settings-daemon/gsd-xsettings
+gdm       1070   968  0 08:28 tty1     00:00:00 /usr/lib/gnome-settings-daemon/gsd-a11y-settings
+gdm       1074   968  0 08:28 tty1     00:00:00 /usr/lib/gnome-settings-daemon/gsd-clipboard
+gdm       1078   968  0 08:28 tty1     00:00:00 /usr/lib/gnome-settings-daemon/gsd-color
+gdm       1082   968  0 08:28 tty1     00:00:00 /usr/lib/gnome-settings-daemon/gsd-datetime
+gdm       1083   968  0 08:28 tty1     00:00:00 /usr/lib/gnome-settings-daemon/gsd-housekeeping
+gdm       1085   968  0 08:28 tty1     00:00:00 /usr/lib/gnome-settings-daemon/gsd-keyboard
+gdm       1089   968  0 08:28 tty1     00:00:00 /usr/lib/gnome-settings-daemon/gsd-media-keys
+gdm       1090   968  0 08:28 tty1     00:00:00 /usr/lib/gnome-settings-daemon/gsd-mouse
+gdm       1093   968  0 08:28 tty1     00:00:00 /usr/lib/gnome-settings-daemon/gsd-power
+gdm       1096   968  0 08:28 tty1     00:00:00 /usr/lib/gnome-settings-daemon/gsd-print-notifications
+gdm       1097   968  0 08:28 tty1     00:00:00 /usr/lib/gnome-settings-daemon/gsd-rfkill
+gdm       1100   968  0 08:28 tty1     00:00:00 /usr/lib/gnome-settings-daemon/gsd-screensaver-proxy
+gdm       1103   968  0 08:28 tty1     00:00:00 /usr/lib/gnome-settings-daemon/gsd-sharing
+gdm       1107   968  0 08:28 tty1     00:00:00 /usr/lib/gnome-settings-daemon/gsd-smartcard
+gdm       1111   968  0 08:28 tty1     00:00:00 /usr/lib/gnome-settings-daemon/gsd-sound
+gdm       1114   968  0 08:28 tty1     00:00:00 /usr/lib/gnome-settings-daemon/gsd-wacom
+gdm       1123  1046  0 08:28 tty1     00:00:00 /usr/lib/ibus/ibus-engine-simple
+colord    1160     1  0 08:28 ?        00:00:00 /usr/lib/colord/colord
+root      1351   897  0 08:28 ?        00:00:00 gdm-session-worker [pam/gdm-password]
+rickmen+  1354     1  0 08:28 ?        00:00:00 /lib/systemd/systemd --user
+rickmen+  1355  1354  0 08:28 ?        00:00:00 (sd-pam)
+rickmen+  1368     1  0 08:28 ?        00:00:00 /usr/bin/gnome-keyring-daemon --daemonize --login
+rickmen+  1372  1351  0 08:28 tty2     00:00:00 /usr/lib/gdm3/gdm-x-session --run-script env GNOME_SHELL_SESSION_MODE=pop gnome-session --session=pop
+rickmen+  1374  1372  2 08:28 tty2     00:00:26 /usr/lib/xorg/Xorg vt2 -displayfd 3 -auth /run/user/1000/gdm/Xauthority -background none -noreset -keeptty -verbose 3
+rickmen+  1378  1354  0 08:28 ?        00:00:00 /usr/bin/dbus-daemon --session --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+rickmen+  1381  1372  0 08:28 tty2     00:00:00 /usr/lib/gnome-session/gnome-session-binary --session=pop
+rickmen+  1475  1381  0 08:28 ?        00:00:00 /usr/bin/ssh-agent /usr/bin/im-launch env GNOME_SHELL_SESSION_MODE=pop gnome-session --session=pop
+rickmen+  1478  1354  0 08:28 ?        00:00:00 /usr/lib/gvfs/gvfsd
+rickmen+  1483  1354  0 08:28 ?        00:00:00 /usr/lib/gvfs/gvfsd-fuse /run/user/1000/gvfs -f -o big_writes
+rickmen+  1492  1354  0 08:28 ?        00:00:00 /usr/lib/at-spi2-core/at-spi-bus-launcher
+rickmen+  1497  1492  0 08:28 ?        00:00:00 /usr/bin/dbus-daemon --config-file=/usr/share/defaults/at-spi2/accessibility.conf --nofork --print-address 3
+rickmen+  1500  1354  0 08:28 ?        00:00:00 /usr/lib/at-spi2-core/at-spi2-registryd --use-gnome-session
+rickmen+  1515  1381  5 08:28 tty2     00:00:53 /usr/bin/gnome-shell
+rickmen+  1524     1  0 08:28 ?        00:00:00 /usr/bin/pulseaudio --start --log-target=syslog
+root      1537     2  0 08:28 ?        00:00:00 [krfcommd]
+rickmen+  1540  1515  0 08:28 tty2     00:00:05 ibus-daemon --xim --panel disable
+rickmen+  1544  1540  0 08:28 tty2     00:00:00 /usr/lib/ibus/ibus-dconf
+rickmen+  1547     1  0 08:28 tty2     00:00:00 /usr/lib/ibus/ibus-x11 --kill-daemon
+rickmen+  1550  1354  0 08:28 ?        00:00:00 /usr/lib/ibus/ibus-portal
+rickmen+  1559  1354  0 08:28 ?        00:00:00 /usr/lib/gnome-shell/gnome-shell-calendar-server
+rickmen+  1563  1354  0 08:28 ?        00:00:00 /usr/lib/evolution/evolution-source-registry
+rickmen+  1571  1354  0 08:28 ?        00:00:02 /usr/lib/gnome-online-accounts/goa-daemon
+rickmen+  1573  1354  0 08:28 ?        00:00:00 /usr/lib/dconf/dconf-service
+rickmen+  1576  1354  0 08:28 ?        00:00:00 /usr/lib/gvfs/gvfsd-metadata
+rickmen+  1589  1354  0 08:28 ?        00:00:00 /usr/lib/gnome-online-accounts/goa-identity-service
+geoclue   1590     1  0 08:28 ?        00:00:00 /usr/lib/geoclue-2.0/geoclue -t 5
+rickmen+  1599  1354  0 08:28 ?        00:00:00 /usr/lib/gvfs/gvfs-udisks2-volume-monitor
+rickmen+  1603  1354  0 08:28 ?        00:00:00 /usr/lib/gvfs/gvfs-gphoto2-volume-monitor
+rickmen+  1607  1354  0 08:28 ?        00:00:00 /usr/lib/gvfs/gvfs-goa-volume-monitor
+rickmen+  1611  1354  0 08:28 ?        00:00:00 /usr/lib/gvfs/gvfs-afc-volume-monitor
+rickmen+  1616  1354  0 08:28 ?        00:00:00 /usr/lib/gvfs/gvfs-mtp-volume-monitor
+rickmen+  1620  1381  0 08:28 tty2     00:00:00 /usr/lib/gnome-settings-daemon/gsd-power
+rickmen+  1621  1381  0 08:28 tty2     00:00:00 /usr/lib/gnome-settings-daemon/gsd-print-notifications
+rickmen+  1623  1381  0 08:28 tty2     00:00:00 /usr/lib/gnome-settings-daemon/gsd-rfkill
+rickmen+  1625  1381  0 08:28 tty2     00:00:00 /usr/lib/gnome-settings-daemon/gsd-screensaver-proxy
+rickmen+  1631  1381  0 08:28 tty2     00:00:00 /usr/lib/gnome-settings-daemon/gsd-sharing
+rickmen+  1635  1381  0 08:28 tty2     00:00:00 /usr/lib/gnome-settings-daemon/gsd-smartcard
+rickmen+  1640  1381  0 08:28 tty2     00:00:00 /usr/lib/gnome-settings-daemon/gsd-sound
+rickmen+  1643  1381  0 08:28 tty2     00:00:00 /usr/lib/gnome-settings-daemon/gsd-xsettings
+rickmen+  1650  1381  0 08:28 tty2     00:00:00 /usr/lib/gnome-settings-daemon/gsd-wacom
+rickmen+  1661  1381  0 08:28 tty2     00:00:00 /usr/lib/gnome-settings-daemon/gsd-a11y-settings
+rickmen+  1662  1381  0 08:28 tty2     00:00:00 /usr/lib/gnome-settings-daemon/gsd-color
+rickmen+  1665  1381  0 08:28 tty2     00:00:00 /usr/lib/gnome-settings-daemon/gsd-clipboard
+rickmen+  1670  1381  0 08:28 tty2     00:00:00 /usr/lib/gnome-settings-daemon/gsd-datetime
+rickmen+  1671  1381  0 08:28 tty2     00:00:00 /usr/lib/gnome-settings-daemon/gsd-housekeeping
+rickmen+  1677  1381  0 08:28 tty2     00:00:00 /usr/lib/gnome-settings-daemon/gsd-keyboard
+rickmen+  1682  1381  0 08:28 tty2     00:00:00 /usr/lib/gnome-settings-daemon/gsd-media-keys
+rickmen+  1683  1381  0 08:28 tty2     00:00:00 /usr/lib/gnome-settings-daemon/gsd-mouse
+rickmen+  1723  1381  0 08:28 tty2     00:00:00 /usr/bin/python3 /usr/lib/hidpi-daemon/hidpi-daemon
+rickmen+  1725  1381  0 08:28 tty2     00:00:00 /usr/lib/gnome-disk-utility/gsd-disk-utility-notify
+rickmen+  1731  1354  0 08:28 ?        00:00:00 /usr/lib/evolution/evolution-calendar-factory
+rickmen+  1732  1381  0 08:28 tty2     00:00:01 nautilus-desktop
+rickmen+  1734  1381  0 08:28 tty2     00:00:00 /usr/bin/python3 /usr/lib/hidpi-daemon/hidpi-notification
+rickmen+  1743  1478  0 08:28 ?        00:00:00 /usr/lib/gvfs/gvfsd-trash --spawner :1.7 /org/gtk/gvfs/exec_spaw/0
+rickmen+  1756     1  0 08:28 tty2     00:00:00 /usr/lib/gnome-settings-daemon/gsd-printer
+rickmen+  1803  1731  0 08:28 ?        00:00:00 /usr/lib/evolution/evolution-calendar-factory-subprocess --factory all --bus-name org.gnome.evolution.dataserver.Subprocess.Backend.Calendarx1731x2 --own-path /org/gnome/evolution/dataserver/Subprocess/Backend/Calendar/1731/2
+rickmen+  1805  1540  0 08:28 tty2     00:00:01 /usr/lib/ibus/ibus-engine-simple
+rickmen+  1853  1354  0 08:28 ?        00:00:00 /usr/lib/evolution/evolution-addressbook-factory
+rickmen+  1868  1853  0 08:28 ?        00:00:00 /usr/lib/evolution/evolution-addressbook-factory-subprocess --factory all --bus-name org.gnome.evolution.dataserver.Subprocess.Backend.AddressBookx1853x2 --own-path /org/gnome/evolution/dataserver/Subprocess/Backend/AddressBook/1853/2
+rickmen+  1921  1354  0 08:29 ?        00:00:05 /usr/lib/gnome-terminal/gnome-terminal-server
+rickmen+  2060  1921  0 08:29 pts/0    00:00:00 bash
+rickmen+  2251  1515  3 08:29 tty2     00:00:32 /usr/lib/firefox/firefox
+rickmen+  2320  2251  2 08:29 tty2     00:00:18 /usr/lib/firefox/firefox -contentproc -childID 1 -isForBrowser -prefsLen 7834 -schedulerPrefs 0001,2 -greomni /usr/lib/firefox/omni.ja -appomni /usr/lib/firefox/browser/omni.ja -appdir /usr/lib/firefox/browser 2251 true tab
+rickmen+  2513  1381  0 08:29 tty2     00:00:02 io.elementary.appcenter -s
+root      3095   787  0 08:30 ?        00:00:00 /sbin/dhclient -d -q -sf /usr/lib/NetworkManager/nm-dhcp-helper -pf /run/dhclient-wlp58s0.pid -lf /var/lib/NetworkManager/dhclient-4a774fac-9054-4583-b4bb-207f1c4efd50-wlp58s0.lease -cf /var/lib/NetworkManager/dhclient-wlp58s0.conf wlp58s0
+rickmen+  3543  1515  2 08:32 tty2     00:00:17 /usr/share/code/code --unity-launch
+rickmen+  3545  3543  0 08:32 tty2     00:00:00 /usr/share/code/code --type=zygote --no-sandbox
+rickmen+  3558  1354  0 08:32 ?        00:00:00 /usr/lib/x86_64-linux-gnu/gconf/gconfd-2
+rickmen+  3578  3543  1 08:32 tty2     00:00:12 /usr/share/code/code --type=gpu-process --no-sandbox --supports-dual-gpus=false --gpu-driver-bug-workarounds=1,7,23,61,74 --disable-gl-extensions=GL_KHR_blend_equation_advanced GL_KHR_blend_equation_advanced_coherent --gpu-vendor-id=0x8086 --gpu-device-id=0x5926 --gpu-driver-vendor --gpu-driver-version --gpu-driver-date --service-request-channel-token=DAB1EBB6CBBE8BDA4BA0E6FF3E43D897
+rickmen+  3702  3545  0 08:32 tty2     00:00:01 /usr/share/code/code --type=renderer --js-flags=--nolazy --no-sandbox --primordial-pipe-token=771B5334C7F80780A7CFF04B538B3DF2 --lang=en-US --app-path=/usr/share/code/resources/app --node-integration=true --webview-tag=true --no-sandbox --enable-pinch --num-raster-threads=2 --enable-main-frame-before-activation --content-image-texture-target=0,0,3553;0,1,3553;0,2,3553;0,3,3553;0,4,3553;0,5,3553;0,6,3553;0,7,3553;0,8,3553;0,9,3553;0,10,3553;0,11,3553;0,12,3553;0,13,3553;0,14,3553;0,15,3553;1,0,3553;1,1,3553;1,2,3553;1,3,3553;1,4,3553;1,5,3553;1,6,3553;1,7,3553;1,8,3553;1,9,3553;1,10,3553;1,11,3553;1,12,3553;1,13,3553;1,14,3553;1,15,3553;2,0,3553;2,1,3553;2,2,3553;2,3,3553;2,4,3553;2,5,3553;2,6,3553;2,7,3553;2,8,3553;2,9,3553;2,10,3553;2,11,3553;2,12,3553;2,13,3553;2,14,3553;2,15,3553;3,0,3553;3,1,3553;3,2,3553;3,3,3553;3,4,3553;3,5,3553;3,6,3553;3,7,3553;3,8,3553;3,9,3553;3,10,3553;3,11,3553;3,12,3553;3,13,3553;3,14,3553;3,15,3553;4,0,3553;4,1,3553;4,2,3553;4,3,3553;4,4,3553;4,5,3553;4,6,3553;4,7,3553;4,8,3553;4,9,3553;4,10,3553;4,11,3553;4,12,3553;4,13,3553;4,14,3553;4,15,3553 --disable-accelerated-video-decode --service-request-channel-token=771B5334C7F80780A7CFF04B538B3DF2 --renderer-client-id=6 --shared-files=v8_natives_data:100,v8_snapshot_data:101
+rickmen+  3736  3545  6 08:32 tty2     00:00:43 /usr/share/code/code --type=renderer --js-flags=--nolazy --no-sandbox --primordial-pipe-token=3C8169A280B0105066ED43D055F278FA --lang=en-US --app-path=/usr/share/code/resources/app --node-integration=true --webview-tag=true --no-sandbox --background-color=#1e1e1e --disable-blink-features=Auxclick --enable-pinch --num-raster-threads=2 --enable-main-frame-before-activation --content-image-texture-target=0,0,3553;0,1,3553;0,2,3553;0,3,3553;0,4,3553;0,5,3553;0,6,3553;0,7,3553;0,8,3553;0,9,3553;0,10,3553;0,11,3553;0,12,3553;0,13,3553;0,14,3553;0,15,3553;1,0,3553;1,1,3553;1,2,3553;1,3,3553;1,4,3553;1,5,3553;1,6,3553;1,7,3553;1,8,3553;1,9,3553;1,10,3553;1,11,3553;1,12,3553;1,13,3553;1,14,3553;1,15,3553;2,0,3553;2,1,3553;2,2,3553;2,3,3553;2,4,3553;2,5,3553;2,6,3553;2,7,3553;2,8,3553;2,9,3553;2,10,3553;2,11,3553;2,12,3553;2,13,3553;2,14,3553;2,15,3553;3,0,3553;3,1,3553;3,2,3553;3,3,3553;3,4,3553;3,5,3553;3,6,3553;3,7,3553;3,8,3553;3,9,3553;3,10,3553;3,11,3553;3,12,3553;3,13,3553;3,14,3553;3,15,3553;4,0,3553;4,1,3553;4,2,3553;4,3,3553;4,4,3553;4,5,3553;4,6,3553;4,7,3553;4,8,3553;4,9,3553;4,10,3553;4,11,3553;4,12,3553;4,13,3553;4,14,3553;4,15,3553 --disable-accelerated-video-decode --service-request-channel-token=3C8169A280B0105066ED43D055F278FA --renderer-client-id=7 --shared-files=v8_natives_data:100,v8_snapshot_data:101
+rickmen+  3762  3736  0 08:32 tty2     00:00:02 /usr/share/code/code /usr/share/code/resources/app/out/bootstrap --type=extensionHost
+rickmen+  3765  3736  0 08:32 tty2     00:00:00 /usr/share/code/code /usr/share/code/resources/app/out/bootstrap --type=watcherService
+rickmen+  3836  3736  0 08:33 tty2     00:00:01 /usr/share/code/code /usr/share/code/resources/app/out/bootstrap --type=terminal
+rickmen+  3843  3836  0 08:33 pts/1    00:00:00 /bin/bash
+root      3936     2  0 08:34 ?        00:00:00 [kworker/0:0]
+root      3947     2  0 08:34 ?        00:00:00 [kworker/3:0]
+rickmen+  3948  2251  1 08:34 tty2     00:00:08 /usr/lib/firefox/firefox -contentproc -childID 4 -isForBrowser -prefsLen 11577 -schedulerPrefs 0001,2 -greomni /usr/lib/firefox/omni.ja -appomni /usr/lib/firefox/browser/omni.ja -appdir /usr/lib/firefox/browser 2251 true tab
+root      3950     2  0 08:34 ?        00:00:00 [kworker/2:0]
+root      3972     2  0 08:34 ?        00:00:00 [kworker/u8:0]
+root      3990     2  0 08:35 ?        00:00:00 [kworker/1:0]
+rickmen+  4072  2251  0 08:39 tty2     00:00:00 /usr/lib/firefox/firefox -contentproc -childID 6 -isForBrowser -prefsLen 11577 -schedulerPrefs 0001,2 -greomni /usr/lib/firefox/omni.ja -appomni /usr/lib/firefox/browser/omni.ja -appdir /usr/lib/firefox/browser 2251 true tab
+root      4103     2  0 08:39 ?        00:00:00 [kworker/3:1]
+root      4105     2  0 08:39 ?        00:00:00 [kworker/0:1]
+root      4106     2  0 08:39 ?        00:00:00 [kworker/2:1]
+root      4146     2  0 08:40 ?        00:00:00 [kworker/u8:1]
+root      4150     2  0 08:41 ?        00:00:00 [kworker/1:1]
+rickmen+  4162  1354  0 08:42 ?        00:00:00 ssh-agent -s
+root      4181     2  0 08:42 ?        00:00:00 [kworker/u8:2]
+root      4196     2  0 08:43 ?        00:00:00 [kworker/1:3]
+rickmen+  4272  2060  0 08:44 pts/0    00:00:00 ps -ef
