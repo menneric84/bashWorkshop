@@ -78,24 +78,34 @@ use ~ to specify home directory
 pushd +2 === navigate to the number directory
 git config --global user.name "menneric84"
 
+touch === create file -- will also update timestamp 
+    --- useful for prompting events
 
+single > will overrite file
+double >> will concat
 
+date >> hello.txt
+will add date stamp
 
+cat > names.txt
+will create new file that you can add to
+ctrl + d will terminate proccess
 
+cat << EOF
 
+cat << EOF > names.txt
+    === useful for creating files
 
+cat is supposed to be used to concat files
+cat hello.txt names.txt > newfile.txt
+    --create a new file which is the concat of both files
+head -n 2 /var/log/syslog
+    - show first 2 lines of file
+tail -n 10 show last 10 lines of file
+    --- tail -n 3
+    --- tail -n 3 names.txt | head -n 1 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+mkdir -p files/docs/diagrams files/docs/markdown
+mkdir -p files/code/{elm,go,js}
+  
 
