@@ -38,3 +38,63 @@ sudo !! will run previous command as sudo
 
 !<cmdNumber>  will run the number command
 
+cd ..  ==== up one directory
+
+usr/bin will be programs installed by package manager
+usr/local is where you can store programs --- not managed by operating system
+var/ is where website and logs should be kept
+opt/ optional directory - not used often
+tmp/ temporary directory
+
+ls -l contains permissions for files -- very useful
+rw-r--r--   --first 3 are for person who owns the file which is listed after
+            --second 3 is permission applied to the group
+            --third 3 is everyone else on the machine
+            -- THIS IS IMPORTANT
+
+ls -al shows all entries. This is nice so you can see the parent directories
+ .. ---parent directory
+ .  ---current directory
+
+ls -alh will give sizes in Kilabytes,mgb,and gb
+
+ls -alhd /var/log only shows directory information
+
+cd - === will take you back to previous directory
+cd /bin === this from root of filesystem
+cd bin/ === relative to location
+cd ../lesson_4 === you can go up and nav in one command
+
+pushd /usr/bin ==== will take you to that directory
+               ==== pushes locations to the array
+
+popd  ==== takes you to last directoroy in the array 
+
+dirs  ==== print out directory stack
+dirs -v == shows numbered array
+
+use ~ to specify home directory
+
+pushd +2 === navigate to the number directory
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
