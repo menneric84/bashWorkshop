@@ -21,3 +21,5 @@ mkdir - create new directory
 cd  ==== will auto nav back to home
 
 tab to autocomplete
+
+use "which" command to see if something is installed
