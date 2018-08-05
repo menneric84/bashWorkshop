@@ -76,6 +76,7 @@ dirs -v == shows numbered array
 use ~ to specify home directory
 
 pushd +2 === navigate to the number directory
+git config --global user.name "menneric84"
 
 
 
