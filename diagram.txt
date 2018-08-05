@@ -1,0 +1,8 @@
+.
+├── diagram.txt
+├── greetings.txt
+├── Notes
+├── proccesses.txt
+└── testDirectory
+
+1 directory, 4 files
