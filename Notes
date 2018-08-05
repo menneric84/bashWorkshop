@@ -271,4 +271,32 @@ Population 	 State
 awk -F ',' '{print $2, "\t", $1}' population.csv | sort -nr | head-n 1
     - methods become very powerful when chained
 
+NETWORKING STUFF
+use whois - to look up domain
+use dig   - to look up ip addresses and additional network Dakota
+use curl  - to look up html of site
+use curl -I to get hte header
+use curl -i to get header and body
+use nc
+
+use nano as text editor
+you can use fc to fix command
+
+Edit .bashsrc with path variables
+
+you can also create other exports for env variables
+    --- VERY useful
+    --- same as setting JAVA_HOME
+
+---sed guide --- grimoire
+---awk guide --- look it up
+
+---the bash manual
+
+dot files
+    - cool linux configurations
+
+cp <scriptfile> to usr/local/bin/<scriptname>
+chmod to make it executable
+then you can execute the script anywhere
 
