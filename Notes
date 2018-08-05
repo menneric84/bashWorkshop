@@ -1,1 +1,23 @@
 Bash Notes
+
+~ Home directory
+pwd - print working directory
+cd - change directory
+ehco - print to screen
+echo "Hello World" > greetings.txt ===== push to file
+cat  - display contents of text file
+less - look at larger files
+
+use echo to chain outputs together
+
+ps - look at processes
+ps -ef === look at all processes
+
+use "|" to pipe programs together. Can send output directly to less
+ps -ef | less   ===== Neat
+
+mkdir - create new directory
+
+cd  ==== will auto nav back to home
+
+tab to autocomplete
