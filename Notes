@@ -27,3 +27,14 @@ use "which" command to see if something is installed
 curl -O https://bphogan.com/thatconf.zip
 ^^ downloads file
 -O saves it as same file name
+
+ctrl + a  to jump to start of line
+ctrl + e  to jump to end of line
+^cat^less wil run last command with replaced value
+
+history -- will show all the commands you've ran so far
+!! run previous command again
+sudo !! will run previous command as sudo
+
+!<cmdNumber>  will run the number command
+

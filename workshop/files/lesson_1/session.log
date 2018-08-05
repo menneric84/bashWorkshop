@@ -1,0 +1,295 @@
+    1  sudo apt-get update
+    2  java -version
+    3  sudo apt install openjdk-11-jre-headless
+    4  sudo apt-get update
+    5  java --version
+    6  python
+    7  ls
+    8  python --version
+    9  git
+   10  ssh-keygen -t rsa -b 4096 -C "menneric84@gmail.com"
+   11  ssh-add ~/.ssh/id_rsa
+   12  cat ~/.ssh/id_rsa
+   13  cat ~/.ssh/id_rsa.pub
+   14  ssh -T git@github.com
+   15  ls
+   16  mkdir Development
+   17  ls
+   18  cd Development
+   19  mkdir Tools
+   20  cd Tools
+   21  ls
+   22  cd idea-IC-182.3684.101/
+   23  ls
+   24  cd bin
+   25  ls
+   26  ./idea.sh
+   27  curl -s "https://get.sdkman.io" | bash
+   28  source "$HOME/.sdkman/bin/sdkman-init.sh"
+   29  sdk version
+   30  sdk install gradle
+   31  gradle
+   32  lz
+   33  ls
+   34  cd ..
+   35  cd..
+   36  cd ..
+   37  intellij
+   38  sudo apt-get install flashplugin-installer
+   39  sudo apt-get update
+   40  whereis java
+   41  cd ~/usr/bin/java
+   42  cd ..
+   43  ls
+   44  cd ~/usr/bin/java
+   45  cd usr
+   46  cd bin
+   47  ls
+   48  cd java
+   49  ls
+   50  apt-get update
+   51  printevn
+   52  printenv
+   53  sudo apt-get install openjdk-8-jdk
+   54  sudo apt-get update
+   55  whereis java
+   56  cd ~/usr
+   57  ls
+   58  cd ..
+   59  ls
+   60  cd usr
+   61  ls
+   62  cd lib
+   63  ls
+   64  cd jvm
+   65  ls
+   66  chmod 770 javaAndGradle.sh
+   67  ls
+   68  cd Development/
+   69  cd Scripts/
+   70  ls
+   71  chmod 770 javaAndGradle.sh
+   72  ./javaAndGradle.sh
+   73  python -v
+   74  python -V
+   75  pip -V
+   76  sudo apt install python-pip
+   77  python -V
+   78  sudo apt-get install python-dev
+   79  sudo apt-get install python-virtualenv
+   80  pip -V
+   81  ls
+   82  cd Development/
+   83  ls
+   84  mkdir tensorflow
+   85  ls
+   86  cd tensorflow/
+   87  ls
+   88  virtualenv --system-site-packages venv
+   89  source ~/tensorflow/venv/bin/activate
+   90  ls
+   91  cd ..
+   92  source ~/tensorflow/venv/bin/activate
+   93  source /tensorflow/venv/bin/activate
+   94  ls
+   95  cd tensorflow/
+   96  ls
+   97  source /tensorflow/venv/bin/activate
+   98  cd venv
+   99  ls
+  100  cd ..
+  101  source ~/tensorflow/venv/bin/activate
+  102  ls
+  103  cd ..
+  104  source ~/tensorflow/venv/bin/activate
+  105  sudo source ~/tensorflow/venv/bin/activate
+  106  cd tensorflow/
+  107  ls
+  108  cd venv/
+  109  ls
+  110  . bin/activate
+  111  pip install -U pip
+  112  pip install -U tensorflow
+  113  ls
+  114  pip install keras
+  115  KERAS_BACKEND=tensorflow python -c "from keras import backend"
+  116  ls
+  117  cd lib
+  118  ls
+  119  cd ..
+  120  ls
+  121  cd include
+  122  ls
+  123  cd ..
+  124  ls
+  125  keras -V
+  126  keras
+  127  whereis kears
+  128  whereis keras
+  129  ls
+  130  cd venv/
+  131  ls
+  132  whereis keras
+  133  cd local
+  134  ls
+  135  cd lib
+  136  ls
+  137  cd python2.7/
+  138  ls
+  139  tensorflow -V
+  140  ls ..
+  141  cd ..
+  142  python -c 'import keras; print(keras.__version__)'
+  143  ls
+  144  python
+  145  ls
+  146  cd Development/
+  147  ls
+  148  cd tensorflow/
+  149  ls
+  150  cd venv/
+  151  . bin/activate
+  152  ls
+  153  git
+  154  ls
+  155  cd De
+  156  cd Development/
+  157  ls
+  158  mkdir THAT
+  159  ls
+  160  cd THAT
+  161  ls
+  162  git clone https://github.com/menneric84/bashWorkshop.git
+  163  ls
+  164  cd bashWorkshop/
+  165  ls
+  166  clear
+  167  pwd
+  168  ls
+  169  cd ~
+  170  ls
+  171  cd Development/THAT/
+  172  cd bashWorkshop/
+  173  ls
+  174  echo "Hello World"
+  175  echo "Hello World" > greetings.txt
+  176  cat greetings.txt 
+  177  ls
+  178  ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+  179  cat ~/.ssh/id_rsa.pub
+  180  eval "$(ssh-agent -s)"
+  181  ssh-add ~/.ssh/id_rsa
+  182  clear
+  183  less notes
+  184  ls
+  185  less Notes
+  186  ls
+  187  git status
+  188  ps -ef
+  189  clear
+  190  ps -ef > proccesses.txt
+  191  ls
+  192  less processes.txt
+  193  less proccesses.txt
+  194  ps -ef | less
+  195  clear
+  196  git status
+  197  git add .
+  198  git commit -m "this should commit"
+  199  git push
+  200  cd Development/
+  201  cd THAT
+  202  ls
+  203  cd bashWorkshop/
+  204  ls
+  205  git status
+  206  ls
+  207  mkdir testDirectory
+  208  ls
+  209  git status
+  210  git add .
+  211  git commit -m "test"
+  212  git push
+  213  ls
+  214  cd testDirectory/
+  215  pwd
+  216  ssh-add ~/.ssh/id_rsa
+  217  ls
+  218  cd 
+  219  ls
+  220  git status
+  221  cd Development/
+  222  cd THAT
+  223  s
+  224  cd bashWorkshop/
+  225  ls
+  226  git status
+  227  git add .
+  228  git status
+  229  git commit -m "did this work"
+  230  git status
+  231  git add .
+  232  git commit -m "test"
+  233  git push
+  234  ssh-keygen -t rsa -b 4096 -C "menneric84@gmail.com"
+  235  eval "$(ssh-agent -s)"
+  236  ssh-add ~/.ssh/id_rsa
+  237  cat ~/.ssh/id_rsa.pub 
+  238  sudo apt install tree
+  239  tree
+  240  tree > diagram.txt
+  241  ls
+  242  cat diagram.txt 
+  243  git status
+  244  git add .
+  245  git commit -m "test"
+  246  git push
+  247  ls
+  248  cd Development/
+  249  cd THAT
+  250  cd bashWorkshop/
+  251  ls
+  252  git status
+  253  which curl
+  254  git status
+  255  git add .
+  256  git commit -m "test"
+  257  git push
+  258  which unzip
+  259  ls
+  260  mkdir workshop
+  261  cd workshop/
+  262  ls
+  263  pwd
+  264  curl -O https://bphogan.com/thatconf.zip
+  265  ls
+  266  unzip thatconf.zip 
+  267  ls
+  268  clear
+  269  tree
+  270  git status
+  271  cd ..
+  272  git status
+  273  git add .
+  274  git status
+  275  git commit -m "added project"
+  276  git push
+  277  ls
+  278  cd workshop/
+  279  ls
+  280  cd files
+  281  ls
+  282  cd lesson_
+  283  cd lesson_1
+  284  ls
+  285  clear
+  286  cat lesson1.html
+  287  less lesson1.html 
+  288  firefox lesson1.html 
+  289  clear
+  290  ls
+  291  sudo apt-get update
+  292  ls
+  293  history
+  294  ls
+  295  history > session.log
