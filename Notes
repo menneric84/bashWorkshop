@@ -108,4 +108,167 @@ tail -n 10 show last 10 lines of file
 mkdir -p files/docs/diagrams files/docs/markdown
 mkdir -p files/code/{elm,go,js}
   
+cp files/files/code/elm/README.md files/files/code/js/
+    --- copy file from one location to another
+
+cp -r files/files/code files/backup
+    --- recursively copy
+
+use rm -r to remove directories
+    - will also remove multiple direc
+
+mv "filenae" "desired name"
+    --rename
+
+chmod --- modifies permission bits for a file or directory
+chmod o+w dropbox/
+    -- other people get write
+
+to remove permissions
+chmod o-w dropbox
+
+Lesson 3 - Text Manipulations
+0 --- input stream
+1 --- output stream
+2 --- error stream
+
+streams are usually implied
+ps -ef | tee process.txt
+    - will print to file and screen
+    - tee makes this possible
+
+date | tee -a process.txt 
+    - will append using -a tag
+
+history | sudo tee /var/log.txt > /dev/null
+    --- send it to null
+    --- dev/null is a non-device --- null
+
+Searching files for text
+    --- grep command
+    --- look at ack
+    --- grep 'and' words.txt 
+
+grep -v 'and' words.txt 
+blue
+apple
+hard
+fork
+--- this is a not condition
+
+history | grep 'cat'
+    -search history
+
+history | grep 'cat' | grep -v 'grep'
+- search history for cat that doesn't contain grep
+
+grep 'candy' words.txt words2.txt 
+words.txt:candy
+words2.txt:candy bar
+rickmenne@pop-os:~/Development/THAT/bashWorkshop/work
+
+---- used to search multiple files
+grep 'candy' -A 2 -B 2 words.txt words2.txt 
+words.txt-blue
+words.txt-apple
+words.txt:candy
+words.txt-hard
+words.txt-fork
+--
+words2.txt-blue car
+words2.txt-apple pie
+words2.txt:candy bar
+words2.txt-hard rock
+words2.txt-fork in the road
+
+--Shows the search +- two lines for context
+
+grep 'candy' -A 2 -B 2 words* 
+--- can use wildcards with grep
+
+use grep -n to also grab line number ---very useful
+
+grep 'rickmenne' -r /var/
+---search recursively
+
+use man <command> for a manual printout
+
+echo "hello world" | cut -c 2-4
+cuts characters 2-4 from string
+
+echo "hello world" | cut -c -5
+goes from beginning of string to 5 characters
+
+echo "hello world" | cut -c 7-
+goes from end of string
+
+
+history | tail | cut -c 8-
+grep 'rickmenne' log*
+grep 'rickmenne' -r /var/
+clear
+man grep
+man tree
+echo "hello world" | cut -C 2-4
+echo "hello world" | cut -c 2-4
+echo "hello world" | cut -c -5
+echo "hello world" | cut -c 7-
+history | tail | cut -c 8-
+
+---- you can trim off numbers
+
+Cut is a useful tool for Manipulations
+
+sed -e 's/very/really/' document.md 
+    - uses a regular expression to find and edit
+
+sed -e 's/very/really/g' document.md
+    - replaces all occurances
+
+ sed -e '/facebook/s/^/# /' urls.txt 
+--- replace beginning of the line containing facebook with a #
+- s is substition
+- ^ is beginning of line
+
+sed -e '1 {s/^/# /}' urls.txt 
+    - find first line
+    - replace start with # 
+    - hits url.txt
+
+sed -e '2,4 {s/^/# /}' urls.txt 
+
+sed -e '1i\Bookmarks' urls.txt 
+    - fines first line of file and inserts
+    
+sed -e '$a\Bookmarks' urls.txt 
+    - appends it on the end
+
+sed -e '1i\Bookmarks' urls.txt -e '$a\Bookmarks' urls.txt 
+    - can chain them
+
+sed -e '1d' urls.txt
+    - deletes first line of file
+
+
+awk '/Wisconsin/' population.csv 
+    - finds the lines
+awk -F ',' '/Wisconsin/ {print $1}' population.csv 
+    - defines separator with -F 
+    - $1 means first item
+
+awk -F ',' '{print $2, "\t", $1}' population.csv 
+Population 	 State
+4802982 	 Alabama
+37341989 	 California
+18900773 	 Florida
+1366862 	 Hawaii
+12864380 	 Illinois
+19421055 	 New York
+819761 	 South Dakota
+5698230 	 Wisconsin
+568300 	 Wyoming
+
+awk -F ',' '{print $2, "\t", $1}' population.csv | sort -nr | head-n 1
+    - methods become very powerful when chained
+
 
