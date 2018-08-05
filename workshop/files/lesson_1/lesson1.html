@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <title>Lesson 1</title>
+    <link rel="stylesheet" href="stylesheets/style.css">
+  </head>
+  <body>
+
+  <style>
+  .md_output code,.md_output pre{
+    font-family:Monaco, Andale Mono, Courier New, monospace;
+    font-size:12px;
+    -webkit-border-radius:3px;
+      -moz-border-radius:3px;
+            border-radius:3px;
+    }
+
+  .md_output code{
+    color: #d14;
+    background-color:#fafafa;
+    border: 1px solid #e1e1e8;
+    border-radius: 3px;
+    font-weight:bolder;
+    white-space: nowrap;
+  }
+
+  .md_output pre>code {
+    color: #000;
+    display:block;
+    font-size:12px;
+    line-height:18px;
+    margin:0 0 18px;
+    padding:8.5px;
+    white-space:pre;
+    white-space:pre-wrap;
+    word-wrap:break-word;
+  }
+
+  .md_output blockquote{padding: 0 0 0 15px; margin: 0 0 20px; border-left: 5px solid #eeeeee;};
+  .md_output table{width:100%;margin-bottom:18px;padding:0;border-collapse:separate;*border-collapse:collapse;font-size:13px;border:1px solid #ddd;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;}table th,table td{padding:10px 10px 9px;line-height:18px;text-align:left;}
+  .md_output table th{padding-top:9px;font-weight:bold;vertical-align:middle;border-bottom:1px solid #ddd;}
+  .md_output table td{vertical-align:top;}
+  .md_output table th+th, .md_output table td+td{border-left:1px solid #ddd;}
+  .md_output table tr+tr td{border-top:1px solid #ddd;}
+  .md_output table tbody tr:first-child td:first-child{-webkit-border-radius:4px 0 0 0;-moz-border-radius:4px 0 0 0;border-radius:4px 0 0 0;}
+  .md_output table tbody tr:first-child td:last-child{-webkit-border-radius:0 4px 0 0;-moz-border-radius:0 4px 0 0;border-radius:0 4px 0 0;}
+  .md_output table tbody tr:last-child td:first-child{-webkit-border-radius:0 0 0 4px;-moz-border-radius:0 0 0 4px;border-radius:0 0 0 4px;}
+  .md_output table tbody tr:last-child td:last-child{-webkit-border-radius:0 0 4px 0;-moz-border-radius:0 0 4px 0;border-radius:0 0 4px 0;}
+</style>
+<div class='md_output'>
+
+<h2 id="getting-started-with-the-shell">Getting Started with the Shell</h2>
+
+<p>In this lesson you’ll work with the shell itself and see how to create files and directories, how to work with your command history, how to install software packages, download and unzip files, and learn a few other shortcuts you can start using right away.</p>
+
+<h3 id="you-are-here">1. You Are Here</h3>
+
+<h4 id="competencies-addressed">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>When you first open the CLI, you’ll be presented with something that looks like this:</p>
+
+<pre><code>brianhogan@puzzles:~$
+</code></pre>
+
+<p>This is the <firstuse>prompt</firstuse>, and it’s the CLI’s way of telling you it’s ready for you to type a command. This prompt is from the Ubuntu operating system. If you’re on a Mac, your prompt might look like this:</p>
+
+<pre><code>puzzles:~ brianhogan$
+</code></pre>
+
+<p>These prompts may look cryptic at first, but there’s valuable information here. The prompts in these examples show the username (brianhogan), the computer’s hostname (puzzles), and the current directory, which is represented by a tilde (<keystroke>~</keystroke>), which always refers to your home directory.</p>
+
+<p>Your home directory is where you’ll find your documents, music, and settings for your programs. You have total control over your home directory. You can create and delete files and directories, move things around, and even install whole programs without administrative privileges. When you launch the CLI, it’ll open the session in your home directory.</p>
+
+<p>The computer’s disk stores files in a hierarchy of folders, or <em>directories</em>, which we call the <firstuse>file system</firstuse>.  When you use the GUI, you click on a folder to open it and see its contents, and an indicator at the top of the GUI window tells you where you are on the file system.</p>
+
+<p>Your prompt may tell you what directory you’re currently looking at. But there’s a more clear way to tell, and that’s with the <code>pwd</code> command, which stands for “print working directory.”</p>
+
+<p>At the prompt, type</p>
+
+<pre><code class="language-command">$ pwd
+/home/brianhogan
+</code></pre>
+
+<p>The command prints the full path to the current directory.</p>
+
+<h3 id="listing-contents">2. Listing Contents</h3>
+
+<h4 id="competencies-addressed-1">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>Now that you know where you are, take a look around at the contents of your home directory by using the <code>ls</code> command, which lists the contents of the directory.</p>
+
+<pre><code class="language-command">$ ls
+Desktop Documents Downloads Music Pictures Public Templates Videos
+</code></pre>
+
+<p>You might see different files and directories in your home directory, as each operating system sets things up a little differently.</p>
+
+<p>If your system has a GUI, you’ll see a directory called <code>Desktop</code>, and anything you place in that directory will show up on your computer’s graphical desktop. After all, any shortcuts, directories, or files on your Desktop have to be stored <em>somewhere</em> on your computer, right?</p>
+
+<h3 id="changing-directories">3. Changing Directories</h3>
+
+<h4 id="competencies-addressed-2">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>Using the CLI, navigate to your Desktop directory using the <code>cd</code> command.  The <code>cd</code> command is short for “change directory”. It’s somewhat like clicking on a folder to open it up in the GUI environment, except it’s a little more powerful because you can use it to jump to any directory on your file system immediately, without going through any intermediate directory. We’ll look at that in the next chapter.</p>
+
+<p>Type this command to navigate to the <code>Desktop</code> directory if you’re using a Mac or running a Linux distribution with a GUI:</p>
+
+<pre><code class="language-command">$ cd Desktop
+</code></pre>
+
+<p>If you’re using Bash on Windows, the <code>Desktop</code> directory isn’t located in the same place. The Windows Subsystem for Linux uses its own filesystem that’s separate from the one that Windows uses, with its own home directory. However, you can still follow along. Execute the following command, substituting <code>your_username</code> for your Windows username.</p>
+
+<pre><code class="language-command">$ cd /mnt/c/Users/your_username/Desktop
+</code></pre>
+
+<p>You’re now in the <code>Desktop</code> directory, which you can verify with the <code>pwd</code> command just to make sure.</p>
+
+<h3 id="creating-a-file-with-text">4. Creating a File with Text</h3>
+
+<h4 id="competencies-addressed-3">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>The <code>echo</code> command takes text and prints it back to the screen. At the prompt, type the following command:</p>
+
+<pre><code class="language-command">$ echo Hello there
+</code></pre>
+
+<p>You’ll see the text you entered printed back to you. You’ll use <code>echo</code> in scripts you write, so you can communicate instructions or output to users. But you can also use it to insert text into files if you combine it with a feature called <firstuse>redirection</firstuse>.</p>
+
+<p>Let’s create a text file in your <code>Desktop</code> directory that contains the text “Hello”. We’ll call this file <code>greetings.txt</code>. At the prompt, type:</p>
+
+<pre><code class="language-command">$ echo Hello &gt; greetings.txt
+</code></pre>
+
+<p>When you press the <code>Enter</code> key you won’t see any visual feedback, because the output of the <code>echo</code> command was redirected to the file you specified. If you look at your computer’s graphical desktop, you should see a new icon that wasn’t there before for <code>greetings.txt</code>.</p>
+
+<p>You just used the command line interface to create a file that contains some text. Right now it’s a cool parlor trick, but the implications are important; this is one way we can programmatically create files on the file system.</p>
+
+<h3 id="viewing-file-contents">5. Viewing File Contents</h3>
+
+<h4 id="competencies-addressed-4">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>Let’s make sure that this text file you created contains the text you placed inside. You can display the contents of any file from the command line quickly with the <code>cat</code> command:</p>
+
+<pre><code class="language-command">$ cat greetings.txt
+</code></pre>
+
+<p>This command reads the contents of a given file and displays them on the screen.</p>
+
+<p>You can use <code>cat</code> to read any file. However, some files are longer.</p>
+
+<h3 id="reading-longer-files">6. Reading Longer Files</h3>
+
+<h4 id="competencies-addressed-5">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>When you issued the command</p>
+
+<pre><code class="language-command">$ cat greetings.txt
+</code></pre>
+
+<p>the contents of the file were displayed on the screen. Since the file was small, it all fit on one screen. But try reading the contents of a much larger file and see what happens. Your OS contains a dictionary of words located at <code>/usr/share/dict/words</code>. Use the <code>cat</code> command to display its contents.</p>
+
+<pre><code class="language-command">$ cat /usr/share/dict/words
+</code></pre>
+
+<p>You’ll see the contents of the file scroll by until it reaches the end. You’ll encounter this a lot when working on the command line. You might have the source code to a program you’re working on, a document you’re editing, or a log file you’re using to diagnose an issue.</p>
+
+<p>The <code>less</code> and <code>more</code> programs can read files too, so you can read the contents of that huge dictionary file:</p>
+
+<pre><code class="language-command">$ less /usr/share/dict/words
+</code></pre>
+
+<p>The contents will be displayed one page at a time. Use the <code>Enter</code> key to display the next line, the <code>Spacebar</code> to jump to the next page, and the <code>Q</code> key to exit and return to your prompt.</p>
+
+<p>Using the <code>less</code> command gives you more control; you can use the arrow keys to move forward and backward through the file. On most systems, the <code>less</code> and <code>more</code> commands run the same program. The <code>more</code> command is a legacy program, but it’s still quite popular .</p>
+
+<h3 id="redirecting-streams-of-text">7. Redirecting Streams Of Text</h3>
+
+<h4 id="competencies-addressed-6">Competencies Addressed:</h4>
+
+<ul>
+  <li>Work with Streams of Text</li>
+</ul>
+
+<p>When you used the <code>echo</code> command to create a file, you took the output of one command and directed it somewhere else.  Let’s look at this in more detail.</p>
+
+<p>Let’s look at another example. Execute this command to view all of the running processes on your computer:</p>
+
+<pre><code class="language-command">$ ps -ef
+</code></pre>
+
+<p>The <code>ps</code> command shows you processes, and these options show you the processes for every user in all sessions. Once again, the output of the command streams by.</p>
+
+<p>There are a couple ways to solve this problem. The first approach would be to capture the output to a file by using the <code>&gt;</code> operator:</p>
+
+<pre><code class="language-command">$ ps -ef &gt; processes.txt
+</code></pre>
+
+<p>You could then open that file in your favorite text editor and read its contents, or open it with <code>less</code> and read it one page at a time.</p>
+
+<p>However, it’s a little more convenient to use a program that can let you scroll through the content one page at a time. You just learned that the <code>more</code> and <code>less</code> programs show text one page at a time. You can redirect the output to one of those programs by using the pipe (<code>|</code>) character:</p>
+
+<pre><code class="language-command">$ ps -ef | more
+</code></pre>
+
+<h3 id="creating-new-directories">8. Creating New Directories</h3>
+
+<h4 id="competencies-addressed-7">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>Directories help you organize your files and projects. The <code>mkdir</code> command lets you create a directory. Let’s use it create a directory called <code>website</code> on the Desktop. At the prompt, assuming you’re still in your <code>Desktop</code> directory, type</p>
+
+<pre><code class="language-command">$ mkdir website
+</code></pre>
+
+<p>If your computer’s graphical desktop is visible, you’ll see the directory appear.  Otherwise, use the <code>ls</code> command to view it:</p>
+
+<pre><code class="language-command">$ ls
+</code></pre>
+
+<p>Once you’ve created the directory, you can use the <code>cd</code> command to navigate into that directory.</p>
+
+<pre><code class="language-command">$ cd website
+</code></pre>
+
+<p>You can then create new directories inside of this directory for images, stylesheets, and scripts. We’ll explore more efficient ways to create complex directory structures for projects later.</p>
+
+<h3 id="going-home">9. Going Home</h3>
+
+<h4 id="competencies-addressed-8">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>To return to your home directory, there are a couple of options.</p>
+
+<p>The tilde, (~) represents your home directory. This command:</p>
+
+<pre><code class="language-command">$ cd ~
+</code></pre>
+
+<p>takes you to your home directory regardless of where you are on the file system.</p>
+
+<p>However, you can save a couple of keystrokes, because simply entering</p>
+
+<pre><code class="language-command">$ cd
+</code></pre>
+
+<p>will always return you to your home directory, no matter where you are.</p>
+
+<p>Try it out.</p>
+
+<pre><code class="language-command">$ cd /var
+$ pwd
+$ cd
+$ pwd
+$ cd /usr/
+$ pwd
+$ cd
+</code></pre>
+
+<h3 id="using-automcompletion">10. Using Automcompletion</h3>
+
+<h4 id="competencies-addressed-9">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>If you need to reference a filename or directory in a command, you can type part of the name, followed by the <code>Tab</code> key, and the CLI will attempt to autocomplete the word for you. Try this out. Switch to the <code>Documents</code> directory in your home directory like this:</p>
+
+<pre><code class="language-command">$ cd ~/Doc&lt;Tab&gt;
+</code></pre>
+
+<p>As soon as you press <keystroke>Tab</keystroke>, the word <code>Documents</code> will expand. This technique serves two purposes. First, it saves you from typing the whole name, which means you’ll make less typos. But second, the CLI only completes filenames and directory names it can find. If it can’t complete it, there’s a good chance it doesn’t have enough information, or the file doesn’t actually exist. Try this out. Navigate to your home directory:</p>
+
+<pre><code class="language-command">$ cd
+</code></pre>
+
+<p>Then type</p>
+
+<pre><code class="language-command">$ cd D&lt;Tab&gt;
+</code></pre>
+
+<p>You won’t see anything. This is because Bash doesn’t have enough information to do the completion, because you probably have a <code>Documents</code> folder as well as a <code>Downloads</code> folder.</p>
+
+<p>But if you press <keystroke>Tab</keystroke> again, you’ll see a list of possible options:</p>
+
+<pre><code>Desktop/   Documents/ Downloads/
+</code></pre>
+
+<p>Type a few more characters and press <keystroke>Tab</keystroke> to let it autocomplete the rest of the directory name.</p>
+
+<p>Now try autocompleting <code>var</code> from your Home directory:</p>
+
+<pre><code class="language-command">$ cd va&lt;Tab&gt;
+</code></pre>
+
+<p>This time, pressing <keystroke>Tab</keystroke> doesn’t do anything. And pressing it a second time doesn’t either, since there’s no <code>var</code> folder in the current directory. You can use this as a good test while you’re learning how to navigate around; if you can’t autocomplete the filename or directory, you might not be looking in the right spot.</p>
+
+<h3 id="elevating-priviledges">11. Elevating Priviledges</h3>
+
+<h4 id="competencies-addressed-10">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>You have complete and total control over all of the files in your home directory. However, you don’t have free reign over directories and files across the whole disk. You can only do certain things with super-user privileges. On Linux, Unix, BSD, and macOS systems, we call this the <em>root</em> user. To keep things more secure and to prevent accidents, regular user accounts are restricted from modifying things outside of their home directories.</p>
+
+<p>Try to create a new directory called <code>/var/website</code>:</p>
+
+<pre><code class="language-command">$ mkdir /var/website
+</code></pre>
+
+<p>This command will fail with the following error:</p>
+
+<pre><code class="language-command">mkdir: /var/website: Permission denied
+</code></pre>
+
+<p>You’re not allowed to create files in the <code>/var</code> directory; only certain users can do that. However, thanks to the <code>sudo</code> command, you can execute a single command as the <strong>root</strong> user, without logging in as that user. To use it, prefix the previous command with <code>sudo</code>, like this:</p>
+
+<pre><code class="language-command">$ sudo mkdir /var/website
+</code></pre>
+
+<p>Think of this <code>sudo</code> command as “super user do <code>mkdir /var/website</code>” The command will complete successfully, and you can verify that it exists with the <code>ls</code> command:</p>
+
+<pre><code class="language-command">$ ls /var/website
+</code></pre>
+
+<p>The <code>sudo</code> command is powerful but dangerous. You’re running the command as a privileged user, so if the command does something sinister, you could be in a lot of trouble. Use this with care!</p>
+
+<p>One place you’re likely to use <code>sudo</code> is when modifying system-wide configuration files, or, as you’ll try next, installing additional programs or tools on your operating system.</p>
+
+<h3 id="installing-programs-with-package-managers">12. Installing Programs with Package Managers</h3>
+
+<h4 id="competencies-addressed-11">Competencies Addressed:</h4>
+
+<ul>
+  <li>Automate Tasks with Scripts</li>
+</ul>
+
+<p>Your operating system has a bunch of programs already installed, but you’ll want to install more. You might be used to going to an “app store” or downloading some files from a web site and installing them, but Linux and BSD systems traditionally offer package managers to make downloading and installing software easy. Each operating system has its own package manager.</p>
+
+<p>If you’re using Bash on Windows, you’ll use <code>apt</code>, as the Bash environment is based on Ubuntu.</p>
+
+<p>If you’re on macOS, you’ll use Homebrew and the <code>brew</code> command.</p>
+
+<p>You’ll install a few programs throughout this workshop using package managers, so let’s make sure everything works.</p>
+
+<p>Whenever you use the package manager to install a program, make sure you have the latest list of packages. The package manager will have a command that fetches that list for you. If you’re using <code>apt</code>, you’ll use this command:</p>
+
+<pre><code class="language-command">$ sudo apt update
+</code></pre>
+
+<p>And for macOS with Homebrew, you’ll use</p>
+
+<pre><code class="language-command">$ brew update
+</code></pre>
+
+<p>However, Homebrew updates its packages automatically before installing a package. Also, notice that you don’t need the <code>sudo</code> command with Homebrew. Homebrew installs programs into directory within the <code>/usr/local</code> directory, and during the Homebrew installation process, it modified the permissions on that folder so your user has access to modify its contents.</p>
+
+<p>Let’s install the <code>tree</code> package, which lets us visualize a directory structure. We’ll use it in the next chapter. For systems using <code>apt</code>, install it with the following command:</p>
+
+<pre><code class="language-command">$ sudo apt install tree
+</code></pre>
+
+<p>If you’re using <code>yum</code>, install <code>tree</code> with:</p>
+
+<pre><code class="language-command">$ sudo yum install tree
+</code></pre>
+
+<p>And for macOS with Homebrew, use this command:</p>
+
+<pre><code class="language-command">$ brew install tree
+</code></pre>
+
+<p>The package manager will install the program. It may ask you to confirm the installation, which you should accept. Once the package is installed, you’ll be able to use the <code>tree</code> command.  Try it out.</p>
+
+<pre><code class="language-command">$ tree --version
+tree v1.7.0 (c) 1996 - 2014 by Steve Baker, Thomas Moore, Francesc Rocher,
+Florian Sesser, Kyosuke Tokoro
+</code></pre>
+
+<h3 id="downloading-and-unzipping-files">13. Downloading and Unzipping Files</h3>
+
+<h4 id="competencies-addressed-12">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>This workshop has some code examples and data files you’ll want to grab. You can use <code>curl</code> to fetch them to your machine.</p>
+
+<p>The <code>curl</code> command, which you’ll learn about in detail in <a href="#web.requests.curl">xxx</a> lets you download documents from web servers to your machine, just like a browser would. And the <code>unzip</code> command will let you unzip archives you downloaded.</p>
+
+<p>First, check to see if <code>curl</code> is installed:</p>
+
+<pre><code class="language-command">$ which curl
+</code></pre>
+
+<p>If the result is blank,  install <code>curl</code> using your package manager just like you did with <code>tree</code>.</p>
+
+<p>Then check to see if you have the <code>unzip</code> command on your machine:</p>
+
+<pre><code class="language-command">$ which unzip
+</code></pre>
+
+<p>If you don’t see any results, install <code>unzip</code> with your package manager.</p>
+
+<p>Now let’s download those example files.  First, ensure you’re in your home directory. Then make a new directory to hold the files and then switch to this new directory:</p>
+
+<pre><code class="language-command">$ cd
+$ mkdir workshop
+$ cd workshop
+</code></pre>
+
+<p>Then use <code>curl</code> to download the file by using its URL:</p>
+
+<pre><code class="language-command">$ curl -O https://bphogan.com/presentations/2018_cli/files.zip
+</code></pre>
+
+<p>This will download the file from the specified URL and save it to your current working directory. The <code>-O</code> option (uppercase letter, not zero) tells <code>curl</code> to use the original filename as the file name.</p>
+
+<p>The examples are compressed in an archive. Use the <code>unzip</code> command to extract them.</p>
+
+<p>Then use it to unzip the <code>files.zip</code> file:</p>
+
+<pre><code class="language-command">$ unzip files.zip
+</code></pre>
+
+<p>This creates a <code>file</code> directory in your current directory. Explore its contents using the <code>tree</code> command. You’ll use a few of the files in this folder throughout the book.</p>
+
+<p>As you’ll see later, you can use <code>curl</code> to do a lot more than just download files.</p>
+
+<h3 id="useful-shortcuts">14. Useful Shortcuts</h3>
+
+<h4 id="competencies-addressed-13">Competencies Addressed:</h4>
+
+<ul>
+  <li>Automate Tasks with Scripts</li>
+</ul>
+
+<p>You’ve already learned that typing <code>cd</code> will return you to your home directory. This is just one of the many shortcuts available on the command line.</p>
+
+<p>Here are a handful of keyboard shortcuts you’ll find useful:</p>
+
+<ul>
+  <li><code>Ctrl+a</code> jumps to the first character of the line.</li>
+  <li>`Ctrl+e jumps to the end of the line.</li>
+  <li><code>Ctrl+l</code> clears the screen’s contents.</li>
+  <li><code>Ctrl+r</code> lets you search through your command history and execute a command.</li>
+</ul>
+
+<p>Practice with these shortcuts; they’ll make it much easier as you work through this book, as well as your own projects.</p>
+
+<h3 id="working-with-history">15. Working with History</h3>
+
+<h4 id="competencies-addressed-14">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage the Environment</li>
+</ul>
+
+<p>Your shell holds a history of commands. You can use this to your advantage.</p>
+
+<p>First, if you press the <keystroke>Up</keystroke> arrow key on your keyboard, the previous command you issued will appear on the command line. Press <keystroke>Enter</keystroke> to execute it again. Or press <keystroke>Up</keystroke> again to see the command you typed before that. Keep pressing <keystroke>Up</keystroke> to move through the history of commands you’ve typed. Pressing <keystroke>Down</keystroke> will move forward through your command history.</p>
+
+<p>Second, you can see all the commands you’ve typed with the <code>history</code> command. Each one will be listed with a number:</p>
+
+<pre><code class="language-command">$ history
+  1  tree --version
+  2  man echo
+  3  history
+</code></pre>
+
+<p>You can execute any of these commands again by typing <code>!</code>, followed by the number associated with the command:</p>
+
+<pre><code class="language-command">$ !1
+tree --version
+tree v1.7.0 (c) 1996 - 2014 by Steve Baker, Thomas Moore, Francesc Rocher,
+Florian Sesser, Kyosuke Tokoro
+</code></pre>
+
+<p>You can always re-run the most recent command with <code>!!</code>:</p>
+
+<pre><code class="language-command">$ !!
+tree --version
+tree v1.7.0 (c) 1996 - 2014 by Steve Baker, Thomas Moore, Francesc Rocher,
+Florian Sesser, Kyosuke Tokoro
+</code></pre>
+
+<p>This comes in really handy if you execute a command that should’ve been run with sudo:</p>
+
+<pre><code class="language-command">$ mkdir /var/website
+mkdir: /var/website: Permission denied
+$ sudo !!
+</code></pre>
+
+<p>This way you don’t have to type the whole command over again.</p>
+
+<h3 id="you-try-it">16. You Try It</h3>
+
+<h4 id="competencies-addressed-15">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+  <li>Work with Streams of Text</li>
+  <li>Manage the Environment</li>
+</ul>
+
+<ol>
+  <li>
+    <p>Review each command below and write down what the command does:</p>
+
+    <ol>
+      <li><code>pwd</code></li>
+      <li><code>cd Desktop</code></li>
+      <li><code>cd ~</code></li>
+      <li><code>cd</code></li>
+      <li><code>echo</code></li>
+      <li><code>echo Hi there &gt; greetings.txt</code></li>
+      <li><code>cat greetings.txt</code></li>
+      <li><code>mkdir /var/website</code></li>
+      <li><code>!!</code></li>
+    </ol>
+  </li>
+  <li>Explain the difference between <code>cat</code>, <code>more</code>, and <code>less</code>. Use the <code>man</code> command to explore the <code>more</code> and <code>less</code> commands. When would you use one command over another?</li>
+  <li>Explain the difference between using <code>touch</code> and <code>echo &gt;</code> to create a new text document.</li>
+</ol>
+
+<p>This assessment is worth 10 points.</p>
+
+<h3 id="lesson-summary">Lesson Summary</h3>
+
+<p>Before moving on, ensure you have completed all activities in this lesson. And remember that things that were not assigned for a grade are still required and may be used in future lessons.</p>
+
+<p>Double-check to ensure you have completed the following graded assignments:</p>
+
+<ul>
+  <li>You Try It - 10 points</li>
+</ul>
+
+
+
+</div>
+
+  </body>
+</html>

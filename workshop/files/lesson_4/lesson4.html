@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <title>Lesson 4</title>
+  </head>
+  <body>
+<style>
+  .md_output code,.md_output pre{
+    font-family:Monaco, Andale Mono, Courier New, monospace;
+    font-size:12px;
+    -webkit-border-radius:3px;
+      -moz-border-radius:3px;
+            border-radius:3px;
+    }
+
+  .md_output code{
+    color: #d14;
+    background-color:#fafafa;
+    border: 1px solid #e1e1e8;
+    border-radius: 3px;
+    font-weight:bolder;
+    white-space: nowrap;
+  }
+
+  .md_output pre>code {
+    color: #000;
+    display:block;
+    font-size:12px;
+    line-height:18px;
+    margin:0 0 18px;
+    padding:8.5px;
+    white-space:pre;
+    white-space:pre-wrap;
+    word-wrap:break-word;
+  }
+
+  .md_output blockquote{padding: 0 0 0 15px; margin: 0 0 20px; border-left: 5px solid #eeeeee;};
+  .md_output table{width:100%;margin-bottom:18px;padding:0;border-collapse:separate;*border-collapse:collapse;font-size:13px;border:1px solid #ddd;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;}table th,table td{padding:10px 10px 9px;line-height:18px;text-align:left;}
+  .md_output table th{padding-top:9px;font-weight:bold;vertical-align:middle;border-bottom:1px solid #ddd;}
+  .md_output table td{vertical-align:top;}
+  .md_output table th+th, .md_output table td+td{border-left:1px solid #ddd;}
+  .md_output table tr+tr td{border-top:1px solid #ddd;}
+  .md_output table tbody tr:first-child td:first-child{-webkit-border-radius:4px 0 0 0;-moz-border-radius:4px 0 0 0;border-radius:4px 0 0 0;}
+  .md_output table tbody tr:first-child td:last-child{-webkit-border-radius:0 4px 0 0;-moz-border-radius:0 4px 0 0;border-radius:0 4px 0 0;}
+  .md_output table tbody tr:last-child td:first-child{-webkit-border-radius:0 0 0 4px;-moz-border-radius:0 0 0 4px;border-radius:0 0 0 4px;}
+  .md_output table tbody tr:last-child td:last-child{-webkit-border-radius:0 0 4px 0;-moz-border-radius:0 0 4px 0;border-radius:0 0 4px 0;}
+</style>
+<div class='md_output'>
+
+<h2 id="network-tools">Network Tools</h2>
+
+<p>In this lesson you’ll work with some networking tools. You’ll ping machines, make web requests with curl, look up DNS records, and troubleshoot networking issues.</p>
+
+<h3 id="testing-apis-with-curl">1. Testing APIs with curl</h3>
+
+<h4 id="competencies-addressed">Competencies Addressed:</h4>
+
+<ul>
+  <li>Work with Streams of Text</li>
+</ul>
+
+<p>You can use <code>curl</code> to interact with APIs. That means you can test your APIs right from your CLI, or interact with them in your scripts.</p>
+
+<p>We’ll use the dummy API https://jsonplaceholder.typicode.com for this. It has a <code>posts</code> resource:</p>
+
+<p>Make a request with <code>curl</code> to see the <code>posts</code>:</p>
+
+<pre><code>$ curl -X GET https://jsonplaceholder.typicode.com/posts
+</code></pre>
+
+<p>You’ll get some results back.</p>
+
+<p>You may also set headers. Let’s set the header for the content type:</p>
+
+<pre><code>$ curl -X GET https://jsonplaceholder.typicode.com/posts -H "Content-type: application/json"
+</code></pre>
+
+<p>You can use curl to post data to an API too.</p>
+
+<pre language="session"><code>$ curl -X POST https://jsonplaceholder.typicode.com/posts \
+-H "Content-type: application/json" \
+-d '{"title": "This is a post.", "body": "Yay"}'
+</code></pre>
+
+<p>This passes the JSON data right to the API. This particular testing API doesn’t actually keep our data, but it does demonstrate that you can make these requests.</p>
+
+<h3 id="finding-your-network-information">2. Finding Your Network information</h3>
+
+<h4 id="competencies-addressed-1">Competencies Addressed:</h4>
+
+<ul>
+  <li>Use Networking Tools effectively</li>
+</ul>
+
+<p>Every computer conncted to the Internet or a TCP/IP network has an IP address, and there are several methods you can use to determine yours from the command line.</p>
+
+<p>The <code>ifconfig</code> command is a legacy command that displays information about your network devices. While there are newer tools available, we’re going to start by exploring this tool because it’s universally available. Run this command:</p>
+
+<pre><code>$ ifconfig
+</code></pre>
+
+<p>You’ll see output like this:</p>
+
+<pre><code>eth0      Link encap:Ethernet  HWaddr 08:00:27:13:f7:17
+          inet addr:10.0.2.15  Bcast:10.0.2.255  Mask:255.255.255.0
+          inet6 addr: fe80::4bd3:99e5:abc:5946/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:294183 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:81418 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:322924281 (322.9 MB)  TX bytes:5094902 (5.0 MB)
+...
+</code></pre>
+
+<p>This displays the type of connection, as well as the Hardware Address, or MAC address of the network hardware. This string of hexadecimal characters uniquely identifies a network device.</p>
+
+<p>This output also displays the IPv4 address, which is denoted by the <code>inet addr</code> field, and if applicable, the IPv6 address, denoted by the <code>inet6 addr</code> field.  We won’t worry about IPv6 addresses in this book.</p>
+
+<p>You’ll also see an entry for the local loopback device:</p>
+
+<pre><code>lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:2750 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:2750 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:200555 (200.5 KB)  TX bytes:200555 (200.5 KB)
+</code></pre>
+
+<p>This is a virtual networking device your machine uses to talk to itself. When the WIFI is down, or your Ethernet cable is inplugged, or you’re on a plane, this is the network device that lets local services talk to eachother. When you run a development server and connect to  <code>localhost</code>, you’re using this loopback device.</p>
+
+<p>If you configured another network adapter, such as a VirtualBox Host-only Adapter, you’ll also see something like this listed:</p>
+
+<pre><code>enp0s8    Link encap:Ethernet  HWaddr 08:00:27:76:ef:37
+          inet addr:192.168.99.100  Bcast:192.168.99.255  Mask:255.255.255.0
+          inet6 addr: fe80::cc34:d6e2:481:d05e/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:10 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:54 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:2451 (2.4 KB)  TX bytes:6519 (6.5 KB)
+</code></pre>
+
+<p>The <code>ifconfig</code> command shows each adapter enabled on your system. You can tell <code>ifconfig</code> to show a specific adapter by providing the adapter name as an argument. To show only the <code>eth0</code> adapter, run the command <code>ifconfig eth0</code>.</p>
+
+<p>Learning to read the output of the <code>ifconfig</code> command is important, because while there are other tools that give you more clear details, those may not be installed or available for your platform.</p>
+
+<p>Most routers will assign your computer an IP starting with <code>192.168</code> or <code>10</code>. The router uses Network Address Translation, or NAT, to share an external IPv4 address with multiple computers. IPv4 addresses are very limited, so sharing an IP address with many computers using NAT  is one way to meet the demand.</p>
+
+<p>However, this makes it more difficult to find your real public IP address if you’re trying to let people outside of your network connect with you. To get your public IP address, you’ll need to use an external service.</p>
+
+<p>You can use this command to find your public IP address from the command line:</p>
+
+<pre><code>$ curl icanhazip.com
+</code></pre>
+
+<p>This uses the <code>curl</code> command to make a request to <a href="http://icanhazip.com">http://icanhazip.com</a> which displays your IP address.</p>
+
+<p>The <code>ifconfig</code> command is technical deprecated; it hasn’t received an upgrade in years. Many Linux systems provide the <code>ip</code> commmand, which has more features and presents a different output.</p>
+
+<pre><code>$ ip addr show
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN
+  group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP
+  group default qlen 1000
+    link/ether 08:00:27:13:f7:17 brd ff:ff:ff:ff:ff:ff
+    # START_HIGHLIGHT
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic enp0s3
+    # END_HIGHLIGHT
+       valid_lft 82337sec preferred_lft 82337sec
+    inet6 fe80::4bd3:99e5:abc:5946/64 scope link
+       valid_lft forever preferred_lft forever
+...
+</code></pre>
+
+<p>This shows much of the same information as the <code>ifconfig</code> command but in a slightly different format. The <code>ifconfig</code> command is universal, but deprecated, so you should be comfortable using the <code>ip</code> command as well as <code>ifconfig</code>.</p>
+
+<h3 id="getting-info-about-domains">3. Getting Info About Domains</h3>
+
+<h4 id="competencies-addressed-2">Competencies Addressed:</h4>
+
+<ul>
+  <li>Use Networking Tools effectively</li>
+</ul>
+
+<p>Use the  <code>dig</code> command to “dig” through domain name records and find the IP addresses associated with those. It’s a reliable way to find out information about a domain.</p>
+
+<pre><code>$ dig facebook.com
+
+; &lt;&lt;&gt;&gt; DiG 9.8.3-P1 &lt;&lt;&gt;&gt; facebook.com
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 7381
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;facebook.com.			IN	A
+
+# START_HIGHLIGHT
+;; ANSWER SECTION:
+facebook.com.		133	IN	A	173.252.88.163
+# END_HIGHLIGHT
+
+;; Query time: 27 msec
+;; SERVER: 192.168.1.129#53(192.168.1.129)
+;; WHEN: Sat Sep 19 13:51:11 2015
+;; MSG SIZE  rcvd: 46
+</code></pre>
+
+<p>Look at the <strong>Answer Section</strong> to see the IP addresses. In this example, there’s only one IP address associated with this domain name. However, use the <code>dig</code> command with <code>google.com</code> and you’ll see that they’ve associated more than one IP address. This is wht sites do that need high availability. If one IP goes down, the others can answer.</p>
+
+<p>Sometimes you need to find out who owns a domain name so you can contact them. Or you want to check to see if a domain name exists so you can purchase it.  Some unscruplous companies offer online domain searches, and when you search for a domain you want, they purchase it automatically so that when you go to pay for it, they can charge you more.</p>
+
+<p>The <code>whois</code> command is a quick way to see if a domain name exists. If it does exist, you can see who owns it, along with contact information. The <code>whois</code> command uses domain name servers to query the registration information of a domain.</p>
+
+<pre language="session"><code>$ whois pragprog.com
+</code></pre>
+
+<p>When you run that, you’ll be greeted with a wall of information, including when the domain name expires and who to contact about it.</p>
+
+<p>Based on this information,</p>
+
+<ol>
+  <li>Who would you contact about technical issues?</li>
+  <li>When was the domain  first registered?</li>
+  <li>Why do you think there are so many name servers associated?</li>
+</ol>
+
+<p>You can learn a lot about a domain with the <code>whois</code> command.</p>
+
+<p>Sometimes you don’t know the domain name. Sometimes you only have the IP address. The <code>host</code> command makes it easy to look up a domain name from an IP.  If you’re looking through security logs, and you’re getting hits from a certain IP address, try using the <code>host</code> command to look up the domain name of the request.</p>
+
+<pre language="session"><code>$ host 66.188.245.117
+</code></pre>
+
+<p>This command will tell you a lot of information about this IP address:</p>
+
+<pre language="session"><code>117.245.188.66.in-addr.arpa
+domain name pointer 66-188-245-117.dhcp.eucl.wi.charter.com.
+</code></pre>
+
+<p>It looks like this IP is in Eau Claire, Wisconsin, provided by Charter.  A lot of residential internet providers register IP addresses in their own DNS servers just like this, which makes
+it easy to tell who the ISP.</p>
+
+<h3 id="testing-network-connections">4. Testing Network Connections</h3>
+
+<h4 id="competencies-addressed-3">Competencies Addressed:</h4>
+
+<ul>
+  <li>Use Networking Tools effectively</li>
+</ul>
+
+<p>The <code>ping</code> command is the standard tool for testing connections between other computers. It sends a request to a remote machine and waits for a reply. It then displays the reply, along with some useful statistics about the connection. On Unix-like systems,  <code>ping</code>  sends these requests forever until you press <code>CTRL+C</code>.</p>
+
+<pre language="session"><code>$ ping google.com
+</code></pre>
+
+<p>Let it run and receive four requests, then press <code>CTRL-C</code>.You’ll see a response like this:</p>
+
+<pre><code>PING google.com (216.58.192.206) 56(84) bytes of data.
+64 bytes from ord3...1e100.net (216.58.192.206): icmp_seq=1 ttl=63 time=140 ms
+64 bytes from ord3...1e100.net (216.58.192.206): icmp_seq=2 ttl=63 time=136 ms
+64 bytes from ord3...1e100.net (216.58.192.206): icmp_seq=3 ttl=63 time=120 ms
+64 bytes from ord3...1e100.net (216.58.192.206): icmp_seq=4 ttl=63 time=109 ms
+^C
+--- google.com ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3003ms
+rtt min/avg/max/mdev = 109.646/126.776/140.527/12.448 ms
+</code></pre>
+
+<p>To tell <code>ping</code> to stop after 4 requests, use the <code>-c</code> switch:</p>
+
+<pre><code>$ ping -c 4 google.com
+</code></pre>
+
+<p>If you don’t have an active connection, you’ll see a message like this:</p>
+
+<pre language="session"><code>ping: unknown host google.com
+</code></pre>
+
+<p>Some firewalls are designed to ignore your requests for ping.</p>
+
+<p>The <code>traceroute</code> tool is short for “trace route”, and it’ll tell you exactly how the request you make on your computer gets around your network. It’s great for diagnosing those troublesome connections. Using <code>traceroute</code> is the quickest way to figuring out if the problem is on your end or somewhere else on the Internet.</p>
+
+<p>Unfortuantely, the <code>traceroute</code> tool isn’t installed on some systems, but you should be able to install it with your package manager. On Ubuntu, install it with:</p>
+
+<pre language="session"><code>$ sudo apt install traceroute
+</code></pre>
+
+<p>Once it’s installed, run it like this:</p>
+
+<pre language="session"><code>$ traceroute www.google.com
+</code></pre>
+
+<p>You’ll see the following output:</p>
+
+<pre language="session"><code>traceroute to www.google.com (216.58.192.196), 30 hops max, 60 byte packets
+ 1  10.0.2.2 (10.0.2.2)  0.695 ms  0.610 ms  0.578 ms
+ 2  192.168.1.1 (192.168.1.1)  6.800 ms  6.727 ms  6.670 ms
+ 3  * * *
+ 4  dtr02euclwi-tge-0-4-0-15.eucl...  91.269 ms  95.517 ms  91.202 ms
+ 5  crr02euclwi-hge-0-0-0-4.eucl... 91.146 ms  91.128 ms  95.382 ms
+ 6  crr01sgnwmi-tge-0-0-0-4.sgnw.mi... 91.061 ms  89.390 ms  89.332 ms
+ 7  bbr01chcgil-bue-1.chcg.il...  110.649 ms  111.520 ms  111.441 ms
+ 8  prr01chcgil-bue-2.chcg.il...  104.027 ms  132.220 ms  132.104 ms
+ 9  72.14.195.76 (72.14.195.76),,, 128.719 ms 131.978 ms
+10  108.170.243.193 (108.170.243.193)  128.002 ms * *
+11  ord30s25-in-f4.1e100.net (216.58.192.196)
+138.802 ms 108.170.238.136 (108.170.238.136)  330.047 ms
+216.239.42.109 (216.239.42.109)  140.450 ms
+</code></pre>
+
+<h3 id="making-web-requests-with-curl">5. Making Web Requests with CURL</h3>
+
+<h4 id="competencies-addressed-4">Competencies Addressed:</h4>
+
+<ul>
+  <li>Use Networking Tools effectively</li>
+</ul>
+
+<p>cURL is a powerful command-line tool for interacting with web servers.  Using cURL, you can make  requests and view the responses, download files, grab information about remote servers, or interact with remote APIs. cURL does exactly what your web browser does, except that it doesn’t render the HTML. Let’s explore how it works.</p>
+
+<p>Let’s use <code>curl</code> to make a request to a URL. Execute this command in your terminal to make a request to Google’s home page:</p>
+
+<pre><code>$ curl http://google.com
+</code></pre>
+
+<p>Responses from web servers come in two parts: the response header and the response body. cURL shows the response body by default:</p>
+
+<pre language="session"><code>&lt;HTML&gt;&lt;HEAD&gt;&lt;meta http-equiv="content-type" content="text/html;charset=utf-8"&gt;
+&lt;TITLE&gt;301 Moved&lt;/TITLE&gt;&lt;/HEAD&gt;&lt;BODY&gt;
+&lt;H1&gt;301 Moved&lt;/H1&gt;
+The document has moved
+&lt;A HREF="http://www.google.com/"&gt;here&lt;/A&gt;.
+&lt;/BODY&gt;&lt;/HTML&gt;
+</code></pre>
+
+<p>In this case, the response body contains some HTML. And it looks like it’s telling us that the Google homepage exists at a different address.</p>
+
+<p>We can use the <code>-I</code> switch to request only the headers from a web server. We can use this to see the kind of HTTP response we got, as well as more information about the server’s response.</p>
+
+<pre language="session"><code>$ curl -I http://google.com
+</code></pre>
+
+<p>The response headers tell us a ton about the web server that hosts the page. We can see when the page was last modified, the character set of the response, and even the server that was used.</p>
+
+<pre language="session"><code>HTTP/1.1 301 Moved Permanently
+Location: http://www.google.com/
+Content-Type: text/html; charset=UTF-8
+Date: Tue, 17 Oct 2017 14:46:24 GMT
+Expires: Thu, 16 Nov 2017 14:46:24 GMT
+Cache-Control: public, max-age=2592000
+Server: gws
+Content-Length: 219
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+</code></pre>
+
+<p>The first line shows us the HTTP status code. The code <code>200</code> means it was a successful request. <code>404</code> means the page wasn’t found. If we saw <code>500</code> then there was a problem with the server, perhaps caused by a misconfiguration or an error in the code. And if we see the code <code>301</code> or <code>302</code>, the page has been moved to a new URL.</p>
+
+<p>In this case, we see <code>HTTP/1.1 301 Moved Permanently</code>. And when a server sends that response back, it also sends another header called <code>location</code>, which specifies where we should find the page now. And sure enough, that’s the second line of the response:</p>
+
+<pre><code>Location: http://www.google.com/
+</code></pre>
+
+<p>From this, we can see that Google has  set up a permanent redirection from <code>http://google.com</code> to <code>http://www.google.com</code>.</p>
+
+<p>You can make <code>curl</code> follow the redirect if you use the <code>-L</code> switch. Try it out:</p>
+
+<pre><code>$ curl -L http://google.com
+</code></pre>
+
+<p>You’ll see the first request like before, followed by a second request:</p>
+
+<pre><code>HTTP/1.1 301 Moved Permanently
+...
+
+HTTP/1.1 200 OK
+Date: Fri, 01 Dec 2017 19:19:47 GMT
+</code></pre>
+
+<p>Instead of displaying the response to the screen, you can use the redirection symbol (&gt;) to push that content into a text file. Let’s grab a copy of the HTML response from Google this way:</p>
+
+<pre language="session"><code>$ curl http://google.com &gt; google.html
+</code></pre>
+
+<p>The output now exists in the file <code>google.com</code>. You can verify this by using the <code>cat</code> command to look it up.</p>
+
+<p>You can also directly download that file. The <code>-o</code> switch lets you specify the filename you want to save the file to:</p>
+
+<pre language="session"><code>$ curl -o google.html http://google.com
+</code></pre>
+
+<h3 id="using-netcat">6. Using Netcat</h3>
+
+<h4 id="competencies-addressed-5">Competencies Addressed:</h4>
+
+<ul>
+  <li>Use Networking Tools effectively</li>
+</ul>
+
+<p>The netcat program, or <code>nc</code>, is the “Swiss Army Knife” of networking tools. With this one tool, you can connect to remote systems, transfer files, and even scan ports.</p>
+
+<p>You can use <code>nc</code> to determine if certain services are running by scanning the ports of those services. For example, you can scan to see if the web server is running by scanning for port 80, the default port for web servers:</p>
+
+<pre><code class="language-command">$ nc -z -v www.example.com 80
+</code></pre>
+
+<p>If there’s a web server running, you’ll see this:</p>
+
+<pre><code class="language-command">Connection to www.example.com 80 port [tcp/http] succeeded!
+</code></pre>
+
+<p>You can also scan ranges of ports. For example, to scan for all ports from 22 (SSH) to 80 (Web), execute this command:</p>
+
+<pre><code class="language-command">$ nc -z -v www.example.com 20-80
+</code></pre>
+
+<p>You can also use it to make web requests.</p>
+
+<p>First, type this command:</p>
+
+<pre><code class="language-command">$ nc www.google.com 80
+</code></pre>
+
+<p>You’ll be greeted by a blank line; netcat is expecting some input. We’re going to craft our own HTTP request. Type the following:</p>
+
+<pre><code class="language-command">GET / HTTP/1.1
+</code></pre>
+
+<p>Then press the <code>ENTER</code> key twice and you’ll see the source code for the Google home page stream out to your screen.</p>
+
+<h3 id="you-try-it">7. You Try It</h3>
+
+<h4 id="competencies-addressed-6">Competencies Addressed:</h4>
+
+<ul>
+  <li>Use Networking Tools effectively</li>
+</ul>
+
+<p>These additional exercises will help you get more comfortable with the tools you used in this lesson.</p>
+
+<ol>
+  <li>Using the tools you learned about in this chapter, answer the following questions:
+    <ol>
+      <li>Who is the administrative contact for the <code>wordpress.com</code> domain?</li>
+      <li>Which domain will need to be renewed first; <code>heroku.com</code> or <code>google.com</code>?</li>
+      <li>How many IP addresses are associated with <code>heroku.com</code>?</li>
+      <li>Who has more IP addresses associated with their domain: Facebook, Google, Twitter, Wikipedia, or Amazon?</li>
+    </ol>
+  </li>
+  <li>Which of the following IP addresses belongs to a Comcast cable subscriber? Which one of these belongs to Google?
+    <ul>
+      <li>4.2.2.1</li>
+      <li>137.28.1.17</li>
+      <li>24.23.51.253</li>
+      <li>45.23.51.532</li>
+      <li>8.8.8.8</li>
+    </ul>
+  </li>
+  <li>Use <code>cURL</code> to inspect the headers sent by the following sites.
+    <ul>
+      <li>http://twitter.com</li>
+      <li>https://pragprog.com</li>
+      <li>http://news.ycombinator.com</li>
+      <li>https://reddit.com</li>
+      <li>http://automattic.com</li>
+    </ul>
+
+    <p>If any sites redirect to a new site, use <code>curl</code> to make an additional request using the <code>location</code> header.</p>
+  </li>
+  <li>Use <code>nc</code> to make the same connections.</li>
+</ol>
+
+<p>This assessment is worth 10 points.</p>
+
+<h3 id="lesson-summary">Lesson Summary</h3>
+
+<p>Before moving on, ensure you have completed all activities in this lesson. And remember that things that were not assigned for a grade are still required and may be used in future lessons.</p>
+
+<p>Double-check to ensure you have completed the following graded assignments:</p>
+
+<ul>
+  <li>You Try It - 10 points</li>
+</ul>
+
+
+
+</div>
+  </body>
+</html>

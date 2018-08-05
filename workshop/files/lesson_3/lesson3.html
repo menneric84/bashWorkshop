@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <title>Lesson 3</title>
+  </head>
+  <body>
+<style>
+  .md_output code,.md_output pre{
+    font-family:Monaco, Andale Mono, Courier New, monospace;
+    font-size:12px;
+    -webkit-border-radius:3px;
+      -moz-border-radius:3px;
+            border-radius:3px;
+    }
+
+  .md_output code{
+    color: #d14;
+    background-color:#fafafa;
+    border: 1px solid #e1e1e8;
+    border-radius: 3px;
+    font-weight:bolder;
+    white-space: nowrap;
+  }
+
+  .md_output pre>code {
+    color: #000;
+    display:block;
+    font-size:12px;
+    line-height:18px;
+    margin:0 0 18px;
+    padding:8.5px;
+    white-space:pre;
+    white-space:pre-wrap;
+    word-wrap:break-word;
+  }
+
+  .md_output blockquote{padding: 0 0 0 15px; margin: 0 0 20px; border-left: 5px solid #eeeeee;};
+  .md_output table{width:100%;margin-bottom:18px;padding:0;border-collapse:separate;*border-collapse:collapse;font-size:13px;border:1px solid #ddd;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;}table th,table td{padding:10px 10px 9px;line-height:18px;text-align:left;}
+  .md_output table th{padding-top:9px;font-weight:bold;vertical-align:middle;border-bottom:1px solid #ddd;}
+  .md_output table td{vertical-align:top;}
+  .md_output table th+th, .md_output table td+td{border-left:1px solid #ddd;}
+  .md_output table tr+tr td{border-top:1px solid #ddd;}
+  .md_output table tbody tr:first-child td:first-child{-webkit-border-radius:4px 0 0 0;-moz-border-radius:4px 0 0 0;border-radius:4px 0 0 0;}
+  .md_output table tbody tr:first-child td:last-child{-webkit-border-radius:0 4px 0 0;-moz-border-radius:0 4px 0 0;border-radius:0 4px 0 0;}
+  .md_output table tbody tr:last-child td:first-child{-webkit-border-radius:0 0 0 4px;-moz-border-radius:0 0 0 4px;border-radius:0 0 0 4px;}
+  .md_output table tbody tr:last-child td:last-child{-webkit-border-radius:0 0 4px 0;-moz-border-radius:0 0 4px 0;border-radius:0 0 4px 0;}
+</style>
+<div class='md_output'>
+
+<h2 id="text-manipulation">Text Manipulation</h2>
+
+<p>In this lesson you’ll manipulate text.</p>
+
+<h3 id="you-try-it">1. You Try It</h3>
+
+<h4 id="competencies-addressed">Competencies Addressed:</h4>
+
+<ul>
+  <li>Work with Streams of Text</li>
+</ul>
+
+<p>These exercises might help you understand how to use programs together to process text.</p>
+
+<ul>
+  <li>Use the <code>ps -ef </code> and <code>grep</code> commands together to search for a process by name.</li>
+  <li>Use the <code>sed</code> and <code>awk</code> command to turn a list of files into an HTML document.</li>
+</ul>
+
+<h3 id="streams-of-text">2. Streams of Text</h3>
+
+<h4 id="competencies-addressed-1">Competencies Addressed:</h4>
+
+<ul>
+  <li>Work with Streams of Text</li>
+</ul>
+
+<p>There are three standard streams you’ll encounter when working on the CLI on a Unix-based system:</p>
+
+<ul>
+  <li><strong>Standard Output (stdout)</strong>: Output from a program.</li>
+  <li><strong>Standard Input (stdin)</strong>: Input to a program.</li>
+  <li><strong>Standard Error (stderr)</strong>: Errors from a program.</li>
+</ul>
+
+<p>When you start a program in the CLI, the standard input is conncted to your terminal’s input (your keyboard), while the standard output and standard error streams are connected to your terminal’s output (the screen). However, you can change how these connections go.  You can send the output to a log, discard the output entirely, or even send the output of one program to another program as its input stream. You can create basic or complex workflows using a handful of basic tools.</p>
+
+<p>You’ve already seen a few of the concepts in this chapter elsewhere in the book, but let’s dive a little deeper. We’ll start by reviewing how to redirect these streams, and then you’ll learn about programs specifically designed to process text on the command line.</p>
+
+<h3 id="redirecting-input-and-output-with-file-descriptors">3. Redirecting Input and Output with File Descriptors</h3>
+
+<h4 id="competencies-addressed-2">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>When you execute the <code>history</code> command, you see the program’s output displayed on your screen. The <code>history</code> command writes its output to standard output, and standard output is mapped to your terminal screen by default.</p>
+
+<p>You’ve already used the <code>&gt;</code> and <code>&gt;&gt;</code> symbols to redirect a program’s output to a file. For example, you’ve seen that you can save the contents of your shell history to a file:</p>
+
+<pre><code class="language-command">$ history &gt; commands.txt
+</code></pre>
+
+<p>You also know that the <code>&gt;&gt;</code> symbol appends text to an existing file. For example, you can append today’s date to the file you just created:</p>
+
+<pre><code class="language-command">$ date &gt;&gt; commands.txt
+</code></pre>
+
+<p>The <code>&gt;</code> and <code>&gt;&gt;</code> symbols are <em>file descriptors</em>, an abstract way for the OS to talk to the kernel and manage files. On Unix systems, each file opened by any process returns a file descriptor to the process as an integer. The kernel keeps track of all of these file descriptors in a table. However, there are three file descriptors reserved.  <code>1</code> is mapped to standard output, <code>0</code> is mapped to standard input, and <code>2</code> is mapped to standard error.</p>
+
+<p>When sending a program’s output to a file using standard output, you can omit the integer, and most people do. That’s why you’ll see <code>history &gt; commands.txt</code> instead of <code>history 1&gt; commands.txt</code>.</p>
+
+<p>Sometimes you don’t even care about the output of a program. You know it’ll work and you don’t need to see the response.  Unix-based operating systems have a special device designed specifically for this purpose: <code>/dev/null</code>.  Instead of redirecting the output to a file. redirect it to <code>/dev/null</code>:</p>
+
+<pre><code class="language-command">$ ls &gt; /dev/null
+</code></pre>
+
+<p>This isn’t very practical by itself, but this concept will make more sense when we look at errors in a bit.</p>
+
+<p>Right now, let’s look at how to process input from files. Unix-based programs accept input from a few places, and one of those places is the standard input stream.</p>
+
+<p>When you use the <code>cat</code> command to display a file, you specify the file to read as an argument to the program:</p>
+
+<pre><code class="language-command">$ cat commands.txt
+</code></pre>
+
+<p>However, <code>cat</code> also accepts data from standard input. That means you can use a file descriptor instead of specifying a file. The file descriptor for standard in is <code>0&lt;</code>, but you can use <code>&lt;</code> instead, which is what you’ll typically see.</p>
+
+<pre><code class="language-command">$ cat &lt; commands.txt
+</code></pre>
+
+<p>You’ll see the output displayed on the screen, just as if you’d passed it in as an argument. This particular example isn’t entirely practical, since <code>cat</code> lets you specify the filename directly with one less character. However, when you use <code>&lt;</code>, the file is opened and its content is sent to <code>cat</code>, and if the file doesn’t exist, <code>cat</code> doesn’t execute. Try this out:</p>
+
+<pre><code class="language-command">$ cat windows.txt
+cat: windows.txt: No such file or directory
+$ cat &lt; windows.txt
+-bash: windows.txt: No such file or directory
+</code></pre>
+
+<p>In the first attempt, <code>cat</code> executes and opens the file. In the second attempt, the shell tries to open the file.</p>
+
+<h3 id="pipelines-of-data">4. Pipelines of Data</h3>
+
+<h4 id="competencies-addressed-3">Competencies Addressed:</h4>
+
+<ul>
+  <li>Work with Streams of Text</li>
+</ul>
+
+<p>One of the main foundations of a Unix-based system is that programs work
+together like a pipeline; the output of one program can be the input of
+another. In other words, you send the standard output of one program to the
+standard input of another.</p>
+
+<p>The <code>less</code> command makes it easy to navigate through a large file by reading it one page at a time, but <code>less</code> also access input from standard input. If you have a very long directory
+listing, you can send the  output from the <code>ls -alh</code> command to the <code>less</code> command to paginate the results. Give this a try:</p>
+
+<pre><code class="language-command">$ ls -alh /usr/bin | less
+</code></pre>
+
+<p>So how does this work? The <code>|</code> symbol connects the programs together. The results of the <code>ls</code> command, which get sent to standard output, are “piped” to the <code>less</code> command which sees the stream as standard input.</p>
+
+<p>Remember the <code>head</code> and <code>tail</code> commands you learned about?</p>
+
+<p>To see just the first three entries in a long directory listing, try this:</p>
+
+<pre><code class="language-command">$ ls -alh /usr/bin | head -n 3
+total 175M
+drwxr-xr-x  2 root   root      36K Jan  1  2018 .
+drwxr-xr-x 10 root   root     4.0K Apr 29  2010 ..
+</code></pre>
+
+<p>The output of the <code>ls</code> command gets sent to the <code>head</code> command, which displays only the first three of lines of output, as specified by the <code>-n</code> argument.</p>
+
+<p>Using this concept, you can use <code>head</code> and <code>tail</code> together to view a single line from output if you know where it’s located. Display just the third entry from the directory listing by using the <code>tail</code> command to start at the third line of the file, and then pipe the results to the <code>head</code> command to read only the first line:</p>
+
+<pre><code class="language-command">$ ls -alh /usr/bin/ | tail -n +3 | head -n 1
+drwxr-xr-x 10 root   root     4.0K Apr 29  2010 ..
+</code></pre>
+
+<h3 id="splitting-streams-with-tee">5. Splitting Streams with Tee</h3>
+
+<h4 id="competencies-addressed-4">Competencies Addressed:</h4>
+
+<ul>
+  <li>Work with Streams of Text</li>
+</ul>
+
+<h2 id="splitting-streams-with-tee-sectee">Splitting Streams with <code>tee</code> {#sec.tee}</h2>
+
+<p>When you redirect the output to a file, it no longer displays on the screen. In order to see the output on the screen and send it to a file, you could use the <code>cat</code> or <code>less</code> commands to view the file, but you can also use the <code>tee</code> command. The <code>tee</code> command gets its name from plumbing. There’s a a T-shaped pipe fitting that splits the water off in two directions. The <code>tee</code> command takes input and splits the stream to the screen and to a file.</p>
+
+<p>Execute the history<code> command and pipe its data to the </code>tee` command:</p>
+
+<pre><code class="language-command">$ history | tee commands.txt
+</code></pre>
+
+<p>Instead of redirecting the output to a file, you’re piping it to <code>tee</code>, which receives the data as standard input. This time, you see the results on the screen. The <code>commands.txt</code> file will also have the latest version of your history inside.</p>
+
+<p>The <code>tee</code> command overwrites the target file each time. But if you use the <code>-a</code> flag, you can append to the file instead:</p>
+
+<pre><code class="language-command">$ date | tee -a commands.txt
+</code></pre>
+
+<p>The date displays on the screen, and is appended to the end of the file:</p>
+
+<pre><code class="language-command">$ tail -n 2 commands.txt
+  568  history | tee commands.txt
+Mon Jul 16 03:53:24 UTC 2018
+</code></pre>
+
+<p>The <code>tee</code> command has another benefit - you can use it to write to places where normal redirection won’t let you. Remember earlier when you tried to create a file with content in the <code>/var</code> folder but it didn’t work? Let’s review that.</p>
+
+<p>Try to save the history to a file in the <code>/var</code> directory. The command fails because your user doesn’t have access to write a file there:</p>
+
+<pre><code class="language-command">$ history &gt; /var/commands.txt
+-bash: /var/commands.txt: Permission denied
+</code></pre>
+
+<p>You might think that you can use <code>sudo</code> to get this to work, but <code>sudo</code> runs the <code>history</code> command as a privileged user rather than your user, and the redirection isn’t part of the <code>sudo</code> process:</p>
+
+<pre><code class="language-command">$ sudo history &gt; /var/commands.txt
+-bash: /var/commands.txt: Permission denied
+</code></pre>
+
+<p>But you can get around this using <code>sudo tee</code>:</p>
+
+<pre><code class="language-command">$ history | sudo tee /var/commands.txt
+</code></pre>
+
+<p>This time, the file gets created. This works with <code>echo</code> as well:</p>
+
+<pre><code class="language-command">$ sudo echo "Line one" &gt;&gt; /var/mylog.txt
+bash: /var/mylog.txt: Permission denied
+$ echo "Line one" | sudo tee -a /var/mylog.txt
+Line one
+</code></pre>
+
+<p>One drawback to this approach is that you still see the output on the screen. But you can suppress the output by sending it to <code>/dev/null</code> instead of a file.</p>
+
+<pre><code class="language-command">$ echo "Line two" | sudo tee -a /var/mylog.txt &gt; /dev/null
+</code></pre>
+
+<p>You can use <code>tee</code> to create multi-line files with <code>sudo</code>, similar to how you did it with <code>cat</code>:</p>
+
+<pre><code class="language-command">$ sudo tee -a /var/mylog.txt &lt;&lt; EOF &gt; /dev/null
+</code></pre>
+
+<p>You’ll be presented with a blank cursor, as <code>tee</code> is waiting for data from standard input. Type the following lines, pressing <code>Enter</code> after each line:</p>
+
+<pre><code>Line three
+Line four
+EOF
+</code></pre>
+
+<p>The two new lines will write to the file.</p>
+
+<p>If all of this seems too much like a hack, it’s because it is. It’s often just easier to create files in your home directory and use <code>sudo</code> to move them where you want them:</p>
+
+<pre><code class="language-command">$ echo "some text" &gt; ~/myfile.txt
+$ sudo mv ~/myfile.txt /var/myfile
+</code></pre>
+
+<h3 id="handling-error-streams">6. Handling error streams</h3>
+
+<h4 id="competencies-addressed-5">Competencies Addressed:</h4>
+
+<ul>
+  <li>Work with Streams of Text</li>
+</ul>
+
+<p>When errors occur in commands,  you’ll see both the standard output and standard error streams displayed on your screen. This makes it easier for you to see when something went wrong, but it makes it more difficult for you to send the output to a file or another program. To get around this, well-behaved programs separate diagnostics messages and other error messages to the standard error stream and leave it up to you to split them out. Like output, you’ll use a file descriptor to either send the errors to a file or suppress the messages.</p>
+
+<p>Let’s look at an example of this in action. Use the <code>find</code> command to look at the contents of the <code>/root</code> folder, which you don’t have access to view:</p>
+
+<pre><code class="language-command">$ find /root/
+/root/
+find: `/root/': Permission denied
+</code></pre>
+
+<p>The output shows the <code>root</code> directory, and then tells you that you’re not allowed to see the contents. You’re seeing both standard output and standard error here. Let’s separate the errors from the regular messages.</p>
+
+<p>You already know that the <code>&gt;</code> symbol represents the standard output stream. To use the error stream, use <code>2&gt;</code> instead. Unlike standard input and standard output, you have to specify the integer for the file descriptor so the shell knows you’re talking about the error stream rather than the standard output stream. Run this command to put the error messages into a text file called <code>errors.txt</code>:</p>
+
+<pre><code class="language-command">$ find /root/ 2&gt; errors.txt
+/root
+</code></pre>
+
+<p>You still see the output, but the error messages are now in the file.</p>
+
+<p>If you wanted the standard output to go to a file instead of the screen, just use the <code>&gt;</code> file descriptor:</p>
+
+<pre><code class="language-command">$ find /root/ &gt; output.txt
+find: `/root/': Permission denied
+</code></pre>
+
+<p>When you do that, the error stream shows up on the screen. So how can you get errors in one file and the regular output to another? Take a moment to think about what you’ve learned so far about how data flows through programs and you might already see the solution. When you sent the output to a file, the errors still appeared on your screen. When you sent the errors to a file, the standard output still appeared on the screen. So what if you did two redirections?</p>
+
+<pre><code class="language-command">$ find /root/ &gt; output.txt 2&gt; errors.txt
+$ cat output.txt
+/root/
+$ cat errors.txt
+find: `/root/': Permission denied
+</code></pre>
+
+<p>There are times when you want all of the program output you see on the screen to be logged to the same file. One common way you’ll see is to redirect the standard error stream to the standard output stream, and then log the standard output stream to a file, like this:</p>
+
+<pre><code class="language-command">$ find /root/ &gt;log.txt 2&gt;&amp;1
+$ cat log
+/root/
+find: `/root/': Permission denied
+</code></pre>
+
+<p>That works, and it’s an example of how you can combine streams for more advanced operations. However, a lot of the time, you can just send both streams right to a file:</p>
+
+<pre><code class="language-command">$ find /root/ &amp;&gt; log.txt
+$ cat log
+/root/
+find: `/root/': Permission denied
+</code></pre>
+
+<p>Sometimes you don’t care at all about the errors from a program, and it’s not worth logging them to a file just to separate them. Instead of sending the error stream to a file, send it to <code>/dev/null</code>.</p>
+
+<pre><code class="language-command">$ find /root/ 2&gt; /dev/null
+/root/
+</code></pre>
+
+<h3 id="searching-with-grep">7. Searching with Grep</h3>
+
+<h4 id="competencies-addressed-6">Competencies Addressed:</h4>
+
+<ul>
+  <li>Work with Streams of Text</li>
+</ul>
+
+<p>When you’re dealing with program output, you’ll often want to filter the results. The <code>grep</code> command searches text for patterns using regular expressions. You can use <code>grep</code> to search through a file for some content.</p>
+
+<p>Create a file called <code>words.txt</code> that contains a bunch of words, each on its own line:</p>
+
+<pre><code class="language-command">$ cat &lt;&lt;EOF &gt; words.txt
+blue
+apple
+candy
+hand
+fork
+EOF
+</code></pre>
+
+<p>Now use <code>grep</code> to search the file for the word <code>and</code>:</p>
+
+<pre><code class="language-command">$ grep 'and' words.txt
+candy
+hand
+</code></pre>
+
+<p>This displays the two lines of the file that show the string you specified. We get both results because they contain the string <code>and</code> somewhere on the line. This is the most simple form of searching.</p>
+
+<p>You can also tell <code>grep</code> to remove lines containing that text by using the <code>-v</code> argument:</p>
+
+<pre><code class="language-command">$ grep 'and' -v words.txt
+blue
+apple
+fork
+</code></pre>
+
+<p><code>grep</code> reads the file in and the processes its contents, but you’re not limited to using <code>grep</code> on just files. You can use it to process output from other programs, which means you can use it to filter the streams of text other programs display.</p>
+
+<p>Try it out by using <code>grep</code> to show you all the <code>ls</code> commands in your history:</p>
+
+<pre><code class="language-command">$ history | grep 'ls'
+...
+  471  ls
+  479  ls
+  484  ls
+  500  history | grep 'ls'
+</code></pre>
+
+<p>When you ran the command on your machine, you probably saw a lot of results, and the last result was the <code>history | grep</code> command. You can filter that last command out by piping the output to <code>grep</code> again:</p>
+
+<pre><code class="language-command">$ history | grep 'ls' | grep -v 'grep'
+...
+  471  ls
+  479  ls
+  484  ls
+</code></pre>
+
+<p>And if there are too many commands for you to see, you can always pipe the output to <code>less</code>:</p>
+
+<pre><code class="language-command">$ history | grep 'ls' | grep -v 'grep' | less
+</code></pre>
+
+<p>Grep supports searching multiple files as well.  Create file with some more words:</p>
+
+<pre><code class="language-command">$ cat &lt;&lt;EOF &gt; words2.txt
+blue car
+apple pie
+candy bar
+hand rock
+fork in the road
+EOF
+</code></pre>
+
+<p>Then use <code>grep</code> to search both files for the word <code>blue</code>:</p>
+
+<pre><code class="language-command">$ grep blue words.txt words2.txt
+words.txt:blue
+words2.txt:blue car
+</code></pre>
+
+<p>This time, <code>grep</code> shows the word, along with the name of the file containing the word.</p>
+
+<p>The <code>grep</code> command only shows the exact line contianing the match, but you can tell it to give you a little more context. Using the <code>-a</code> and <code>-b</code> switches, you can specify the number of lines above and below the match.</p>
+
+<pre><code class="language-command">$ grep 'candy' -A 2 -B 2 words*
+words2.txt-blue car
+words2.txt-apple pie
+words2.txt:candy bar
+words2.txt-hand rock
+words2.txt-fork in the road
+--
+words.txt-blue
+words.txt-apple
+words.txt:candy
+words.txt-hand
+words.txt-fork
+</code></pre>
+
+<p>The output separates the matches clearly.</p>
+
+<p>Adding the <code>-n</code> flag will show you the line number where the match was found:</p>
+
+<pre><code class="language-command">$ grep 'candy' -A 2 -B 2 -n words*
+words2.txt-1-blue car
+words2.txt-2-apple pie
+words2.txt:3:candy bar
+words2.txt-4-hand rock
+words2.txt-5-fork in the road
+--
+words.txt-1-blue
+words.txt-2-apple
+words.txt:3:candy
+words.txt-4-hand
+words.txt-5-fork
+</code></pre>
+
+<p>This is helpful when working with source code. You can use <code>grep</code> to look at your entire codebase and find phrases or keywords quickly, as <code>grep</code> can read directories recursively.</p>
+
+<p>To demonstrate this, use <code>grep</code> to scan the contents of the <code>/var/log</code> folder for instances of your username:</p>
+
+<pre><code class="language-command">$ sudo grep 'brian' -r /var/log
+</code></pre>
+
+<p>You’ll see a stream of data coming back, displaying events from your system logs.</p>
+
+<h3 id="using-cut-to-remove-characters">8. Using Cut to Remove Characters</h3>
+
+<h4 id="competencies-addressed-7">Competencies Addressed:</h4>
+
+<ul>
+  <li>Work with Streams of Text</li>
+</ul>
+
+<p>The <code>cut</code> command lets you remove text from the output stream or from a file. Give it a try.</p>
+
+<pre><code>$ echo 'hello world' | cut -c 2-4
+ell
+</code></pre>
+
+<p>Here’s how it works. The <code>-c</code> flag tells <code>cut</code> to cut at characters, rather than bytes. The value is <code>1-3</code>, which tells <code>cut</code> to cut out everything other than characters 2 through 4.</p>
+
+<p>You can also specify that you want everything from the beginning of the string until the specified position. For example, to grab just the first five characters, use <code>-c -5</code>:</p>
+
+<pre><code>$ echo 'hello world' | cut -c -5
+hello
+</code></pre>
+
+<p>Using <code>-c 7-</code>, you can grab everything from the 7th character until the end of the line:</p>
+
+<pre><code>$ echo 'hello world' | cut -c 7-
+world
+</code></pre>
+
+<p>Let’s try something more practical by using <code>cut</code> to manipulate the output of the <code>history</code> command. As you recall, when you execute <code>history</code>, you’ll see two columns of output—the history number and the command:</p>
+
+<pre><code>$ history
+    5  ls
+    6  cd Documents/
+    7  cd
+    8  history
+    ...
+</code></pre>
+
+<p>You can use the <code>cut</code> command to remove the numerical column:</p>
+
+<pre><code>$ history | cut -c 8-
+ls
+cd Documents/
+cd
+history
+...
+</code></pre>
+
+<p>Notice that <code>cut</code> operates on each line of the output. Combine this with redirection to save this to a text file:</p>
+
+<pre><code>$ history | cut -c 8- &gt; commands.txt
+</code></pre>
+
+<p>You can specify a different delimiter, like a comma, using the <code>-d</code> switch. Create a quick CSV file:</p>
+
+<pre language="session"><code>$ cat &lt;&lt;EOF &gt; contacts.txt
+Homer,Simpson,939-555-4795,742 Evergreen Terrace
+EOF
+</code></pre>
+
+<p>Then use <code>cut</code> to pull out the third field in the file:</p>
+
+<pre language="session"><code>$ cut -d ',' -f 3 contacts.txt
+939-555-4795
+</code></pre>
+
+<h3 id="modifying-text-with-sed">9. Modifying Text with sed</h3>
+
+<h4 id="competencies-addressed-8">Competencies Addressed:</h4>
+
+<ul>
+  <li>Work with Streams of Text</li>
+</ul>
+
+<p>If you need to modify text in a pipeline or in a file,, <code>sed</code> is your best friend. Its name is short for “stream editor” and it’s very handy. While you can do many things with <code>sed</code>, the most common use is to replace some text with other text, similar to how you’d do use the find and replace feature in your text editor.</p>
+
+<p>Like other tools, <code>sed</code> can read its input from a file or from standard input.  Try it out. Print out “Hello World” and use <code>sed</code> to replace “Hello” with “Goodbye”:</p>
+
+<pre><code class="language-command">$ echo "Hello World" | sed -e 's/Hello/Goodbye/'
+Goodbye World
+</code></pre>
+
+<p>In this example, we’re sending “Hello World” via a pipe, and then using the <code>-e</code> flag to specify an expression.  The expression <code>s/Hello/Goodbye/</code> is a basic substitution. The <code>/</code> characters are the delimiter. “Hello” is the regular expression, and “Goodbye” is the string we’ll insert as the replacement.</p>
+
+<p>This basic substitution only works on the first occurrence on each line. Let’s look at this more closely. Create a text file containing a Markdown fragment like this:</p>
+
+<p>(You can find this in the <code>lesson_3</code> folder as <code>document.md</code>)</p>
+
+<pre><code class="language-command">$ cat &lt;&lt; EOF &gt; document.md
+This is *very* important text with *very* important words.
+
+* These words are not important.
+* Neither are these.
+
+You can *always* tell very important text because it's in italics
+EOF
+</code></pre>
+
+<p>Let’s replace the word <code>very</code> with <code>really</code>. (In reality, we should remove the superfluous adverb entirely, but humor me for a moment.)</p>
+
+<pre><code class="language-command">$ sed -e 's/very/really/' document.md
+This is *really* important text with *very* important words.
+
+* These words are not important.
+* Neither are these.
+
+You can *always* tell really important text because it's in italics
+</code></pre>
+
+<p>Notice that one of the instances of <code>very</code> didn’t get replaced.  On closer inspection, the first instance on the first line was replaced, but the second one was not.  Add the <code>g</code> operator to the end of the substitution to replace both:</p>
+
+<pre><code class="language-command">$ sed -e 's/very/really/g' document.md
+This is *really* important text with *really* important words.
+
+* These words are not important.
+* Neither are these.
+
+You can *always* tell really important text because it's in italics
+</code></pre>
+
+<p>To save the results, redirect it to a new file:</p>
+
+<pre><code>$ sed -e 's/very/really/g' document.md &gt; new.md
+</code></pre>
+
+<p>You could tell <code>sed</code> to update the file in place, but that’s dangerous so we’ll avoid that in this lab.</p>
+
+<h3 id="changing-specific-lines-with-sed">10. Changing Specific Lines with sed</h3>
+
+<h4 id="competencies-addressed-9">Competencies Addressed:</h4>
+
+<ul>
+  <li>Work with Streams of Text</li>
+</ul>
+
+<p>When performing operations on streams of text, <code>sed</code> searches the whole file. But by providing more context, you can tell <code>sed</code> to zero in on a specific part of the file.  <code>sed</code> calls this an <firstuse>address</firstuse>. An address can be a string of text, a line number, or a regular expression.</p>
+
+<p>To explore this further, create a text file full of URLs, or use the file `urls.txt’ in the file download.</p>
+
+<pre><code class="language-command">$ cat &lt;&lt; 'EOF' &gt; urls.txt
+http://example.com
+http://facebook.com
+http://twitter.com
+https://pragprog.com
+EOF
+</code></pre>
+
+<p>Use the following command to comment out the URL for Facebook by placing a hash mark in front:</p>
+
+<pre><code>$ sed -e '/facebook/s/^/#/' urls.txt
+http://example.com
+#http://facebook.com
+http://twitter.com
+https://pragprog.com
+</code></pre>
+
+<p>This command finds the line that contains the word <code>facebook</code> and replaces the beginning of the string with the text <code>#</code>”. In this case, the string <code>facebook</code> is the address.</p>
+
+<p>Remember that <code>sed</code> doesn’t modify the original file, so redirect the output to a new file to save this fixed list of URLs.</p>
+
+<pre language="session"><code>$ sed -e '/facebook/s/^/#/' urls.txt &gt; commented_urls.txt
+</code></pre>
+
+<p>This creates the file <code>commented_urls.txt</code>.</p>
+
+<p>The command to remove a <code>#</code> character from the front of the line would be:</p>
+
+<pre language="session"><code>$ sed -e '/facebook/s/^#//' commented_urls.txt
+http://example.com
+http://facebook.com
+http://twitter.com
+https://pragprog.com
+</code></pre>
+
+<p>This command finds the line containing the string <code>facebook</code> and replaces the <code>#</code> at the beginning of the line with nothing. While we’re using the explicit string <code>facebook</code> here, you could use a more complex regular expression here.</p>
+
+<p>Rather than finding a line with text, you can find it by its number. To comment out the first line of the file, use this command:</p>
+
+<pre><code>$ sed -e '1 {s/^/#/}' urls.txt
+#http://example.com
+http://facebook.com
+http://twitter.com
+https://pragprog.com
+</code></pre>
+
+<p>To comment out lines 2 through 4 of the file, use this command:</p>
+
+<pre><code>sed -e '2,4 {s/^/#/}' urls.txt
+http://example.com
+#http://facebook.com
+#http://twitter.com
+#https://pragprog.com
+</code></pre>
+
+<p>Want to add a line to the top of the file? You can do that too. Use the number <code>1</code> to reference the first line of the file, followed by the letter <code>i</code> and a backslash to indicate the text to insert:</p>
+
+<pre><code>$ sed -e '1i\Bookmarks' urls.txt
+Bookmarks
+http://example.com
+http://facebook.com
+http://twitter.com
+https://pragprog.com
+</code></pre>
+
+<p>To append a line to the end of the file, use a dollar sign instead of a number, followed by the letter <code>a</code>:</p>
+
+<pre><code>$ sed -e '$a\http://google.com' urls.txt
+http://example.com
+http://facebook.com
+http://twitter.com
+https://pragprog.com
+http://google.com
+</code></pre>
+
+<p>You can do multiple expressions in the same command too.</p>
+
+<pre language="session"><code>$ sed -e '1i\Bookmarks' -e '$a\http://google.com' urls.txt
+Bookmarks
+http://example.com
+http://facebook.com
+http://twitter.com
+https://pragprog.com
+http://google.com
+</code></pre>
+
+<p>In addition, you can change a specific line of the file using <code>c</code>. Change <code>example.com</code> to <code>github.com</code> with this command:</p>
+
+<pre><code>sed -e '1c\https://github.com'  urls.txt
+https://github.com
+http://facebook.com
+http://twitter.com
+https://pragprog.com
+</code></pre>
+
+<p>And you can delete a line with <code>d</code>:</p>
+
+<pre><code>$ sed -e '1d'  urls.txt
+http://facebook.com
+http://twitter.com
+https://pragprog.com
+</code></pre>
+
+<h3 id="basic-processing-with-awk">11. Basic processing with awk</h3>
+
+<h4 id="competencies-addressed-10">Competencies Addressed:</h4>
+
+<ul>
+  <li>Work with Streams of Text</li>
+</ul>
+
+<p>The <code>awk</code> command lets you reformat text. <code>awk</code> is a command line utility, but it’s also a scripting langauge with loops, variables, and conditionals. With <code>awk</code>, you can reformat files, search for strings, and even sum up numbers.</p>
+
+<p>Let’s explore <code>awk</code> by using some data from the 2010 U.S. Census that shows population by state. You can find this file in the <code>lesson_3</code> folder as <code>population.csv</code> or you can create it here:</p>
+
+<pre><code class="language-command">$ cat &lt;&lt; 'EOF' &gt; population.csv
+State,Population,Reps
+Alabama,4802982,7
+California,37341989,53
+Florida,18900773,27
+Hawaii,1366862,2
+Illinois,12864380,18
+New York,19421055,27
+South Dakota,819761,1
+Wisconsin,5698230,8
+Wyoming,568300,1
+EOF
+</code></pre>
+
+<p>Let’s use <code>awk</code> to transform and manipulate this data.</p>
+
+<p>First, let’s look at the most basic command: printing a specific line of the file. Use this command to print out the line associated with Wisconsin:</p>
+
+<pre><code class="language-command">$ awk '/Wisconsin/' population.csv
+Wisconsin,5698230,8
+</code></pre>
+
+<p>That’s not that useful, since you already know you could have used <code>grep</code> to get the same results. However, you can use <code>awk</code> to manipulate the data further. Try this command:</p>
+
+<pre><code class="language-command">$ awk -F ',' '/Wisconsin/ {print $1}' population.csv
+Wisconsin
+</code></pre>
+
+<p>The <code>-F</code> switch lets you specify the field delimiter. By default, <code>awk</code> assumes fields are delimited by spaces. But since this is a CSV file, the fields are delimited by commas.  The <code>{print $1}</code> directive tells <code>awk</code> to print the first field.</p>
+
+<p>Using the same approach, you can find Wisconsin’s population with this command:</p>
+
+<pre><code class="language-command">$ awk -F ',' '/Wisconsin/ {print $2}' population.csv
+5698230
+</code></pre>
+
+<p>Using the <code>print</code> statement, you can convert this into a tab-delimited file and even reverse the order:</p>
+
+<pre><code>$ awk -F ',' '{ print $2,"\t", $1, "\t", $3 }' population.csv
+Population       State   Reps
+4802     Alabama         982
+37341989         California      53
+18900773         Florida         27
+1366862          Hawaii          2
+12864380         Illinois        18
+19421055         New York        27
+819761   South Dakota    1
+5698230          Wisconsin       8
+568300   Wyoming         1
+</code></pre>
+
+<p>You can also use this approach to find the most populous state. Print the poplulation column and the state name, then pipe the output to <code>sort</code> to sort by population, then pipe to <code>head</code> to see the first entry:</p>
+
+<pre language="session"><code>$ awk -F ',' '{ print $2,"\t", $1 }' population.csv | sort -nr | head -n 1
+37341989         California
+</code></pre>
+
+<p>You can do conditionals as well. For example, if you wanted to show only the lines in the file with less than three representatives, you’d use this command:</p>
+
+<pre language="session"><code>$ awk -F ',' '{if ($3 &lt; 3) print $1,"\t", $2 }' population.csv
+Hawaii   1366862
+South Dakota     819761
+Wyoming          568300
+</code></pre>
+
+<p>Finally, you can create variables to hold data so you can perform operations like computing totals. Try it out by using <code>awk</code> to sum up the representatives:</p>
+
+<pre language="session"><code>$ awk -F ',' '{ sum+=$3 } END { print sum }' population.csv
+144
+</code></pre>
+
+<p>First, we declare a variable called <code>sum</code> and add up the values in the third column. We then use the <code>END</code> keyword, followed by a <code>print</code> statement.</p>
+
+<h3 id="lesson-summary">Lesson Summary</h3>
+
+<p>Before moving on, ensure you have completed all activities in this lesson. And remember that things that were not assigned for a grade are still required and may be used in future lessons.</p>
+
+
+
+</div>
+
+  </body>
+
+</html>

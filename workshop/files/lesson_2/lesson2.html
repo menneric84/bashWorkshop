@@ -1,0 +1,1687 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <title>Lesson 2</title>
+  </head>
+  <body>
+  <style>
+  .md_output code,.md_output pre{
+    font-family:Monaco, Andale Mono, Courier New, monospace;
+    font-size:12px;
+    -webkit-border-radius:3px;
+      -moz-border-radius:3px;
+            border-radius:3px;
+    }
+
+  .md_output code{
+    color: #d14;
+    background-color:#fafafa;
+    border: 1px solid #e1e1e8;
+    border-radius: 3px;
+    font-weight:bolder;
+    white-space: nowrap;
+  }
+
+  .md_output pre>code {
+    color: #000;
+    display:block;
+    font-size:12px;
+    line-height:18px;
+    margin:0 0 18px;
+    padding:8.5px;
+    white-space:pre;
+    white-space:pre-wrap;
+    word-wrap:break-word;
+  }
+
+  .md_output blockquote{padding: 0 0 0 15px; margin: 0 0 20px; border-left: 5px solid #eeeeee;};
+  .md_output table{width:100%;margin-bottom:18px;padding:0;border-collapse:separate;*border-collapse:collapse;font-size:13px;border:1px solid #ddd;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;}table th,table td{padding:10px 10px 9px;line-height:18px;text-align:left;}
+  .md_output table th{padding-top:9px;font-weight:bold;vertical-align:middle;border-bottom:1px solid #ddd;}
+  .md_output table td{vertical-align:top;}
+  .md_output table th+th, .md_output table td+td{border-left:1px solid #ddd;}
+  .md_output table tr+tr td{border-top:1px solid #ddd;}
+  .md_output table tbody tr:first-child td:first-child{-webkit-border-radius:4px 0 0 0;-moz-border-radius:4px 0 0 0;border-radius:4px 0 0 0;}
+  .md_output table tbody tr:first-child td:last-child{-webkit-border-radius:0 4px 0 0;-moz-border-radius:0 4px 0 0;border-radius:0 4px 0 0;}
+  .md_output table tbody tr:last-child td:first-child{-webkit-border-radius:0 0 0 4px;-moz-border-radius:0 0 0 4px;border-radius:0 0 0 4px;}
+  .md_output table tbody tr:last-child td:last-child{-webkit-border-radius:0 0 4px 0;-moz-border-radius:0 0 4px 0;border-radius:0 0 4px 0;}
+</style>
+<div class='md_output'>
+
+<h2 id="files-and-file-systems">Files and File Systems</h2>
+
+<p>In this lesson you’ll create file and directory structures and get comfortable with moving around the file system on the CLI.</p>
+
+<h3 id="listing-files">1. Listing Files</h3>
+
+<h4 id="competencies-addressed">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>The <code>ls</code> command shows you the contents of a directory. By default, it only shows you part of the story. You can get a more descriptive listing by passing some additional arguments to the command.  In your home directory, execute the command <code>ls -l</code>. (That’s a lower-case L.)</p>
+
+<pre><code class="language-command">$ ls -l
+total 44
+drwxr-xr-x 2 brianhogan brianhogan 4096 May 26 10:09 Desktop
+drwxr-xr-x 2 brianhogan brianhogan 4096 May 26 10:07 Documents
+drwxr-xr-x 2 brianhogan brianhogan 4096 May 26 10:07 Downloads
+-rw-r--r-- 1 brianhogan brianhogan 8980 May 26 10:06 examples.desktop
+drwxr-xr-x 2 brianhogan brianhogan 4096 May 26 10:07 Music
+drwxr-xr-x 2 brianhogan brianhogan 4096 May 26 10:07 Pictures
+drwxr-xr-x 2 brianhogan brianhogan 4096 May 26 10:07 Public
+drwxr-xr-x 2 brianhogan brianhogan 4096 May 26 10:07 Videos
+</code></pre>
+
+<p>This gives you a “long listing” of the current directory’s contents. The filenames are all the way on the right side, preceded by a bunch of additional information. Here’s how it breaks down:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Permissions</th>
+      <th>Links</th>
+      <th>Owner</th>
+      <th>Group</th>
+      <th>Size</th>
+      <th>Modified date</th>
+      <th>Filename</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>drwxr-xr-x</td>
+      <td>2</td>
+      <td> </td>
+      <td>brianhogan</td>
+      <td>brianhogan</td>
+      <td>4096</td>
+      <td>May 26 10:09</td>
+      <td>Desktop</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The first character tells you the type of the entry. A <code>d</code> indicates it’s a directory, a dash (<code>-</code>) lets you know it’s a file, and <code>l</code> tells you that the entry is  a link, which is a special type of entry that points to another file elsewhere.</p>
+
+<p>The next set of characters are the file permissions. In this example, you see <code>rwxr-x-r-x</code>, which specify the read (<code>r</code>), write (<code>w</code>), and execute (<code>x</code>) permissions for the owner, the group, and everyone else on the system:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Owner</th>
+      <th>Group</th>
+      <th>Everyone else</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>rwx</td>
+      <td>r-x</td>
+      <td>r-x</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In this case, the owner has full access to the file. The members of the group can read and execute the file, and everyone else can read and execute the file. We’ll get into changing owners, groups, and permissions in a little bit.</p>
+
+<p>After the permissions, there’s a number indicating the number of links, or places in the file system that point to the the file or directory. Directories will have a minimum of two links: one for the directory itself, and another for the parent directory. If the directory contains other subdirectories, the number will increase by one for each immediate subdirectory.</p>
+
+<p>After the links, you’ll see the owner of the file, followed by the group that can access the file. Then you’ll see the size of the file, the last modified date, and the filename itself.</p>
+
+<p>The output for the file size is shown in bytes, which isn’t too helpful given how large modern files can get. But if you use the <code>-h</code> flag in conjunction with the <code>-l</code> flag, you can get a more “human-readable” output:</p>
+
+<pre><code class="language-command">$ ls -l -h
+total 44K
+drwxr-xr-x 2 brianhogan brianhogan 4.0K May 26 10:09 Desktop
+drwxr-xr-x 2 brianhogan brianhogan 4.0K May 26 10:07 Documents
+drwxr-xr-x 2 brianhogan brianhogan 4.0K May 26 10:07 Downloads
+-rw-r--r-- 1 brianhogan brianhogan 8.8K May 26 10:06 examples.desktop
+drwxr-xr-x 2 brianhogan brianhogan 4.0K May 26 10:07 Music
+drwxr-xr-x 2 brianhogan brianhogan 4.0K May 26 10:07 Pictures
+drwxr-xr-x 2 brianhogan brianhogan 4.0K May 26 10:07 Public
+drwxr-xr-x 2 brianhogan brianhogan 4.0K May 26 10:07 Videos
+</code></pre>
+
+<p>To save a few keystrokes, you can combine single-letter arguments together, like this:</p>
+
+<pre><code>$ ls -lh
+</code></pre>
+
+<p>Any file name or directory name that begins with a dot will be hidden from directory listings. They’re also often hidden in the GUI unless you change how you’ve set things up.  Configuration files for your shell or programs often use this naming convention, and we commonly refer to these as dotfiles. Your system has a few of these hidden files in your home directory. To view them, add the <code>a</code> flag to your <code>ls</code> command:</p>
+
+<pre><code class="language-command">$ ls -alh
+</code></pre>
+
+<p>This time, your directory listing will return many more files.</p>
+
+<p>The <code>ls</code> command isn’t limited to showing you the contents of the current directory; you can also use it to get information about a specific file.</p>
+
+<p>On Ubuntu, there’s a file in your home folder called <code>.bashrc</code> which contains commands that get run when you log in to an interactive shell session.  To get information about
+this file, execute this command:</p>
+
+<pre><code class="language-command">$ ls -alh .bashrc
+-rw-r--r-- 1 brianhogan brianhogan 3.7K Aug 26 10:06 .bashrc
+</code></pre>
+
+<p>If the file doesn’t exist, <code>ls</code> will let you know.</p>
+
+<p>You can also use <code>ls</code> to get a listing of any other directory on your system by  specifying the name of the directory. View the contents of the <code>Documents</code> folder:</p>
+
+<pre><code class="language-command">$ ls -lh Documents
+total 0
+</code></pre>
+
+<p>In this case, the <code>Documents</code> folder doesn’t have any files in it.</p>
+
+<p>When you pass <code>ls</code> a file name, it shows you the details about a file. When you pass a directory, <code>ls</code> displays the directory’s contents. If you wanted the <code>ls</code> command to show you the information about the directory rather than its cotents, add the <code>-d</code> argument, like this:</p>
+
+<pre><code class="language-command">$ ls -lhd Documents
+drwxr-xr-x  2 brianhogan brianhogan 4.0K Aug 26 10:07 Documents
+</code></pre>
+
+<p>The <code>*</code> character is a wildcard character, and you can use it with the <code>ls</code> command to view only certain types of files. Want to list all <code>.txt</code> files in the current folder? Use this command:</p>
+
+<pre><code class="language-command">$ ls *.txt
+</code></pre>
+
+<p>Wildcards even work with directories.  Try this command to list all directories starting with <code>D</code>:</p>
+
+<pre><code class="language-command">$ ls -lh D*
+Desktop:
+total 4.0K
+-rw-rw-r-- 1 brian brian 6 Sep  5 21:36 greetings.txt
+
+Documents:
+total 0
+
+Downloads:
+total 0
+</code></pre>
+
+<p>This time, the <code>ls</code> command showed you the contents of three directories at once.</p>
+
+<h3 id="the-file-system">2. The File System</h3>
+
+<h4 id="competencies-addressed-1">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>The <code>cd</code> command lets you change directories. It’s our tool for changing our current working directory, or our “location” on the file system. As you’ve already seen, using <code>cd</code> by itself takes you straight to your home directory. Execute this command in your shell right now:</p>
+
+<pre language="session"><code>$ cd
+</code></pre>
+
+<p>Then execute the <code>pwd</code> command to check your location. You’ll see a file path displayed:</p>
+
+<pre language="session"><code>$ pwd
+/home/brianhogan
+</code></pre>
+
+<p>Each slash in the path represents a part of the hierarchy. So, <code>/home/brianhogan</code> is just another way to represent this:</p>
+
+<pre><code>/
+└── home/
+    └── brianhogan
+</code></pre>
+
+<p>If you’ve built a web site and referenced images or CSS files, or written code to work with files, you’re already familiar with the concept of specifying paths to files.</p>
+
+<p>Your home directory is just one part of the <firstuse>file system</firstuse>. The file system is a hierarchy of files and directories, all starting at the <firstuse>root directory</firstuse>, which we represent with the forward slash character (<code>/</code>).</p>
+
+<p>Other disks and file systems are mounted as child directories on this file system.  If you’re familiar with Windows operating system, you may be used to having a <code>C:</code> drive or a <code>D:</code> drive, each with its own collections of files and directories. But on a Unix-like system, disks are <firstuse>mounted</firstuse>, or attached, to a single tree of directories and files. This includes optical media like DVDs and external disks. To access them, you’ll navigate to the directory that points to the device.</p>
+
+<p>The <strong>root file system</strong> is the name we give the file system on a Unix-like system that contains the <strong>root</strong> directory (<code>/</code>) and where all other disks and file systems are mounted.</p>
+
+<p>The following figure illustrates this hierarchy:</p>
+
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="-188 -193.5 679.5 310" width="679.5" height="310">
+  <defs>
+    <font-face font-family="Helvetica" font-size="12" units-per-em="1000" underline-position="-75.68359" underline-thickness="49.316406" slope="0" x-height="522.9492" cap-height="717.28516" ascent="770.0195" descent="-229.98047" font-weight="400">
+      <font-face-src>
+        <font-face-name name="Helvetica" />
+      </font-face-src>
+    </font-face>
+  </defs>
+  <metadata> Produced by OmniGraffle 7.8
+    <dc:date>2018-07-26 01:24:24 +0000</dc:date>
+  </metadata>
+  <g id="Canvas_1" fill-opacity="1" stroke-dasharray="none" stroke="none" stroke-opacity="1" fill="none">
+    <title>Canvas 1</title>
+    <rect fill="white" x="-188" y="-193.5" width="679.5" height="310" />
+    <g id="Canvas_1: Layer 1">
+      <title>Layer 1</title>
+      <g id="Graphic_50">
+        <rect x="81" y="-193" width="75" height="40" fill="white" />
+        <rect x="81" y="-193" width="75" height="40" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+        <text transform="translate(86 -180)" fill="black">
+          <tspan font-family="Helvetica" font-size="12" font-weight="400" fill="black" x="30.833008" y="11">/</tspan>
+        </text>
+      </g>
+      <g id="Graphic_49">
+        <rect x="-187.5" y="-97" width="75" height="40" fill="white" />
+        <rect x="-187.5" y="-97" width="75" height="40" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+        <text transform="translate(-182.5 -84)" fill="black">
+          <tspan font-family="Helvetica" font-size="12" font-weight="400" fill="black" x="22.826172" y="11">bin/</tspan>
+        </text>
+      </g>
+      <g id="Graphic_47">
+        <rect x="3.5" y="-17" width="75" height="40" fill="white" />
+        <rect x="3.5" y="-17" width="75" height="40" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+        <text transform="translate(8.5 -4)" fill="black">
+          <tspan font-family="Helvetica" font-size="12" font-weight="400" fill="black" x="7.489258" y="11">youruser/</tspan>
+        </text>
+      </g>
+      <g id="Graphic_46">
+        <rect x="-43" y="76" width="75" height="40" fill="white" />
+        <rect x="-43" y="76" width="75" height="40" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+        <text transform="translate(-38 89)" fill="black">
+          <tspan font-family="Helvetica" font-size="12" font-weight="400" fill="black" x="8.822266" y="11">Desktop/</tspan>
+        </text>
+      </g>
+      <g id="Graphic_45">
+        <rect x="3.5" y="-97" width="75" height="40" fill="white" />
+        <rect x="3.5" y="-97" width="75" height="40" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+        <text transform="translate(8.5 -84)" fill="black">
+          <tspan font-family="Helvetica" font-size="12" font-weight="400" fill="black" x="15.824219" y="11">home/</tspan>
+        </text>
+      </g>
+      <g id="Graphic_44">
+        <rect x="132.5" y="-97" width="75" height="40" fill="white" />
+        <rect x="132.5" y="-97" width="75" height="40" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+        <text transform="translate(137.5 -84)" fill="black">
+          <tspan font-family="Helvetica" font-size="12" font-weight="400" fill="black" x="22.498047" y="11">usr/</tspan>
+        </text>
+      </g>
+      <g id="Graphic_43">
+        <rect x="227" y="-97" width="75" height="40" fill="white" />
+        <rect x="227" y="-97" width="75" height="40" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+        <text transform="translate(232 -84)" fill="black">
+          <tspan font-family="Helvetica" font-size="12" font-weight="400" fill="black" x="22.498047" y="11">var/</tspan>
+        </text>
+      </g>
+      <g id="Graphic_42">
+        <rect x="321.5" y="-97" width="75" height="40" fill="white" />
+        <rect x="321.5" y="-97" width="75" height="40" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+        <text transform="translate(326.5 -84)" fill="black">
+          <tspan font-family="Helvetica" font-size="12" font-weight="400" fill="black" x="22.492188" y="11">opt/</tspan>
+        </text>
+      </g>
+      <g id="Graphic_41">
+        <rect x="416" y="-97" width="75" height="40" fill="white" />
+        <rect x="416" y="-97" width="75" height="40" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+        <text transform="translate(421 -84)" fill="black">
+          <tspan font-family="Helvetica" font-size="12" font-weight="400" fill="black" x="20.831055" y="11">tmp/</tspan>
+        </text>
+      </g>
+      <g id="Graphic_38">
+        <rect x="44.5" y="76" width="75" height="40" fill="white" />
+        <rect x="44.5" y="76" width="75" height="40" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+        <text transform="translate(49.5 89)" fill="black">
+          <tspan font-family="Helvetica" font-size="12" font-weight="400" fill="black" x=".4873047" y="11">Documents/</tspan>
+        </text>
+      </g>
+      <g id="Line_28">
+        <line x1="41" y1="-56.5" x2="41" y2="-17.5" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+      </g>
+      <g id="Line_27">
+        <path d="M -5.5 75.5 L -5.5 53.5 L 82 54 L 82 75.5" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+      </g>
+      <g id="Line_26">
+        <line x1="41.40314" y1="23.499903" x2="41.99845" y2="53.77142" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+      </g>
+      <g id="Graphic_25">
+        <text transform="translate(-77 -180)" fill="black">
+          <tspan font-family="Helvetica" font-size="12" font-weight="400" fill="black" x=".2236328" y="11">File system &quot;root&quot; directory</tspan>
+        </text>
+      </g>
+      <g id="Graphic_24">
+        <text transform="translate(-115.5 -4)" fill="black">
+          <tspan font-family="Helvetica" font-size="12" font-weight="400" fill="black" x=".02734375" y="11">Your home directory</tspan>
+        </text>
+      </g>
+      <g id="Graphic_2">
+        <text transform="translate(-177.5 89)" fill="black">
+          <tspan font-family="Helvetica" font-size="12" font-weight="400" fill="black" x=".1796875" y="11">Your graphical desktop</tspan>
+        </text>
+      </g>
+      <g id="Graphic_54">
+        <rect x="98" y="-17" width="75" height="40" fill="white" />
+        <rect x="98" y="-17" width="75" height="40" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+        <text transform="translate(103 -4)" fill="black">
+          <tspan font-family="Helvetica" font-size="12" font-weight="400" fill="black" x="22.826172" y="11">bin/</tspan>
+        </text>
+      </g>
+      <g id="Graphic_53">
+        <rect x="192.5" y="-17" width="75" height="40" fill="white" />
+        <rect x="192.5" y="-17" width="75" height="40" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+        <text transform="translate(197.5 -4)" fill="black">
+          <tspan font-family="Helvetica" font-size="12" font-weight="400" fill="black" x="18.493164" y="11">local/</tspan>
+        </text>
+      </g>
+      <g id="Line_52">
+        <path d="M 135.26163 -17.499966 L 135 -40 L 229 -39.5 L 229.51765 -17.499862" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+      </g>
+      <g id="Line_51">
+        <line x1="170.5521" y1="-56.50018" x2="171.00164" y2="-39.8085" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+      </g>
+      <g id="Graphic_55">
+        <rect x="-92" y="-97" width="75" height="40" fill="white" />
+        <rect x="-92" y="-97" width="75" height="40" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+        <text transform="translate(-87 -84)" fill="black">
+          <tspan font-family="Helvetica" font-size="12" font-weight="400" fill="black" x="22.829102" y="11">etc/</tspan>
+        </text>
+      </g>
+      <g id="Line_57">
+        <path d="M 118.5 -153 L 118.5 -128.14319 L 451.651 -128.14319 L 452.77693 -97" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+      </g>
+      <g id="Line_58">
+        <line x1="358.95083" y1="-97" x2="358.87427" y2="-128.14319" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+      </g>
+      <g id="Line_59">
+        <line x1="264.72126" y1="-97" x2="265.0658" y2="-128.14319" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+      </g>
+      <g id="Line_60">
+        <line x1="170.05335" y1="-97" x2="170.13641" y2="-128.14319" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+      </g>
+      <g id="Line_61">
+        <path d="M 118.5 -128.14319 L -149.2337 -128.14319 L -149.70033 -97" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+      </g>
+      <g id="Line_63">
+        <line x1="-54.0607" y1="-97" x2="-53.37665" y2="-128.14319" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+      </g>
+      <g id="Line_64">
+        <line x1="41" y1="-97" x2="41" y2="-128.14319" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+      </g>
+    </g>
+  </g>
+</svg>
+
+<p>This figure shows the most common directories on a Unix-like file system. Here’s what each folder is for:</p>
+
+<ul>
+  <li>The <strong>file system root</strong>, represented by  <code>/</code>, a single forward slash.</li>
+  <li>The <code>/bin</code> folder traditionally contains base commands and programs necessary to operate the operating system.</li>
+  <li>The <code>/etc</code> folder contains configuration files for system-wide applications, such as web servers or database servers.</li>
+  <li>The <code>/home</code> folder contains the home folders for users on the system. On macOS, this folder is called <code>Users</code> instead.</li>
+  <li>The <code>/usr/bin</code> folder contains additional commands and programs that build on top of those in the <code>bin</code> folder.</li>
+  <li>The <code>/usr/local</code> folder is where you can install your own system-wide commands and utilities.</li>
+  <li>The <code>/opt</code> folder is often where you’ll find, or install, software installed from source. This is a good place to put alternative versions of software so it won’t conflict with existing versions.</li>
+  <li>The <code>/var</code> folder is where programs typically put their data.  For example, logs are in <code>/var/logs</code>. And on a web server, you’ll often find web pages in <code>/var/www</code>.</li>
+  <li>The <code>/tmp</code> folder is a system-wide place for temporary files. It’s readable and writable by everyone on the system.</li>
+</ul>
+
+<p>Using the <code>cd</code> command, you can navigate to any place on the file system using a single command.</p>
+
+<h3 id="changing-directories">3. Changing Directories</h3>
+
+<h4 id="competencies-addressed-2">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>Using the <code>cd</code> command, you can navigate to any place on the file system using a single command.  To jump to the root of the file system, execute this command:</p>
+
+<pre><code>$ cd /
+</code></pre>
+
+<p>Use the <code>pwd</code> command and you’ll see that the current working directory is <code>/</code>. Use the <code>ls</code> command to get a list of the directories and you’ll see something like the following:</p>
+
+<pre language="session"><code>$ ls
+bin    dev   initrd.img  lost+found  opt   run   srv  usr      vmlinuz
+boot   etc   lib         media       proc  sbin  sys  vagrant
+cdrom  home  lib64       mnt         root  snap  tmp  var
+</code></pre>
+
+<p>You’ll see the <code>bin</code> folder, the <code>var</code> folder, and the <code>usr</code> folder you saw in the preceding figure.</p>
+
+<p>Use the <code>cd</code> command to navigate into the <code>/var</code> folder:</p>
+
+<pre><code>$ cd var
+</code></pre>
+
+<p>The prompt changes, and you can also use <code>pwd</code> to verify that you’re now in the <code>/var</code> directory.</p>
+
+<pre><code>$ pwd
+/var
+</code></pre>
+
+<p>Now use the <code>ls</code> command again to see the contents of the <code>var</code> folder:</p>
+
+<pre><code>$ ls
+backups  cache  crash  lib  local  lock  log  mail  metrics  opt
+run  snap  spool  tmp
+</code></pre>
+
+<p>Use the <code>cd</code> command to navigate into the <code>log</code> directory within this directory:</p>
+
+<pre><code>$ cd log
+$ pwd
+/var/log
+</code></pre>
+
+<p>Notice that we moved to the <code>var</code> folder first, and then went into the <code>log</code> folder. You can shorten that a bit by telling <code>cd</code> to change to the child folder directly by specifying the path <code>var/log</code>.  Return to the file system root and try it out:</p>
+
+<pre language="session"><code>$ cd /
+$ cd var/log
+$ pwd
+/var/log
+</code></pre>
+
+<p>From here you can use <code>cd /</code> to jump back to the root of the file system, or use <code>cd</code> to get to your home directory.</p>
+
+<h3 id="absolute-paths">4. Absolute Paths</h3>
+
+<h4 id="competencies-addressed-3">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>You can navigate the file system much more quickly by using the entire path to a directory from the root of the file system. Let’s navigate to the <code>/usr/bin</code> directory.  In a GUI, you’d have to go to the <code>/usr</code> folder first, and then open the <code>bin</code> directory. But the <code>cd</code> command can take entire file paths,  so you can jump to the <code>/usr/bin</code> directory in a single command.</p>
+
+<pre><code>$ cd /usr/bin
+</code></pre>
+
+<p>This command says:</p>
+
+<ol>
+  <li>Go to the root of the file system.</li>
+  <li>Then go into the <code>usr</code> folder.</li>
+  <li>Finally, go into the <code>bin</code> folder.</li>
+</ol>
+
+<p>Try moving around to a few locations this way. Navigate to the <code>/usr/lib</code> directory, and then back to the <code>/var</code> directory:</p>
+
+<pre><code>$ cd /usr/lib
+$ pwd
+/usr/lib
+$ cd /var
+$ pwd
+/var
+</code></pre>
+
+<h3 id="dots-and-double-dots">5. Dots and Double Dots</h3>
+
+<h4 id="competencies-addressed-4">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>There are two shortcuts that help us work with files and directory paths when working on the command line; the dot (<code>.</code>) and the double dot (<code>..</code>).</p>
+
+<p>Use the <code>ls -alh</code> command to get a list of the files in the current directory, including the hidden ones:</p>
+
+<pre language="session"><code>$ ls -alh
+</code></pre>
+
+<p>Take a look at the top two entries in the listing:</p>
+
+<pre language="session"><code>total 124K
+drwxr-xr-x 15 root root 4.0K Jun 10 11:34 .
+drwxr-xr-x  4 root root 4.0K May 26 10:06 ..
+</code></pre>
+
+<p>The first entry is a dot (<code>.</code>). It represents the <em>current directory</em>. The second entry, the double dot (<code>..</code>), represents the directory that contains the current directory. We call this the <em>parent</em> directory.</p>
+
+<p>To quickly change to the parent directory, <code>/var</code>, you can execute the command</p>
+
+<pre language="session"><code>$ cd ..
+$ pwd
+/var
+</code></pre>
+
+<p>So, <code>cd ..</code> will change your working directory to the parent directory, regardless of where you’re currently located on the file system. But if you need to quickly visit the directory above the parent, you can execute this command:</p>
+
+<pre><code>$ cd ../..
+</code></pre>
+
+<p>Each <code>..</code> entry in this command means “up one folder.”</p>
+
+<p>Try it out. Return to your home folder, then navigate to the <code>/home</code> directory’s parent folder (which should be the file system root) using the double dot shortcut:</p>
+
+<pre><code>$ cd
+$ cd ../..
+$ pwd
+/
+</code></pre>
+
+<p>Using that command, you’ve jumped to the root directory of the file system.</p>
+
+<p>You can take this a step further if you like. Change the current working directory to the <code>/usr/bin</code> folder, and then navigate to the <code>/var</code> folder using the shortcuts in a single command:</p>
+
+<pre language="session"><code>$ cd /usr/bin
+$ cd ../../var
+$ pwd
+/var
+</code></pre>
+
+<h3 id="you-try-it">6. You Try It</h3>
+
+<h4 id="competencies-addressed-5">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>Try this little exercise to make sure you’re comfortable navigating around using the double-dot syntax:</p>
+
+<ol>
+  <li>Use <code>cd</code> to go to your home folder.</li>
+  <li>Use <code>cd ../../var</code> to go to the <code>/var</code> folder.</li>
+  <li>Use <code>cd ../usr</code> to get to the <code>/usr folder</code>.</li>
+  <li>Use <code>cd local</code> to get to the <code>/usr/local</code> folder`.</li>
+  <li>Use <code>cd ../bin</code> to get to the <code>/usr/bin</code> folder.</li>
+  <li>Return to your home folder with <code>cd</code>.</li>
+</ol>
+
+<h3 id="switching-to-the-previous-directory">7. Switching to the Previous Directory</h3>
+
+<h4 id="competencies-addressed-6">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>The <code>cd -</code> command switches to the previous directory you used.</p>
+
+<p>Go to your home directory. Then navigate to the <code>/var</code> directory. Use <code>cd -</code> to switch back and forth between the two:</p>
+
+<pre language="session"><code>$ cd
+$ cd /var
+$ cd -
+/home/brianhogan
+$ cd -
+/var
+</code></pre>
+
+<p>When you use the <code>cd -</code> command, it automatically prints the new current working directory for you, so you don’t have to use the <code>pwd</code> command manually.</p>
+
+<h3 id="managing-directory-stacks">8. Managing Directory Stacks</h3>
+
+<h4 id="competencies-addressed-7">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>The <code>pushd</code> command, short for “push directory”, changes your current working directory and adds it to a directory stack, or a list of directories. You can then view this stack, or easily jump to an entry in the stack. Try it out. Use <code>pushd</code> to switch to the <code>/var</code> folder:</p>
+
+<pre><code>$ pushd /var
+/var ~
+</code></pre>
+
+<p>The <code>pushd</code> command switches your working directory, but it also displays the contents of the directory stack.  The current directory is listed first, followed by the previous directory.  Use <code>pushd</code> to navigate to the <code>/tmp</code> directory:</p>
+
+<pre><code>$ pushd /tmp
+/tmp /var ~
+</code></pre>
+
+<p>Your location changes, and the directory stack has a new entry at the front. Now switch to the <code>/usr</code> folder with <code>pushd</code>:</p>
+
+<pre><code>$ pushd /usr
+/usr /tmp /var ~
+</code></pre>
+
+<p>The <code>popd</code> command removes the first entry from the stack, and then changes your location to the new first entry:</p>
+
+<pre><code>$ popd
+/tmp /var ~
+</code></pre>
+
+<p>This places you in the <code>/tmp</code> directory now, and the stack reflects this. You can keep using <code>popd</code> to traverse backwards through your previous locations.</p>
+
+<p>Use <code>pushd</code> to navigate to the <code>/usr/bin</code> directory:</p>
+
+<pre><code>$ pushd /usr/bin
+/usr/bin /tmp /var ~
+</code></pre>
+
+<p>You can view the directory stack with the <code>dirs</code> command, and if you use the <code>-v</code> switch, you’ll see the index associated with each entry in the stack:</p>
+
+<pre><code>$ dirs -v
+0  /usr/bin
+1  /tmp
+2  /var
+3  ~
+</code></pre>
+
+<p>You can use these indexes to jump from one folder to another. Jump to the <code>/var</code> folder with:</p>
+
+<pre><code>$ pushd +2
+/var ~ /usr/bin /tmp
+</code></pre>
+
+<p>This moves the <code>/var</code> folder to the top of the stack. If you wanted to switch to the <code>/tmp</code> folder with <code>pushd</code>, what index would you use?</p>
+
+<p>You’d use <code>3</code>:</p>
+
+<pre><code>$ pushd +3
+/tmp /var ~ /usr/bin
+</code></pre>
+
+<p>Using <code>pushd</code> and an index doesn’t add or remove entries from the stack, but it does change the order of the entries.</p>
+
+<h3 id="you-try-it-1">9. You Try It</h3>
+
+<h4 id="competencies-addressed-8">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>Try these exercises to see how much you remember:</p>
+
+<ol>
+  <li>Navigate to your home directory.</li>
+  <li>Use the <code>ls</code> command to list the contents of the <code>/var/log</code> directory.</li>
+  <li>In a single command, switch to the <code>/usr/local/bin</code> folder.</li>
+  <li>Switch to the <code>/var/log</code> folder in a single command using the double-dot syntax.</li>
+  <li>Switch to your home directory in a single command using the double-dot syntax.</li>
+  <li>Use the <code>pushd</code> command to navigate to <code>/opt</code>. Use <code>pushd</code> again to navigate to <code>/var/log</code>. Then use <code>popd</code> to return to your home directory.</li>
+</ol>
+
+<h3 id="using-find-to-locate-files">10. Using Find to locate files</h3>
+
+<h4 id="competencies-addressed-9">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>Sometimes you just don’t know where to look for a file. Maybe you’ve misplaced it, or maybe you’re like me and you save everything you’ve ever done and have lost track of the file several months ago. GUI interfaces usually have some tool that can search through your disk and find files. There’s a tool on the CLI that does that too, and it’s the approriately named <code>find</code> command.</p>
+
+<p>With <code>find</code>, you can locate files by name, last modified date, or even by the content they contain.</p>
+
+<p>Earlier, you created a file called <code>greetings.txt</code> in the <code>~/Desktop</code> directory. Let’s use the <code>find</code> command to look for that file in the <code>Desktop</code> folder:</p>
+
+<pre><code>$ find ~/Desktop -name "greetings.txt"
+/home/brianhogan/Desktop/greetings.txt
+</code></pre>
+
+<p>The <code>find</code> command displays the full path to the file. The <code>-name</code> argument lets us specify the filename.</p>
+
+<p>If you don’t know the entire name of the file, you can use the wildcard character (<code>*</code>) in the filename, like this:</p>
+
+<pre><code>$ find ~/Desktop -name "gr*.txt"
+/home/brianhogan/Desktop/greetings.txt
+</code></pre>
+
+<p>This searches the <code>Desktop</code> folder for any files that start with <code>gr</code> and end with <code>.txt</code>.</p>
+
+<p>The <code>find</code> command searches a directory and its subdirectories by default. Use <code>find</code> to display all of the files with the <code>.log</code> extension in the <code>/var/log</code> folder:</p>
+
+<pre><code>find /var/log -name "*.log"
+</code></pre>
+
+<p>This displays a longer list of results.</p>
+
+<p>Filenames can contain both uppercase and lowercase letters, but the <code>-name</code> argument is case-sensitve. You can use <code>-iname</code> instead if you to find anything that matches, regardless of case. Search for files in the <code>Desktop</code> folder that start with <code>GR</code> using the <code>--name</code> flag. It’ll return no results:</p>
+
+<pre><code>$ find ~/Desktop -name "GR*.txt"
+$
+</code></pre>
+
+<p>But if you use the <code>iname</code> flag, the <code>greetings.txt</code> file will show up:</p>
+
+<pre><code>$ find ~/Desktop -iname "GR*.txt"
+/home/brianhogan/Desktop/greetings.txt
+</code></pre>
+
+<p>The <code>find</code> command searches directories recursively, so it can take a considerable amount of time if you start your search on a directory structure with lots of subdirectories, like your home directory or the file system root. You can tell <code>find</code> to only search a certain depth with the <code>--maxdepth</code> argument:</p>
+
+<pre><code>$ find ~ -maxdepth 2 -iname "GR*.txt"
+/home/brianhogan/Desktop/greetings.txt
+</code></pre>
+
+<p>The <code>-maxdepth</code> option has to come before you test for matching filenames.</p>
+
+<p>You can also use <code>find</code> to look for files that recently changed. Let’s look for files in the <code>/var/log</code> folder that changed in the last 30 minutes. This could be a nice way to figure out what logs on your operating system were recently active.</p>
+
+<pre><code>$ find /var/log  -mmin -30
+</code></pre>
+
+<p>The <code>mmin</code> argument looks for things that were modified a specified number of minutes ago. Using a minus sign in front of the number makes the search look for files from the current time backwards to the specified number of minutes. If you leave the minus sign off, you’d be looking for files that changed <em>exactly</em> that many  minutes ago.</p>
+
+<p>When you look for files, you might want to see their attributes like you would when you run the <code>ls</code> command. The <code>find</code> command provides the <code>ls</code> argument to do just that. Try it out by finding anything in the <code>/var/log</code> directory that changed within the last 30 minutes:</p>
+
+<pre><code>$ find /var/log -mmin -30 -ls
+</code></pre>
+
+<p>You’ll get a long listing of the files similar to what you’d get if you ran the <code>ls -l</code> command.</p>
+
+<h3 id="disk-space">11. Disk Space</h3>
+
+<h4 id="competencies-addressed-10">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>The <code>df</code> command will show you the file systems, size, used space, available space, and where it’s mounted on the file system. By default, it shows everything in bytes. If you use the <code>-h</code> flag, you’ll see all of the sizes represented more clearly.</p>
+
+<p>Execute the <code>df -h</code> command to see the results on your system:</p>
+
+<pre><code>$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+udev            474M     0  474M   0% /dev
+tmpfs            99M  3.6M   96M   4% /run
+/dev/sda1        31G  4.8G   25G  17% /
+tmpfs           495M  216K  495M   1% /dev/shm
+tmpfs           5.0M  4.0K  5.0M   1% /run/lock
+tmpfs           495M     0  495M   0% /sys/fs/cgroup
+tmpfs            99M   52K   99M   1% /run/user/1000
+</code></pre>
+
+<p>The system in this example has several devices and disks that store files. Remember that each disk or storage device on the system is mounted somewhere on the main file system. The output of this command shows each device or file system, its total available space, the amount used, and where it’s mounted on the main file system.
+Look at the entry for <code>/dev/sda1</code> in the output of <code>df -h</code>  again:</p>
+
+<pre><code>Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda1        31G  4.8G   25G  17% /
+</code></pre>
+
+<p>The output shows the disk is 31GB in size, and it’s 17% full. What’s taking up the space though?</p>
+
+<p>The <code>du</code> command lets you look at disk usage, whereas the <code>df</code> command just looks at the filesystem metadata. Using <code>du</code>, you can find out where your space is going.</p>
+
+<p>Use <code>du -h</code> on your home directory to show how much disk space each directory in your home directory is taking up. Be warned though, if you have a lot of files, this will take quite a while to scan them all:</p>
+
+<pre><code>$ du -h
+4.0K	./Documents
+4.0K	./Templates
+4.0K	./Videos
+4.0K	./Pictures
+4.0K	./Public
+236K	./.cache/wallpaper
+
+...
+
+220K	./.config
+8.0K	./Desktop
+1.8M	.
+</code></pre>
+
+<p>You’ll get quite the list, but next to each entry, you’ll see how much space each entry uses.</p>
+
+<p>This output only shows directories that take up space. If you wanted to see the files as well, add the <code>-a</code> switch to see all files.</p>
+
+<p>The very last item in the list is a total of the space used for that directory and its children. If you just want to see this summary, without all of the files, use <code>du -sh</code>:</p>
+
+<pre><code>$ du -sh
+1.8M	.
+</code></pre>
+
+<p>A lot of times, what you’re really looking for is a breakdown of the directories and their sizes at a high-level. You can control the depth with the <code>-d</code> switch. Execute this command to show the space used by each directory:</p>
+
+<pre><code>$ du -h -d 1
+4.0K	./Documents
+4.0K	./Templates
+4.0K	./Videos
+4.0K	./Pictures
+4.0K	./Public
+964K	./.cache
+4.0K	./.gconf
+8.0K	./.gnupg
+4.0K	./.nano
+464K	./.local
+4.0K	./Music
+4.0K	./Downloads
+220K	./.config
+8.0K	./Desktop
+1.8M	.
+</code></pre>
+
+<p>You still get the summary at the bottom, but it doesn’t drill down and show you the contents of each child directory.</p>
+
+<h3 id="creating-blank-files">12. Creating Blank Files</h3>
+
+<h4 id="competencies-addressed-11">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>Now, use <code>touch</code> to create a new file called <code>file.txt</code>:</p>
+
+<pre><code>$ touch file.txt
+</code></pre>
+
+<p>Verify that it exists by using the <code>ls -lh</code> command:</p>
+
+<pre><code>$ ls -lh file.txt
+-rw-r--r--  1 brianhogan  brianhogan     0B Mar 15 14:09 file.txt
+</code></pre>
+
+<p>The file doesn’t have any contents, but it was created successfully. This is a handy way to create a blank file that you can then modify elsewhere.</p>
+
+<p>Remember that <code>touch</code> updates a file’s timestamp whenever you run it. Wait a minute and run the <code>touch</code> command on this file again. Then get a new listing:</p>
+
+<pre language="session"><code>$ touch file.txt
+$ ls -alh file.txt
+-rw-r--r--  1 brianhogan  staff     0B Mar 15 14:11 file.txt
+</code></pre>
+
+<p>You’ll notice that the timestamp has changed.</p>
+
+<p>You can use <code>touch</code> to operate on more than one file at once. All you have to do is provide it with a list of filenames, separated with spaces. Give it a try:</p>
+
+<pre><code>$ touch index.html about.html style.css
+</code></pre>
+
+<p>This creates the three files <code>index.html</code>, <code>about.html</code>, and <code>style.css</code> in the current folder. Go ahead and verify that with the <code>ls</code> command:</p>
+
+<pre><code>$ ls
+about.html file.txt   index.html style.css
+</code></pre>
+
+<p>But you’re not limited in where you create the files.</p>
+
+<p>You can create a file in the current folder and a file in the <code>Documents</code> folder as well, all with a single command:</p>
+
+<pre><code>$ touch this_goes_in_home.txt Documents/this_goes_in_Documents.txt
+</code></pre>
+
+<p>By specifying a relative path or a full path to a folder, you can create files anywhere on your file system.</p>
+
+<h3 id="creating-files-with-content">13. Creating Files with Content</h3>
+
+<h4 id="competencies-addressed-12">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>The <code>touch</code> command creates blank text files, and as you already know, you can capture the output of programs to a text file by redirecting the program’s output to a file. Let’s review this by creating a new text file in the current directory that contains the text “Hello, World”. Use the <code>echo</code> command to print out the text and then redirect it to a file:</p>
+
+<pre language="session"><code>$ echo 'Hello, World' &gt; hello.txt
+</code></pre>
+
+<p>If the file <code>hello.txt</code> doesn’t exist, it’ll be created. If it does exist, <strong>it’ll get overwritten.</strong> So you have to be incredibly careful with this command. You could accidentally erase a file’s contents this way.</p>
+
+<p>To append text to the file instead of overwriting its contents, use <code>&gt;&gt;</code> instead of <code>&gt;</code>.  So, to append another line to the file <code>hello.txt</code>, you’d do this:</p>
+
+<pre language="session"><code>$ echo 'How are you today' &gt;&gt; hello.txt
+</code></pre>
+
+<p>You can use the <code>&gt;</code> and <code>&gt;&gt;</code> symbols to redirect any program’s output messages to a file. For example, if you wanted to save the list of files in the current folder to a file, it’s as easy as</p>
+
+<pre language="session"><code>$ ls -alh &gt; files.txt
+</code></pre>
+
+<p>You can then append the output of another command to the same file using <code>&gt;&gt;</code>:</p>
+
+<pre language="session"><code>$ ls -alh ~/Documents &gt;&gt; files.txt
+</code></pre>
+
+<p>The <code>files.txt</code> file will contain the output of both commands.</p>
+
+<p>You can also create a brand new file with multiple lines of text right from the command line, without opening a text editor.</p>
+
+<p>The <code>cat</code> command reads the contents of files and displays them to the screen.  However, you can use <code>cat</code> to create new files. Let’s create a simple text file with several lines. Execute this command:</p>
+
+<pre><code>$ cat &gt; names.txt
+</code></pre>
+
+<p>After pressing <code>Enter</code>, you won’t see a prompt. You’ll just see your flashing cursor. The <code>cat</code> command is waiting for input. Type the following lines, pressing <code>Enter</code> after each line:</p>
+
+<pre><code>Homer
+Marge
+Bart
+Lisa
+Maggie
+
+</code></pre>
+
+<p>After the last line of the file, press <code>Enter</code> one more time, then press <code>Ctrl+d</code>. This will save the contents to the file.</p>
+
+<p>Use <code>cat</code> again to view the file to ensure the contents were saved:</p>
+
+<pre><code>$ cat names.txt
+Homer
+Marge
+Bart
+Lisa
+Maggie
+</code></pre>
+
+<p>Here’s how that worked. You told <code>cat</code> to start accepting text from the keyboard. Every time you pressed the <code>Enter</code> key, <code>cat</code> saved the line to the file. Pressing <code>Enter after the last line (</code>Maggie<code>) saved *that* line to the file as well.  The sequence </code>Ctrl+d<code> exits the process.  If you forget to press </code>Enter` after the last line, you won’t save the last line to the file.</p>
+
+<p>To avoid that issue entirely, tell <code>cat</code> to terminate when it sees a specific string on its own line. Try this command:</p>
+
+<pre language="session"><code>$ cat &lt;&lt; 'EOF' &gt; names.txt
+Homer
+Marge
+Bart
+Lisa
+Maggie
+EOF
+</code></pre>
+
+<p>Instead of a blank line at the end, you use the text <code>EOF</code>, or any other text you’d like. Then when you invoke <code>cat</code>, you tell it to take in keyboard input until it sees the line <code>EOF</code>.</p>
+
+<p>This is a great way to create files without switching to your GUI and breaking your flow. And we’ll use this throughout the book.</p>
+
+<h3 id="joining-files">14. Joining Files</h3>
+
+<h4 id="competencies-addressed-13">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>The <code>cat</code> file is our go-to tool for looking at the contents of small files. If you send multiple files to the <code>cat</code> command, it will read them all in the order you specified them. Try it. Create two files in your current directory:</p>
+
+<pre><code>$ echo "Hello" &gt; hello.txt
+$ echo "Goodbye" &gt; goodbye.txt
+</code></pre>
+
+<p>Now use the <code>cat</code> command to read both files:</p>
+
+<pre><code>$ cat hello.txt goodbye.txt
+Hello
+Goodbye
+</code></pre>
+
+<h3 id="you-try-it---creating-a-web-page-template">15. You Try It - Creating a Web Page Template</h3>
+
+<h4 id="competencies-addressed-14">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>First, use <code>cat</code> to create a new file called <code>header.html</code> with this content:</p>
+
+<pre><code>$ cat &lt;&lt; 'EOF' &gt; header.html
+&lt;!DOCTYPE html&gt;
+&lt;html lang=“en-US”&gt;
+  &lt;head&gt;
+    &lt;meta charset=“utf-8”&gt;
+    &lt;title&gt;$title&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div class=“content”&gt;
+      &lt;header&gt;
+        &lt;h1&gt;AwesomeCo&lt;/h1&gt;
+      &lt;/header&gt;
+EOF
+</code></pre>
+
+<p>Then create a file called <code>footer.html</code> with this content using the same method.</p>
+
+<pre><code>$ cat &lt;&lt; 'EOF' &gt; footer.html
+      &lt;footer&gt;
+        &lt;small&gt;Copyright &amp;copy; 2099 AwesomeCo&lt;/small&gt;
+      &lt;/footer&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+EOF
+</code></pre>
+
+<p>Finally, create a file called <code>main.html</code> that contains this:</p>
+
+<pre><code>$ cat &lt;&lt; 'EOF' &gt; main.html
+&lt;main&gt;
+  &lt;h2&gt;Welcome!&lt;/h2&gt;
+  &lt;p&gt;This is the main page!&lt;/p&gt;
+&lt;/main&gt;
+EOF
+</code></pre>
+
+<p>Now, join the three files together to create a new file called <code>index.html</code> using <code>cat</code>:</p>
+
+<pre><code>$ cat header.html main.html footer.html &gt; index.html
+</code></pre>
+
+<p>Now print out the contents of the new file to verify it contains the output you expected:</p>
+
+<pre><code>$ cat index.html
+&lt;!DOCTYPE html&gt;
+&lt;html lang=“en-US”&gt;
+  &lt;head&gt;
+    &lt;meta charset=“utf-8”&gt;
+    &lt;title&gt;$title&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div class=“content”&gt;
+      &lt;header&gt;
+        &lt;h1&gt;AwesomeCo&lt;/h1&gt;
+      &lt;/header&gt;
+&lt;main&gt;
+  &lt;h2&gt;Welcome!&lt;/h2&gt;
+  &lt;p&gt;This is the main page!&lt;/p&gt;
+&lt;/main&gt;
+      &lt;footer&gt;
+        &lt;small&gt;Copyright &amp;copy; 2099 AwesomeCo&lt;/small&gt;
+      &lt;/footer&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>The lines in all three files were combined into a single file.</p>
+
+<h3 id="reading-parts-of-a-file">16. Reading Parts of a File</h3>
+
+<h4 id="competencies-addressed-15">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>Sometimes the most interesting information in a file is in the first few lines or in the last few lines. That’s where the <code>head</code> and <code>tail</code> commands come in handy.</p>
+
+<p>The <code>head</code> command will read the first 10 lines from a file and display them to the screen:</p>
+
+<pre><code>$ head /var/log/syslog
+</code></pre>
+
+<p>If you want a different number of lines from the file, use the <code>-n</code> argument to specify the number of lines you want to see. To grab the first line in the <code>/var/log/syslog</code> file, use this command:</p>
+
+<pre><code>$ head -n 1 /var/log/syslog
+</code></pre>
+
+<p>The <code>tail</code> command will display the <em>last</em> 10 lines from a file by default.</p>
+
+<pre><code>$ tail /var/log/syslog
+</code></pre>
+
+<p>Like <code>head</code>, <code>tail</code> also supports specifying the number of lines you want to view by using the <code>-n</code> switch. However, with <code>tail</code>, the count starts from the end of the file.</p>
+
+<p>Try it out with the <code>names.txt</code> file you created earlier. Use the <code>-n</code> switch to show only the last two names in the file:</p>
+
+<pre><code>$ tail -n 2 names.txt
+Lisa
+Maggie
+</code></pre>
+
+<p>If you specify the number with a plus sign, <code>tail</code> will start counting from that line and display everything until the end. Give it a try. Read the <code>names.txt</code> file but don’t display the first three lines:</p>
+
+<pre><code>$ tail -n +3 names.txt
+Bart
+Lisa
+Maggie
+</code></pre>
+
+<p>The first two lines are gone. This is also a handy way of removing a line from a file. Use the <code>&gt;</code> symbol to send the result to a new file instead of to the screen:</p>
+
+<pre><code>$ tail -n +3 names.txt &gt; children.txt
+$ cat children.txt
+Bart
+Lisa
+Maggie
+</code></pre>
+
+<p><code>tail</code> has another powerful feature that comes in handy when you’re debugging things. You can use <code>tail</code> to “follow” a file and see its changes on the screen. Give it a try:</p>
+
+<pre><code>$ tail -f /var/log/syslog
+</code></pre>
+
+<p>You’ll see the last few lines of the file displayed on your screen, but you won’t be returned to your prompt. As changes happen in the file, your screen will update, displaying the new lines. This is incredibly helpful when viewing the logs for an application or other process in real-time.</p>
+
+<h3 id="creating-files-outside-of-your-home-directory">17. Creating Files Outside of your Home Directory</h3>
+
+<h4 id="competencies-addressed-16">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>Sometimes you’ll need to create files in other folders, like <code>/etc</code> or <code>/var</code>.</p>
+
+<p>Try to create a file called <code>mylog.txt</code> in the <code>/var</code> folder:</p>
+
+<pre><code>$ touch /var/mylog.txt
+touch: cannot touch '/var/mylog.txt': Permission denied
+</code></pre>
+
+<p>Since you don’t have write permissions to the <code>/var</code> folder, the command fails. You’ll have to run the command as an administrative user.</p>
+
+<p>Re-run the command with the <code>sudo</code> prefix:</p>
+
+<pre language="session"><code>$ sudo touch /var/mylog.txt
+[sudo] password for brianhogan:
+</code></pre>
+
+<p>Once you enter the password, the file will be created. However, if you look at the permissions for the file, you’ll see that it’s owned by the root user:</p>
+
+<pre language="session"><code>$ ls /var/mylog.txt
+-rw-r--r-- 1 root root 0 Jun 13 07:51 /var/mylog.txt
+</code></pre>
+
+<p>To modify the file in the future, you’ll have to continue to use the <code>sudo</code> prefix.</p>
+
+<p>There’s one other catch. You can use <code>touch</code> to create a blank file, but if you wanted to create a file with contents by using the redirection method or <code>cat</code>, it’s not as simple. Try to append some text to the <code>/var/mylog.txt</code> file:</p>
+
+<pre language="session"><code>$ sudo echo "Line one" &gt;&gt; /var/mylog.txt
+bash: /var/mylog.txt: Permission denied
+</code></pre>
+
+<p>Permission denied? But you used <code>sudo</code>! Why doesn’t it work? Well, you used <code>sudo</code> for the <code>echo</code> command. But the redirection happened as your regular user—it wasn’t part of the <code>sudo</code> process.</p>
+
+<p>You’re best off creating the file in your home directory and then moving it into place.</p>
+
+<h3 id="creating-directories">18. Creating Directories</h3>
+
+<h4 id="competencies-addressed-17">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>While you can create files several ways, you’ll use a single command to create directories: <code>mkdir</code>. You learned how to use this command already, but let’s dig in a little deeper by performing a common task: setting up a hierarchy of directories to store documents.</p>
+
+<p>Navigate to your home folder, and then create a directory called <code>files</code>:</p>
+
+<pre><code class="language-command">$ cd
+$ mkdir files
+</code></pre>
+
+<p>Then use the <code>ls</code> command to verify that the new directory exists:</p>
+
+<pre><code class="language-command">$ ls
+total 52K
+drwxr-xr-x 2 brianhogan brianhogan 4.0K Jun 11 12:06 Desktop
+drwxrwxr-x 2 brianhogan brianhogan 4.0K Jun 12 07:28 files
+drwxr-xr-x 2 brianhogan brianhogan 4.0K May 26 10:07 Documents
+drwxr-xr-x 2 brianhogan brianhogan 4.0K May 26 10:07 Downloads
+...
+</code></pre>
+
+<p>Now let’s create a directory inside of the <code>files</code> directory called <code>photos</code>. Based on what you’ve learned so far, your first instinct might be to do this by changing the working directory to the <code>files</code> directory and then issuing another <code>mkdir</code> command, but that’s not efficient. Instead, just specify the full relative path to the new folder:</p>
+
+<pre><code class="language-command">$ mkdir files/photos
+</code></pre>
+
+<p>Like the <code>ls</code>, <code>cat</code>, and <code>cd</code> commands, the <code>mkdir</code> command accepts both relative and absolute paths, and it supports the double dot syntax for parent folders. You don’t have to change your working directory just to manipulate files or directories in other locations.</p>
+
+<p>Let’s create two more directories underneath <code>files</code>: one for movies and one for music files. You can pass multiple paths to the <code>mkdir</code> command, so you can create both directories like this:</p>
+
+<pre><code class="language-command">$ mkdir files/movies files/music
+</code></pre>
+
+<p>You have to specify the path to each new directory though. If you’d executed the command <code>mkdir files/movies music</code>, then the <code>movies</code> directory would be placed under <code>files</code>, but the <code>music</code> directory would end up in your current working directory.</p>
+
+<p>Now let’s create a structure to hold documents like Markdown files and diagrams. Specifically, let’s make our  structure look like this:</p>
+
+<pre><code>files
+├── docs
+│   ├── diagrams
+│   └── markdown
+├── movies
+├── music
+└── photos
+</code></pre>
+
+<p>You might be thinking you can do this:</p>
+
+<pre><code>$ mkdir files/docs/diagrams files/docs/markdown
+</code></pre>
+
+<p>Unfortunately, you’ll see this error message:</p>
+
+<pre><code>mkdir: cannot create directory ‘files/docs/diagrams’: No such file or directory
+mkdir: cannot create directory ‘files/docs/markdown’: No such file or directory
+</code></pre>
+
+<p>In order to create a directory with the <code>mkdir</code> command, the parent directory has to exist first. The <code>files</code> directory exists, but the <code>docs</code> directory doesn’t. So we could create the <code>docs</code> folder and then issue these two commands again, but we don’t have to.</p>
+
+<p>The <code>-p</code> switch tells <code>mkdir</code> to create the entire path, including any directories that don’t yet exist. Try it out:</p>
+
+<pre><code>$ mkdir -p files/docs/diagrams files/docs/markdown
+</code></pre>
+
+<p>Let’s add one more structure - a place for our source code. We’ll make a <code>dev</code> folder, and beneath it, we’ll create the directories <code>elm</code>, <code>go</code>, and <code>js</code>. And instead of specifying each path, we’ll use a handy shortcut called <strong>brace expansion</strong>. We can place the four directories we want to create inside of curly braces, separated by commas, like this:</p>
+
+<pre><code>$ mkdir -p files/code/{elm,go,js}
+</code></pre>
+
+<p>This command creates all three directories under the <code>files/code</code> directory by taking the prefix <code>files/code</code> and appending it to each entry in the list between the braces. It’s a powerful shortcut, and you can use it in many places.</p>
+
+<p>Our completed directory structure now looks like this:</p>
+
+<pre><code>files
+├── code
+│   ├── elm
+│   ├── go
+│   └── js
+├── docs
+│   ├── diagrams
+│   └── markdown
+├── movies
+├── music
+└── photos
+</code></pre>
+
+<p>And, if you’re really trying to save time, you could create this entire structure in a single command since you can nest braces inside of braces.</p>
+
+<p>I’ll leave that up to you.</p>
+
+<h3 id="copying-files">19. Copying Files</h3>
+
+<h4 id="competencies-addressed-18">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>In the previous section, you created a directory structure that looks like this:</p>
+
+<pre><code>files
+├── code
+│   ├── elm
+│   ├── go
+│   └── js
+├── docs
+│   ├── diagrams
+│   └── markdown
+├── movies
+├── music
+└── photos
+</code></pre>
+
+<p>Let’s create a few files in there as well. First, create some empty files in each subfolder of the <code>code</code> folder. Use brace expansion to create these files quickly:</p>
+
+<pre><code>$ touch files/code/{elm/main.elm,go/main.go,js/app.js}
+</code></pre>
+
+<p>Next, create the files <code>chapter1.md</code>, <code>chapter2.md</code>, and <code>chapter3.md</code> in the <code>docs/markdown</code> folder. You can use brace expansion here too.</p>
+
+<pre><code>$ touch docs/markdown/{chapter1,chapter2,chapter3}.md
+</code></pre>
+
+<p>Verify that your structure looks like this:</p>
+
+<pre language="session"><code>$ tree files
+files
+├── code
+│   ├── elm
+│   │   └── main.elm
+│   ├── go
+│   │   └── main.go
+│   └── js
+│       └── app.js
+├── docs
+│   ├── diagrams
+│   └── markdown
+│       ├── chapter1.md
+│       ├── chapter2.md
+│       └── chapter3.md
+├── movies
+├── music
+└── photos
+</code></pre>
+
+<p>To copy a file, you use the <code>cp</code> command, and you specify the source and destination paths.</p>
+
+<p>Let’s try this out by creating a <code>README.md</code> file in the <code>files/code/elm</code> directory. We’ll then copy that file to the other code directories.</p>
+
+<pre><code>$ echo "# Project README" &gt; files/code/elm/README.md
+</code></pre>
+
+<p>To copy this file to the <code>files/code/go</code> folder, use the <code>cp</code> command and specify the source path,  <code>files/code/elm/README.md</code>, and then the destination path, <code>files/code/go/README.md</code>:</p>
+
+<pre><code>$ cp files/code/elm/README.md files/code/go/README.md
+</code></pre>
+
+<p>The file will be copied to the new location.</p>
+
+<p>You don’t actually need to specify the destination filename. Copy the same <code>README.md</code> file to the <code>files/code/js</code> folder, but this time, don’t specify the destination filename:</p>
+
+<pre><code>$ cp files/code/elm/README.md files/code/js/
+</code></pre>
+
+<p>When you don’t specify a filename, the <code>cp</code> command uses the source filename.</p>
+
+<p>However, specifying the destination name lets you copy the file and rename the new version at the same time.  In the <code>files/documents</code> folder, we have three Markdown files. Let’s create a fourth one by copying <code>chapter1.md</code> to <code>chapter4.md</code>:</p>
+
+<pre><code>$ cp files/docs/markdown/chapter1.md files/docs/markdown/chapter4.md
+</code></pre>
+
+<p>The <code>cp</code> command always replaces the destination file if it exists. Run the command again:</p>
+
+<pre><code>$ cp files/docs/markdown/chapter1.md files/docs/markdown/chapter4.md
+</code></pre>
+
+<p>You get absolutely no warning. Be careful when copying files around; it’s very easy to specify the wrong destination and lose data. If you don’t like the default behavior, you can alter it with the <code>-i</code> switch, which will ask you to confirm your actions:</p>
+
+<pre><code>$ cp -i files/docs/markdown/chapter1.md files/docs/markdown/chapter4.md
+cp: overwrite 'files/docs/markdown/chapter4.md'? y
+</code></pre>
+
+<p>The <code>cp</code> command also accepts wildcard characters. That means you can copy all of the Markdown documents to a new folder with a single command. Let’s do that.</p>
+
+<p>First, let’s create a new folder called <code>backups</code> under the <code>files</code> directory:</p>
+
+<pre><code>$ mkdir files/backups
+</code></pre>
+
+<p>Then use the <code>cp</code> command to copy all of the Markdown files from the <code>files/documents/markdown</code> directory to the <code>files/backups</code> directory:</p>
+
+<pre><code>$ cp files/docs/markdown/*.md files/backups
+</code></pre>
+
+<p>Verify that the files are there using either the <code>ls</code> command or the <code>tree</code> command.</p>
+
+<h3 id="copying-directories">20. Copying Directories</h3>
+
+<h4 id="competencies-addressed-19">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>When you copy a directory, you’re making a duplicate of the directory and its contents, including all files and subdirectories. Let’s demonstrate by making a backup of the <code>documents</code> folder in our structure.</p>
+
+<p>Try copying <code>files/code</code> to <code>files/backups/code</code>:</p>
+
+<pre><code>$ cp files/code files/backups
+cp: omitting directory 'files/code'
+</code></pre>
+
+<p>Try again, but this time, use the <code>-r</code> switch:</p>
+
+<pre><code>$ cp -r files/code files/backups/code
+</code></pre>
+
+<p>This results in the following structure, which you can verify with the <code>tree</code> command:</p>
+
+<pre><code>$ tree files
+files
+├── backups
+│   ├── chapter1.md
+│   ├── chapter2.md
+│   ├── chapter3.md
+│   ├── chapter4.md
+│   └── code
+│       ├── elm
+│       │   ├── main.elm
+│       │   └── README.md
+│       ├── go
+│       │   ├── main.go
+│       │   └── README.md
+│       └── js
+│           ├── app.js
+│           └── README.md
+...
+</code></pre>
+
+<p>Notice that we specified the destination directory. If the destination directory doesn’t exist, the <code>cd</code> command creates it. However, run the same command again:</p>
+
+<pre><code>$ cp -r files/code files/backups/code
+</code></pre>
+
+<p>Now check out the results. It’s probably not what you’d expect:</p>
+
+<pre><code>$ tree files/backups
+files/backups
+...
+└── code
+    ├── code
+    │   ├── elm
+    │   │   ├── main.elm
+    │   │   └── README.md
+    │   ├── go
+    │   │   ├── main.go
+    │   │   └── README.md
+    │   └── js
+    │       ├── app.js
+    │       └── README.md
+...
+</code></pre>
+
+<p>Rather than repeat the copy command and overwrite the files you just copied, it placed a new copy of the <code>code</code> directory <em>inside</em> of the existing one.</p>
+
+<p>However, if you <em>don’t</em> specify the destination directory, the <code>cp</code> command will still create the destination directory.</p>
+
+<pre><code>$ cp -r files/code/ files/backups
+</code></pre>
+
+<p>Running this command again will produce the same results.</p>
+
+<p>Of course, you can specify a new destination name entirely. Just keep in mind that if the destination folder you specify already exists, you’ll get a nested file structure.</p>
+
+<h3 id="moving-files-and-directories">21. Moving Files and Directories</h3>
+
+<h4 id="competencies-addressed-20">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>Filenames need to change, and things need occasional reorganization. You use the <code>mv</code> file to perform both of these operations. It works almost exactly like the <code>cp</code> command, except that the syntax is identical for moving files and directories. Just specify the source path and the destination path. Let’s try it out.</p>
+
+<p>First, let’s rename the <code>files/documents/markdown</code> folder. We’ll call it <code>employee_handbook</code> instead.</p>
+
+<pre><code>$ mv files/docs/markdown files/docs/employee_handbook
+</code></pre>
+
+<p>Next, let’s create a <code>manuals</code> folder under <code>files/docs</code> and move the <code>employee_handbook</code> underneath it.</p>
+
+<pre><code>$ mkdir files/docs/manuals
+$ mv files/docs/employee_handbook files/docs/manuals
+</code></pre>
+
+<p>That’s all there is to moving an entire directory structure. Moving individual files works exactly the same way, and like the <code>cp</code> command, you can use wildcards to move multiple files.</p>
+
+<h3 id="deleting-files-and-directories">22. Deleting Files and Directories</h3>
+
+<h4 id="competencies-addressed-21">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>In the GUI, you delete files by dragging them to the Trashcan, the Recycle Bin, or some other metaphor for reclaiming disk space. On the command line, you typically skip that intermediate step and directly remove the files or folders.</p>
+
+<p>To delete a file, you use the <code>rm</code> command. Let’s delete the <code>chapter1.md</code> file in the <code>files/backups/</code> folder:</p>
+
+<pre language="session"><code>$ rm files/backups/chapter1.md
+</code></pre>
+
+<p>Like the other commands, you can use wildcards to delete multiple files. Delete the rest of the markdown files in the <code>files/backups</code> folder:</p>
+
+<pre><code>$ rm files/backups/chapter*.md
+</code></pre>
+
+<p>To delete directories, you’ll have to use the <code>-r</code> switch to tell the <code>rm</code> command to delete recursively, even if there’s nothing in the directory. Let’s explore this by cleaning up the <code>files/backups</code> folder.</p>
+
+<p>First, delete the <code>files/backups/code</code> directory and all its contents:</p>
+
+<pre><code>$ rm -r files/backups/code
+</code></pre>
+
+<p>On Ubuntu and macOS, this will delete the entire directory and its files. On other operating systems, you’ll be prompted to confirm you want to delete each file and folder. If that’s the case, you can add the <code>-f</code> flag to the command:</p>
+
+<pre><code>$ rm -rf files/backups/code
+</code></pre>
+
+<p>If you need to delete a bunch of files or folders in different locations, you can pass the paths to the <code>rm</code> command, and you can use brace expansion too.</p>
+
+<p>You can create, move, rename, and remove files and directories on any path on your system. Of course, unless you own the parent folder, you have to use <code>sudo</code> to perform those operations. But you can fix that. Just change the permissions.</p>
+
+<h3 id="managing-permissions-and-access">23. Managing Permissions and Access</h3>
+
+<h4 id="competencies-addressed-22">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage files and directories</li>
+</ul>
+
+<p>The <code>files</code> structure you made in your home directory is something other users on the machine could use, so let’s move it into the <code>/var</code> folder so others can access it. Use the <code>sudo</code> command since you don’t have write access to the <code>var</code> folder:</p>
+
+<pre><code class="language-command">$ sudo mv ~/files /var/files
+</code></pre>
+
+<p>Next, get a long listing of the <code>/var/files</code> folder, showing all hidden files. This will let you view the permissions of the <code>/var/files</code> folder itself:</p>
+
+<pre><code class="language-command">$ ls -alh /var/files
+total 36K
+drwxr-xr-x  9 root root 4.0K Jun 14 00:59 .
+drwxr-xr-x 15 root root 4.0K Jun 14 00:59 ..
+drwxr-xr-x  2 root root 4.0K Jun 14 00:59 backups
+drwxr-xr-x  6 root root 4.0K Jun 14 00:59 code
+drwxr-xr-x  4 root root 4.0K Jun 14 00:59 docs
+drwxr-xr-x  2 root root 4.0K Jun 14 00:59 movies
+drwxr-xr-x  2 root root 4.0K Jun 14 00:59 music
+drwxr-xr-x  2 root root 4.0K Jun 14 00:59 photos
+</code></pre>
+
+<p>The first entry in the list, (<code>.</code>), represents the directory itself, in this case, <code>/var/files</code>:</p>
+
+<pre><code class="language-command">drwxr-xr-x  9 root root 4.0K Jun 14 00:59 .
+</code></pre>
+
+<p>If you recall, the permissions break down like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>owner</th>
+      <th>group</th>
+      <th>everyone</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>rwx</td>
+      <td>r-x</td>
+      <td>r-x</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In this case, the root user can read, write, and execute files in this directory.  Other users on the system can read from this directory structure and execute any files there, but they won’t be able to create new files or even make changes to the contents of the files. Execute permissions on directories also allow users to list their contents.</p>
+
+<p>There are two methods you can use to alter access to this structure. You can change the permissions, or you can change the owner.</p>
+
+<p>Changing ownership is the easier method, and it’s often the only method you need. In most cases, the permissions are set correctly, but they’re applied to the wrong user and group. That’s the case here as well.</p>
+
+<p>The <code>chown</code> command lets you change the owner and group of a directory.</p>
+
+<pre><code class="language-command">$ sudo chown brianhogan:brianhogan /var/files
+</code></pre>
+
+<p>Get a new directory listing to check the ownership:</p>
+
+<pre><code class="language-command">$ ls -alh /var/files/
+total 36K
+drwxr-xr-x  9 brianhogan brianhogan 4.0K Jun 14 00:59 .
+drwxr-xr-x 15 root       root       4.0K Jun 14 00:59 ..
+drwxr-xr-x  2 root       root       4.0K Jun 14 00:59 backups
+drwxr-xr-x  6 root       root       4.0K Jun 14 00:59 code
+drwxr-xr-x  4 root       root       4.0K Jun 14 00:59 docs
+drwxr-xr-x  2 root       root       4.0K Jun 14 00:59 movies
+drwxr-xr-x  2 root       root       4.0K Jun 14 00:59 music
+drwxr-xr-x  2 root       root       4.0K Jun 14 00:59 photos
+</code></pre>
+
+<p>The <code>chown</code> command changed the ownership on the <code>/var/files</code> directory. Unfortunately it didn’t do anything to the directory’s contents. To do that, add the <code>-R</code> switch:</p>
+
+<pre><code class="language-command">$ sudo -R chown brianhogan:brianhogan /var/files
+</code></pre>
+
+<p>Then get a new directory listing:</p>
+
+<pre><code class="language-command">$ ls -alh /var/files/
+total 36K
+drwxr-xr-x  9 brianhogan brianhogan 4.0K Jun 14 00:59 .
+drwxr-xr-x 15 root       root       4.0K Jun 14 00:59 ..
+drwxr-xr-x  2 brianhogan brianhogan 4.0K Jun 14 00:59 backups
+drwxr-xr-x  6 brianhogan brianhogan 4.0K Jun 14 00:59 code
+drwxr-xr-x  4 brianhogan brianhogan 4.0K Jun 14 00:59 docs
+drwxr-xr-x  2 brianhogan brianhogan 4.0K Jun 14 00:59 movies
+drwxr-xr-x  2 brianhogan brianhogan 4.0K Jun 14 00:59 music
+drwxr-xr-x  2 brianhogan brianhogan 4.0K Jun 14 00:59 photos
+</code></pre>
+
+<p>You can now make modifications to the folder without using <code>sudo</code>. Try it out: Add a new directory called <code>dropbox</code>, which we’ll use to let every user on the system write files. Create this directory  <em>without</em> using the <code>sudo</code> command:</p>
+
+<pre><code class="language-command">$ mkdir /var/files/dropbox
+</code></pre>
+
+<p>The command completes without any error messages. Use <code>ls -alh</code> to look at the permissions for the new directory:</p>
+
+<pre><code class="language-command">$ ls -alh /var/files/dropbox
+total 8.0K
+drwxrwxr-x  2 brianhogan brianhogan 4.0K Jun 14 07:29 .
+drwxr-xr-x 10 brianhogan brianhogan 4.0K Jun 14 07:29 ..
+</code></pre>
+
+<p>The new directory inherits the permissions from the parent directory. Let’s change the permissions to allow everyone to write to it.</p>
+
+<p>To change the permissions, you use the <code>chmod</code> command. Let’s experiment. Create a file in the <code>/var/files/dropbox</code> folder called <code>permissions.txt</code>:</p>
+
+<pre><code class="language-command">$ touch /var/files/dropbox/permissions.txt
+</code></pre>
+
+<p>Then look at its permissions:</p>
+
+<pre><code class="language-command">$ ls -alh /var/files/dropbox/permissions.txt
+-rw-rw-r-- 1 brianhogan brianhogan 0 Jun 14 07:51 /var/files/dropbox/permissions.txt
+</code></pre>
+
+<p>The permissions for this file give read and write permissions to your account and your primary group, and allow everyone else access to read the file.</p>
+
+<p>To remove the ability to write to this file for your user and group, use the <code>chmod -w</code> command:</p>
+
+<pre><code class="language-command">$ chmod -w /var/files/dropbox/permissions.txt
+$ ls -alh /var/files/dropbox/permissions.txt
+-r--r--r-- 1 brianhogan brianhogan 0 Jun 14 07:51 /var/files/dropbox/permissions.txt
+</code></pre>
+
+<p>To add them back, use <code>chmod +w</code>:</p>
+
+<pre><code class="language-command">$ chmod -w /var/files/dropbox/permissions.txt
+$ ls -alh /var/files/dropbox/permissions.txt
+-rw-rw-r-- 1 brianhogan brianhogan 0 Jun 14 07:51 /var/files/dropbox/permissions.txt
+</code></pre>
+
+<p>Notice that this isn’t changing the permissions for everyone else. To add the ability for others to write to this file, prefix the permission with the letter <code>o</code>, for “others”:</p>
+
+<pre><code class="language-command">$ chmod o+w /var/files/dropbox/permissions.txt
+$ ls -alh /var/files/dropbox/permissions.txt
+-rw-rw-rw- 1 brianhogan brianhogan 0 Jun 14 07:51 /var/files/dropbox/permissions.txt
+</code></pre>
+
+<p>You can target the user and group with the <code>u</code> and <code>g</code> prefixes. To remove write access for you, your group, and everyone, execute this command:</p>
+
+<pre><code class="language-command">$ chmod ugo-w /var/files/dropbox/permissions.txt
+$ ls -alh /var/files/dropbox/permissions.txt
+-r--r--r-- 1 brianhogan brianhogan 0 Jun 14 07:51 /var/files/dropbox/permissions.txt
+</code></pre>
+
+<p>You’ve controlled access to a file, but what about the directory itself? Use <code>chmod</code> on the directory:</p>
+
+<pre><code class="language-command">$ chmod o+w /var/files/dropbox/
+$ ls -alhd /var/files/dropbox
+drwxr-xrwx  2 brianhogan  brianhogan    68B Jun 14 13:05 /var/files/dropbox
+</code></pre>
+
+<p>The <code>chmod</code> command can also act recursively if you use the <code>-R</code> switch, so to remove write permissions from the <code>/var/files/dropbox</code> directory and all its contents for other users, execute this command:</p>
+
+<pre><code class="language-command">$ chmod -R o-w /var/files/dropbox/
+$ ls -alh /var/files/dropbox/
+total 0
+drwxr-xr-x  3 brianhogan  brianhogan   102B Jul 31 13:14 .
+drwxr-xr-x  3 brianhogan  brianhogan   102B Jul 31 13:05 ..
+-rw-r--r--  1 brianhogan  brianhogan     0B Jul 31 13:14 permissions.txt
+</code></pre>
+
+<p>Things get a little tricker when you want to assign completely different permissions for yourself and everyone else. The easiest way to do that is by changing the permission bits.</p>
+
+<h3 id="lesson-summary">Lesson Summary</h3>
+
+<p>Before moving on, ensure you have completed all activities in this lesson. And remember that things that were not assigned for a grade are still required and may be used in future lessons.</p>
+
+
+
+</div>
+  </body>
+</html>

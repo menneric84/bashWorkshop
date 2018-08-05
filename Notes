@@ -23,3 +23,7 @@ cd  ==== will auto nav back to home
 tab to autocomplete
 
 use "which" command to see if something is installed
+
+curl -O https://bphogan.com/thatconf.zip
+^^ downloads file
+-O saves it as same file name

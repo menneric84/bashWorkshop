@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <title>Lesson 5</title>
+
+  </head>
+  <body>
+  <style>
+  .md_output code,.md_output pre{
+    font-family:Monaco, Andale Mono, Courier New, monospace;
+    font-size:12px;
+    -webkit-border-radius:3px;
+      -moz-border-radius:3px;
+            border-radius:3px;
+    }
+
+  .md_output code{
+    color: #d14;
+    background-color:#fafafa;
+    border: 1px solid #e1e1e8;
+    border-radius: 3px;
+    font-weight:bolder;
+    white-space: nowrap;
+  }
+
+  .md_output pre>code {
+    color: #000;
+    display:block;
+    font-size:12px;
+    line-height:18px;
+    margin:0 0 18px;
+    padding:8.5px;
+    white-space:pre;
+    white-space:pre-wrap;
+    word-wrap:break-word;
+  }
+
+  .md_output blockquote{padding: 0 0 0 15px; margin: 0 0 20px; border-left: 5px solid #eeeeee;};
+  .md_output table{width:100%;margin-bottom:18px;padding:0;border-collapse:separate;*border-collapse:collapse;font-size:13px;border:1px solid #ddd;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;}table th,table td{padding:10px 10px 9px;line-height:18px;text-align:left;}
+  .md_output table th{padding-top:9px;font-weight:bold;vertical-align:middle;border-bottom:1px solid #ddd;}
+  .md_output table td{vertical-align:top;}
+  .md_output table th+th, .md_output table td+td{border-left:1px solid #ddd;}
+  .md_output table tr+tr td{border-top:1px solid #ddd;}
+  .md_output table tbody tr:first-child td:first-child{-webkit-border-radius:4px 0 0 0;-moz-border-radius:4px 0 0 0;border-radius:4px 0 0 0;}
+  .md_output table tbody tr:first-child td:last-child{-webkit-border-radius:0 4px 0 0;-moz-border-radius:0 4px 0 0;border-radius:0 4px 0 0;}
+  .md_output table tbody tr:last-child td:first-child{-webkit-border-radius:0 0 0 4px;-moz-border-radius:0 0 0 4px;border-radius:0 0 0 4px;}
+  .md_output table tbody tr:last-child td:last-child{-webkit-border-radius:0 0 4px 0;-moz-border-radius:0 0 4px 0;border-radius:0 0 4px 0;}
+</style>
+<div class='md_output'>
+
+<h2 id="customizing-and-automating">Customizing and Automating</h2>
+
+<p>In this lesson you’ll write a script and make shell customizations.</p>
+
+<h3 id="you-try-it">1. You Try It</h3>
+
+<h4 id="competencies-addressed">Competencies Addressed:</h4>
+
+<ul>
+  <li>Automate Tasks with Scripts</li>
+</ul>
+
+<p>Try these exercises to ensure you’re comfortable automating things.</p>
+
+<ul>
+  <li>Create a local <code>bin</code> folder in your home directory and add it to your path by modifying the <code>PATH</code> variable. Be sure to add the existing <code>PATH</code> value to your new directory.</li>
+  <li>Modify your website creation script to create an optional default CSS file.</li>
+  <li>Modify your website creation script to accept a value for the site’s name and inject it into the <code>&lt;title&gt;</code> tag of the template.</li>
+  <li>Use the <code>date</code> command to embed a copyright date in the footer of the site’s template.</li>
+</ul>
+
+<h3 id="chaining-commands">2. Chaining Commands</h3>
+
+<h4 id="competencies-addressed-1">Competencies Addressed:</h4>
+
+<ul>
+  <li>Automate Tasks with Scripts</li>
+</ul>
+
+<p>One common pattern you’ll find yourself doing over and over is creating a directory and then switching to the directory you just created, like this:</p>
+
+<pre><code class="language-command">$ mkdir workstuff
+$ cd workstuff
+</code></pre>
+
+<p>You can execute multiple commands at once by placing two ampersands (&amp;&amp;) or a semicolon between the commands.</p>
+
+<p>Using two ampersands (&amp;&amp;) requires that the first command completes successfully. Try to create the directory <code>/tmp/websites/awesomeco</code> using the <code>mkdir</code> command, but omit the <code>-p</code> switch so it won’t attempt to create parent folders that don’t exist. Then use two ampersands, followed by the <code>cd</code> command to switch to the new directory:</p>
+
+<pre><code class="language-command">$ mkdir /tmp/websites/awesomeco &amp;&amp; cd /tmp/websites/awesomeco
+mkdir: /tmp/websites: No such file or directory
+</code></pre>
+
+<p>The <code>mkdir</code> command failed because the <code>/tmp/websites</code> folder doesn’t exist, so it couldn’t create the <code>awesomeco</code> directory. The <code>cd</code> command never executed because the first command failed. How does the shell know it failed though? Let’s take a deeper look.</p>
+
+<p>Try running the <code>mkdir</code> command by itself:</p>
+
+<pre><code class="language-command">$ mkdir /tmp/websites/awesomeco
+mkdir: /tmp/websites: No such file or directory
+</code></pre>
+
+<p>It displayed an error message to the screen to tell you it didn’t work, but it also returned an <em>error code</em> to the shell. You can see that by printing the value of <code>$?</code> to the screen. Try it:</p>
+
+<pre><code class="language-command">$ echo $?
+1
+</code></pre>
+
+<p>According to the output, the previous command returned an exit code of <code>1</code>. If a command line program returns any exit code other than <code>0</code>, the shell interprets this as a failure. The <code>&amp;&amp;</code> sequence is an <code>AND</code> condition, and so anything to the right of the <code>&amp;&amp;</code> only executes if the previous commands executed successfully.</p>
+
+<p>Now run the same command with a semicolon instead of two ampersands:</p>
+
+<pre><code class="language-command">$ mkdir /tmp/websites/awesomeco;cd /tmp/websites/awesomeco
+mkdir: /tmp/websites: No such file or directory
+-bash: cd: /tmp/websites/awesomeco: No such file or directory
+</code></pre>
+
+<p>This time both the <code>mkdir</code> and <code>cd</code> commands executed. The semicolon is just a separator between commands. It’s as if you pressed <code>Enter</code> between each command.</p>
+
+<p>This is a subtle difference, but an important one, especially if you only want to run subsequent commands if the previous commands were successful.</p>
+
+<p>You can use the <code>||</code> charactors to do something if a command fails. Give this a try:</p>
+
+<pre><code class="language-command">$ mkdir /tmp/websites/awesomeco || echo "Unable to create directory"
+mkdir: /tmp/websites: No such file or directory
+Unable to create directory
+</code></pre>
+
+<p>You can combine this with the <code>&amp;&amp;</code> too. Try to create the directory and switch to it, but print a message if it fails:</p>
+
+<pre><code class="language-command">$ mkdir /tmp/websites/awesomeco &amp;&amp; cd /tmp/websites/awesomeco \
+|| echo "Unable to create directory"
+
+mkdir: /tmp/websites: No such file or directory
+Unable to create directory
+</code></pre>
+
+<p>Finally, use <code>mkdir -p</code> instead, which will create the parent directory, resulting in a successful execution. Your working directory will change:</p>
+
+<pre><code class="language-command">$ mkdir -p /tmp/websites/awesomeco &amp;&amp; cd /tmp/websites/awesomeco \
+|| echo "Unable to create directory"
+$ pwd
+/tmp/websites/awesomeco
+</code></pre>
+
+<h3 id="reusing-commands">3. Reusing Commands</h3>
+
+<h4 id="competencies-addressed-2">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage the Environment</li>
+</ul>
+
+<p>By now you’ve probably gotten pretty familiar with the <code>history</code> command, and you’ve probably used the <code>Up</code> arrow key to recall a previous command you’ve typed. And you already know the <code>!!</code> command, which lets you run the previous command again.</p>
+
+<p>Let’s review that right now.  Use the <code>ls -alh</code> command to get a list of your home directory.</p>
+
+<pre><code class="language-command">$ ls -lh
+total 44K
+drwxr-xr-x 2 brianhogan brianhogan 4.0K May 26 10:09 Desktop
+drwxr-xr-x 2 brianhogan brianhogan 4.0K May 26 10:07 Documents
+drwxr-xr-x 2 brianhogan brianhogan 4.0K May 26 10:07 Downloads
+-rw-r--r-- 1 brianhogan brianhogan 8.8K May 26 10:06 examples.desktop
+drwxr-xr-x 2 brianhogan brianhogan 4.0K May 26 10:07 Music
+drwxr-xr-x 2 brianhogan brianhogan 4.0K May 26 10:07 Pictures
+drwxr-xr-x 2 brianhogan brianhogan 4.0K May 26 10:07 Public
+drwxr-xr-x 2 brianhogan brianhogan 4.0K May 26 10:07 Videos
+</code></pre>
+
+<p>Use the <code>!!</code> command to execute the command again:</p>
+
+<pre><code class="language-command">$ !!
+total 44K
+drwxr-xr-x 2 brianhogan brianhogan 4.0K May 26 10:09 Desktop
+drwxr-xr-x 2 brianhogan brianhogan 4.0K May 26 10:07 Documents
+drwxr-xr-x 2 brianhogan brianhogan 4.0K May 26 10:07 Downloads
+-rw-r--r-- 1 brianhogan brianhogan 8.8K May 26 10:06 examples.desktop
+drwxr-xr-x 2 brianhogan brianhogan 4.0K May 26 10:07 Music
+drwxr-xr-x 2 brianhogan brianhogan 4.0K May 26 10:07 Pictures
+drwxr-xr-x 2 brianhogan brianhogan 4.0K May 26 10:07 Public
+drwxr-xr-x 2 brianhogan brianhogan 4.0K May 26 10:07 Videos
+</code></pre>
+
+<p>So how does this work? The <code>!</code> symbol is an <em>event designator</em>. It refers to some event in your history. <code>!!</code> is a shortcut for “the last command”, but <code>!</code> followed by a number refers to the specific command in your history.  When you execute the <code>history</code> command, you’ll see numbers next to each entry, like this:</p>
+
+<pre><code class="language-command">$ history
+   14  ls
+   15  cd ..
+   16  ls /var
+</code></pre>
+
+<p>In this example, <code>ls /var</code> is the 16th entry in the history. It’s also the last entry. To run it again, you could use <code>!16</code>, or you could just use <code>!!</code>.</p>
+
+<p>The most common use for <code>!!</code> is with the <code>sudo</code> command if you’ve accidentally left it off.  Try creating a directory structure in the <code>/var</code> folder which is owned by the <code>root</code> user:</p>
+
+<pre><code class="language-command">$ mkdir -p /var/testing/commands
+mkdir: cannot create directory ‘/var/testing’: Permission denied
+</code></pre>
+
+<p>Since you didn’t use <code>sudo</code>, the command failed. Run it again and it will execute the command.</p>
+
+<pre><code class="language-command">$ sudo !!
+sudo mkdir -p /var/testing/commands
+</code></pre>
+
+<p>Notice that when you executed the command, the shell prints out the command it ran in addition to running it. If you just want to see the last command instead of executing it, you can do so by adding <code>:p</code> to the end:</p>
+
+<pre><code class="language-command">$ !!:p
+sudo mkdir -p /var/testing/commands
+</code></pre>
+
+<p>Now let’s change the working directory to  <code>/var/testing/commands</code>. Typing that path out again isn’t terribly difficult if you use tab completion, but you can save some time by making use of your history. The sequence <code>!$</code> will grab the last argument of the previous command, which was the path you just created. Use that sequence as the argument to the <code>cd</code> command:</p>
+
+<pre><code class="language-command">$ cd !$
+cd /var/testing/commands
+</code></pre>
+
+<p>The full <code>cd</code> command prints to the screen and your current working directory changes.</p>
+
+<h3 id="understanding-the-environment">4. Understanding the Environment</h3>
+
+<h4 id="competencies-addressed-3">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage the Environment</li>
+</ul>
+
+<p>When you open a new terminal window, you’re greeted by your prompt. While you logged in, some behind-the-scenes processes configured an environment for you to use. Most of this is customizable. But let’s look at the basics before we go tinkering too much.</p>
+
+<p>The <code>env</code>  command will show you all of the environment variables that are set. There’s a lot there, so pipe the results to <code>less</code>:</p>
+
+<p>command
+~~~
+$ env | less
+~~~</p>
+
+<p>In the output, you’ll see these items:</p>
+
+<pre><code>...
+SHELL=/bin/bash
+TERM=xterm-256color
+USER=brian
+...
+PATH=/home/brian/bin:/home/brian/.local/bin:/usr/local/sbin:/usr/local/bin:
+/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+...
+PWD=/home/brian
+...
+HOME=/home/brian
+</code></pre>
+
+<p>You can use these variables as  values in your shell commands. To do so, prefix the variable with the dollar sign. For example, print out the <code>HOME</code> variable’s value:</p>
+
+<pre><code class="language-command">$ echo $HOME
+/home/brian
+</code></pre>
+
+<p>One of the more important entries in this list is <code>PATH</code>. Let’s explore that one in detail.</p>
+
+<p>When you type commands like <code>cd</code> or <code>ls</code>, you’re executing a program. The <code>PATH</code> environment variable contains a colon-delimited list of directories the OS uses look up executable programs.</p>
+
+<p>Print out the value of the <code>PATH</code> variable with <code>echo</code>.</p>
+
+<pre><code class="language-command">$ echo $PATH
+/home/brian/bin:/home/brian/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+</code></pre>
+
+<p>The <code>which</code> command will tell you where an executable is located on your file system by looking through all the directories in the <code>PATH</code> and displaying the first instance it finds.. Try it out with the <code>ls</code> command:</p>
+
+<pre><code class="language-command">$ which ls
+/bin/ls
+</code></pre>
+
+<p>According to this output, the <code>ls</code> command is located in at <code>bin/ls</code>. That directory is one of the entries on your <code>PATH</code> of executable files, which is why you can execute it from anywhere.</p>
+
+<p>You can use these in combination with other strings as well:</p>
+
+<pre><code>$ echo "The current user is ${USER}"
+The current user is brian
+</code></pre>
+
+<p>The curly braces around the variable expand the variable. It’s good practice to use these when mixing your variables with other strings. You can leave them off, but if you wanted to create a file using the username, you might run into problems. Run this command to attempt to add <code>_history.txt</code> as a suffix to the value of <code>USER</code>:</p>
+
+<pre><code>$ echo "$USER_history.txt"
+.txt
+</code></pre>
+
+<p>All you see is <code>.txt</code>, because the shell though the variable was <code>USER_history</code>. Using braces makes it clearer:</p>
+
+<pre><code>$ echo ${USER}_history.txt
+brian_history.txt
+</code></pre>
+
+<p>This is called <em>variable expansion</em> and it’s considered a best practice. You won’t be surprised if you do this consistently.</p>
+
+<p>You can set your own values as well. Use <code>export</code> to do so:</p>
+
+<pre><code class="language-command">$ SHIELD_PASSWORD=12345
+</code></pre>
+
+<p>Then you can recall it later.</p>
+
+<pre><code>$ echo $SHIELD_PASSWORD
+12345
+</code></pre>
+
+<p>This is helpful when you have to store long strings like API keys.</p>
+
+<p>This value won’t persist when you close your shell. It also won’t be readable by any other programs you spawn. This is a “shell” variable.  If you want to make your variable available to other programs, you have to prefix it with <code>export</code>.</p>
+
+<p>To have things persist beyond your existing session, you need to add it to your shell initialization files.</p>
+
+<h3 id="editing-files-with-nano">5. Editing Files with Nano</h3>
+
+<h4 id="competencies-addressed-4">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage the Environment</li>
+</ul>
+
+<p>You’ve created files with <code>echo</code>, <code>touch</code>, and <code>cat</code>, and you’ve edited files with <code>sed</code>, but sometimes you need to make more substantial modifcations to existing files. There are a lot of options out there, but <code>nano</code> is a fine basic text editor that’s great for beginners.</p>
+
+<p>Let’s use <code>nano</code> to create and edit a basic HTML file:</p>
+
+<pre><code>$ nano nano.html
+</code></pre>
+
+<p>The Nano editor appears in your terminal.</p>
+
+<p>Enter the following text in the editor.</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en-US"&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;Nano&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;I made this in Nano&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>Once you’ve entered the text, save the file by exiting the editor with <code>Ctrl-X</code>. You’ll be prompted to save the file. Press <code>Y</code>, followed by <code>Enter</code> to accept.</p>
+
+<p>To change the file later, open it again with Nano.</p>
+
+<p>Nano is a very basic editor, but it does have some features you’ll want to turn on to make it more useful, like syntax highlighting. You can configure Nano by creating a configuration file at <code>~/.nanorc</code>.</p>
+
+<p>On macOS, the default version of Nano doesn’t support syntax highlighting. Install <code>nano</code> using Homebrew:</p>
+
+<pre><code>$ brew install nano
+</code></pre>
+
+<p>This installs a more up-to-date version of Nano at <code>/usr/local/bin/nano</code> that supports syntax highlighting and more.</p>
+
+<p>Now use <code>nano</code> to create and edit the configuration file. That’s right—you’re going to use Nano to edit Nano’s configuration file. Good times.</p>
+
+<pre language="session"><code>$ nano ~/.nanorc
+</code></pre>
+
+<p>Firt, enable syntax highlighting by including Nano’s syntax highlighers. If you’re on Ubuntu, add this line:</p>
+
+<pre><code>include "/usr/share/nano/*.nanorc"
+</code></pre>
+
+<p>On macOS with Nano installed via Homebrew, add this line instead:</p>
+
+<pre><code>include /usr/local/share/nano/*.nanorc
+</code></pre>
+
+<p>Next, add this line which will allow you to suspend Nano as a background process, which is useful if you need to run a command while Nano is running:</p>
+
+<pre><code>set suspend
+</code></pre>
+
+<p>Then add this line to turn off word-wrapping:</p>
+
+<pre><code>set nowrap
+</code></pre>
+
+<p>Finally, if you have a more recent version of Nano, add this to make Nano show line numbers on the left-hand side:</p>
+
+<pre><code>set linenumbers
+</code></pre>
+
+<p>Save the file and exit the editor (<code>Ctrl-X</code>,<code>Y</code>, <code>Enter</code>.)</p>
+
+<p>Now open your HTML file again.</p>
+
+<pre><code>$ nano nano.html
+</code></pre>
+
+<p>You’ll now see line numbers and a nicely-colorized output.</p>
+
+<p>Using Nano, you can inspect and edit any file on your system without leaving your terminal.</p>
+
+<h3 id="creating-a-shell-configuration-file">6. Creating a Shell Configuration file</h3>
+
+<h4 id="competencies-addressed-5">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage the Environment</li>
+</ul>
+
+<p>When you open a new shell session, your shell executes a configuration script automatically. Using this script, you can configure environment variables, shortcuts, and other environment settings.</p>
+
+<p>There are two types of shells – login shells and nd non-login shells. The type of shell determines where you put the settings. If you put them in the wrong place, they won’t apply.</p>
+
+<p>When you connect to a machine remotely or physically and you provide your username and password, you’re using a login shell.  When you do this, the file <code>~/.bash_profile</code> executes.</p>
+
+<p>A non-login shell is the kind that you open when you’ve already logged into the machine and start a shell session. For example, on Ubuntu, you launch the terminal from a graphical desktop. This launches the <code>~/.bashrc</code> file.</p>
+
+<p>When you execute the commaind <code>/bin/bash</code>, the <code>~/.bashrc</code> file is executed, but not the <code>~/.bash_profile</code>.</p>
+
+<p>On macOS, when you open a new terminal, macOS runs a login shell instead, so it uses <code>~/.bash_profile</code> instead.</p>
+
+<p>You can check whether you’re running in a login shell or a non-login shell by looking at the value of the <code>$0</code> shell variable:</p>
+
+<pre><code>$ echo $0
+-bash
+</code></pre>
+
+<p>If you see a leading <code>-</code>, you’re running in a login shell. If there’s no leading <code>-</code>, you’re in a non-login shell.</p>
+
+<p>Maintaining two configuration files is terrible. The best approach is to use the <code>~/.bashrc</code> file for everything that’s common, and then load that file from <code>~/.bash_profile</code>.</p>
+
+<p>First, check to see if you have an existing ~/.bashrc` file:</p>
+
+<pre><code>cat ~/.bashrcc
+</code></pre>
+
+<p>If it has a bunch of content, you have two choices. You can back it up and start fresh or work with what’s there. For this exercise, we’ll back it up and start over.</p>
+
+<p>Rename the existing file:</p>
+
+<pre><code>$ mv ~/.bashrc ~/.bashrc_old
+</code></pre>
+
+<p>Now use <code>nano</code> to create and open a fresh ~/.bashrc` file:</p>
+
+<pre><code>$ nano ~/.bashrc
+</code></pre>
+
+<p>The first thing to add to the file is a statement that ejects from the process if the shell is non-interactive. Shells are designed to be interactive, but some programs may fire up a shell session to execute commands non-interactively and so it’s a good idea to avoid executing anything in this file if that’s the case.</p>
+
+<p>There are a few ways to check for this, but the easiest way to check is to look to see if the <code>$PS1</code> value is set. It’s unset in an interactive shell. So add this line to the file to check to see if it’s unset and return if that’s the case:</p>
+
+<pre><code>if [ -z "$PS1" ]; then
+        return
+fi
+</code></pre>
+
+<p>You can also express this as a boolean:</p>
+
+<pre><code>[ -z "$PS1" ] &amp;&amp; return
+</code></pre>
+
+<p>Next, let’s set some options to control how our history works.</p>
+
+<p>The <code>HISTCONTROL</code> environment variable lets you ignore commands that start with a space. This can be really great to hide commands containing sensitive information from your history. It’s often a default setting.</p>
+
+<p>The <code>HISTCONTROL</code> environment variable also lets you ignore repeated duplicates. So if you type <code>ls</code> three times in a row, you can only have it saved once. This only checks the previous command for duplicates, but it’s still a nice way to trim down the history a bit.</p>
+
+<p>You can set one or both of these options like this:</p>
+
+<pre><code>HISTCONTROL=ignorespace:ignoredups
+</code></pre>
+
+<p>Or use the <code>ignoreboth</code> value instead:</p>
+
+<pre><code>HISTCONTROL=ignoreboth
+</code></pre>
+
+<p>If you actually wanted duplicates to go away, add <code>erasedups</code>:</p>
+
+<pre><code>HISTCONTROL=ignoreboth:erasedups
+</code></pre>
+
+<p>I don’t recommend this though, as it makes it more difficult to see your actual linear history of commands.</p>
+
+<p>You can control the size of the history file. Add these lines to control how many history lines are saved in your current session (<code>HISTSIZE</code>) and how many lines you save in the file (<code>HISTFILESIZE</code>) when you exit your shell:</p>
+
+<pre><code>HISTSIZE=1000
+HISTFILESIZE=2000
+</code></pre>
+
+<p>Finally, if there are commands you’d like the <code>history</code> command to ignore, add them to the <code>HISTIGNORE</code> command. For example, to stop recording <code>exit</code> and <code>clear</code> commands, add this line:</p>
+
+<pre><code class="language-bash">HISTIGNORE="exit:clear"
+</code></pre>
+
+<p>Next, let’s set up a shell editor. The <code>EDITOR</code> and <code>VISUAL</code> environment variables let you specify the shell editor other programs should use to edit text. For example, if you use Git and you don’t specify a commit message, Git will attempt to open a shell editor like Vim so you can edit the file. But you can use Nano instead.</p>
+
+<p>The <code>EDITOR</code> variable is for line editors like the classic <code>ed</code> program. The <code>VISUAL</code> variable is for full-screen editors like <code>nano</code>. You most likely only need <code>VISUAL</code>, but since people tend to get these confused, it’s not a bad idea to set both:</p>
+
+<pre><code class="language-bash">export EDITOR=nano
+export VISUAL=nano
+</code></pre>
+
+<h3 id="handling-bashprofile">Handling <code>.bash_profile</code></h3>
+
+<p>As you learned earlier in this section, the <code>.bashrc</code> file isn’t read by macOS. The best solution is to tell <code>~/.bash_profile</code> to load <code>~/.bashrc</code> if it exists.</p>
+
+<p>Open <code>~/.bash_profile</code> in your text editor:</p>
+
+<pre><code>$ nano ~/.bash_profile
+</code></pre>
+
+<p>Add this code to the file:</p>
+
+<pre><code>if [ -f ~/.bashrc ]; then
+   source ~/.bashrc
+fi
+</code></pre>
+
+<p>This should be the only content in the file.</p>
+
+<h3 id="creating-a-custom-prompt">7. Creating a Custom Prompt</h3>
+
+<h4 id="competencies-addressed-6">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage the Environment</li>
+</ul>
+
+<p>The <code>PS1</code> value lets you specify what your prompt should look like. You can put lots of information in your prompt.</p>
+
+<p>Let’s start by creating a prompt that’s nothing more than the dollar sign with a space after it. Open <code>~/.bashrc</code>:</p>
+
+<p>Add this line to your file:</p>
+
+<pre><code class="language-bash">export PS1="\\$ "
+</code></pre>
+
+<p>Save the file with <code>Ctrl-O</code>, followed by <code>Enter</code> and open a new shell session to see your prompt. Close the new shell session and return to your editor.</p>
+
+<p>Having just the dollar sign isn’t very helpful, so add the current working directory with <code>\w</code>, which shows the full path to the current directory unless the directory is in your home directory, in which case it uses <code>~</code> instead:</p>
+
+<pre language="bash"><code>export PS1="\w \\$ "
+</code></pre>
+
+<p>To add <code>user@host:</code> to the front of the path, so you can see the username and hostname, use <code>\u</code> for username, the literal <code>@</code>, and <code>\h</code> for the hostname, followed by <code>:</code>:</p>
+
+<pre language="bash"><code>export PS1="\u@\h:\w \\$ "
+</code></pre>
+
+<p>You can use color codes in your prompt as well by using ANSI color codes within your prompt. The <code>tput</code> command makes it much easier to set colors.  The <code>tput setaf</code> command sets the foreground color, while the <code>tput sgr0</code> command resets everything to normal again. Run this in your terminal:</p>
+
+<pre><code class="language-color">$ echo -e "$(tput setaf 6)Hello $(tput sgr0)world"
+</code></pre>
+
+<p>The command <code>tput setaf 6</code> is Cyan.</p>
+
+<p>You can use these in your prompt too, but you’ll want to surround the color sequences in escaped square brackets in order to make sure that Bash doesn’t count those characters in its prompt length calculations. If you omit them, you might end up with things not lining up on the screen right, or previous command’s text overflowing onto your prompt.</p>
+
+<p>To color the username, alter the prompt like this:</p>
+
+<pre><code class="language-bash">USERCOLOR="\[$(tput setaf 6)\]"
+RESET="\[$(tput sgr0)\]"
+
+export PS1="${USERCOLOR}\u${RESET}@\h:\w \\$ "
+</code></pre>
+
+<p>Save the file and open a new terminal window to see the prompt.</p>
+
+<h3 id="adding-aliases">8. Adding Aliases</h3>
+
+<h4 id="competencies-addressed-7">Competencies Addressed:</h4>
+
+<ul>
+  <li>Automate Tasks with Scripts</li>
+</ul>
+
+<p>Aliases let you create shortcuts for commands. You can define them in your shell, with the <code>alias</code> command, but it’s better to define them in your <code>~/.bashrc</code> file.</p>
+
+<p>Let’s create an alias for <code>ls -alh</code> so we can avoid typing it out. We’ll create an alias called <code>ll</code>. Add this line to the end of the <code>~/.bashrc</code> file:</p>
+
+<pre><code>alias ll='ls -alh'
+</code></pre>
+
+<p>Save the file and then source the file to apply the changes:</p>
+
+<pre><code>$ source ~/.bashrc
+</code></pre>
+
+<p>Try running the <code>ll</code> alias:</p>
+
+<pre><code>$ ll
+total 124K
+drwxr-xr-x 15 root root 4.0K Jun 10 11:34 .
+drwxr-xr-x  4 root root 4.0K May 26 10:06 ..
+...
+</code></pre>
+
+<p>You can make an alias for any command you’d like. For example, add this alias to display your public IP address quickly:</p>
+
+<pre><code>alias myip='curl icanhazip.com'
+</code></pre>
+
+<p>Aliases you create won’t be available if you use the <code>sudo</code> command.  Try it out:</p>
+
+<pre><code>$ sudo ll
+sudo: ll: command not found
+</code></pre>
+
+<p>By default, Bash doesn’t look beyond the first word for any aliases.</p>
+
+<p>But we can fix that by adding an alias for <code>sudo</code>. Add this to <code>~/.bashrc</code>:</p>
+
+<pre><code>alias sudo='sudo '
+</code></pre>
+
+<p>Save the file, then source it with <code>source ~/.bashrc</code> to apply the changes.</p>
+
+<p>Note the space after <code>sudo</code>.  By leaving a space as part of the command, Bash will look at the next word to see if it’s an alias, which means the <code>ll</code> alias will now work.</p>
+
+<h3 id="using-your-editor-to-run-and-modify-commands">9. Using Your Editor To Run and Modify Commands</h3>
+
+<h4 id="competencies-addressed-8">Competencies Addressed:</h4>
+
+<ul>
+  <li>Manage the Environment</li>
+</ul>
+
+<p>Sometimes you have a complex multi-line command or a series of commands you need to run, but you’re concerned that you might goof them up. You can use your default text editor to edit and create these complex commands instead. It’s a life-saver.</p>
+
+<p>Invoke this by pressing <code>Ctrl+X</code> followed by <code>Ctrl-E</code>. This will open Nano, or whichever editor you’ve configured as your default.</p>
+
+<p>Type the following command into the editor:</p>
+
+<pre><code>ls -alh /var/
+</code></pre>
+
+<p>Save the file and exit the editor. The command will execute and display the results as if you’d typed the command out directly.</p>
+
+<p>You can use this with anything from your history. You can use your <code>Up</code> arrow key to recall a previous command, then use <code>Ctrl+X</code> <code>Ctrl+E</code> to edit the command. When you save the changes in the editor, the command executes.</p>
+
+<p>You can also use <code>fc</code>, short for “fix command.” Use the <code>history</code> command to find the number of the command you want to fix. then use <code>fc</code> followed by the number to open the command in your editor.</p>
+
+<h3 id="writing-a-bash-script">10. Writing a Bash Script</h3>
+
+<h4 id="competencies-addressed-9">Competencies Addressed:</h4>
+
+<ul>
+  <li>Automate Tasks with Scripts</li>
+</ul>
+
+<p>A Bash script is a file that contains a list of commands you want the computer to execute. When you run the script, the commands will execute  one at a time until all of the commands are run. A Bash script can contain any command you’d normally type in your terminal,  which means you can use everything you’ve learned about the command line interface in a script.</p>
+
+<p>We’re going to create a simple script to create the files and folders for a web site</p>
+
+<p>But before  we dive into our web site creation program, let’s get comfortable with creating and running Bash scripts by writing the obligatory “Hello World” program.</p>
+
+<p>Create the new file:</p>
+
+<pre><code>$ nano hello_world.sh
+</code></pre>
+
+<p>Add the following statement to the file, which uses the <code>echo</code> command to print “Hello World!”:</p>
+
+<pre><code>echo "Hello World!"
+</code></pre>
+
+<p>Save the script and suspend Nano with <code>Ctrl-Z</code>.</p>
+
+<p>When you run this script, it will execute the script’s contents and print the result to the screen.  To run it, use the <code>bash</code> command:</p>
+
+<pre language="session"><code>$ bash hello.sh
+Hello World!
+</code></pre>
+
+<p>Modify the program’s message so that when you run the program, it produces
+the following output:</p>
+
+<pre><code>Hello World!
+This is my first Bash script!
+</code></pre>
+
+<p>To get that output, use an additional <code>echo</code> statement. Use <code>fg</code> to bring Nano back to the foreground and add the new statement:</p>
+
+<pre><code>echo "Hello World!"
+echo "This is my first Bash script!"
+</code></pre>
+
+<p>Save the file, background Nano with <code>Ctrl-Z</code>, and run the script again:</p>
+
+<pre language="session"><code>$ bash hello.sh
+Hello World!
+This is my first Bash script!
+</code></pre>
+
+<p>Bring Nano to the foreground again with <code>fg</code>.</p>
+
+<p>Now let’s make this an executable script so we don’t have to run it with the <code>bash</code> command. Modify the script by adding a new line to the top:</p>
+
+<pre><code>#!/usr/bin/env bash
+echo "Hello World!"
+echo "This is my first Bash script!"
+</code></pre>
+
+<p>This line is called a “shebang”. It’s a comment that tells the operating system where to find the interpreter for this script.</p>
+
+<p>Save the changes to your script and then use <code>chmod</code> to make the script executable:</p>
+
+<pre language="session"><code>$ chmod +x hello.sh
+</code></pre>
+
+<p>Now run the script. To run a script in the current directory, you have to prefix it with the characters <code>./</code>, which makes it clear that you want to run the script that exists in the current directory. This is a security setting that prevents someone from creating a malicious script with the same name as a system-wide command and then tricking you into running it.</p>
+
+<pre><code>$ ./hello.sh
+Hello World!
+This is my first Bash script!
+</code></pre>
+
+<p>That’s a basic script. Let’s do something a little more advanced.</p>
+
+<h3 id="lesson-summary">Lesson Summary</h3>
+
+<p>Before moving on, ensure you have completed all activities in this lesson. And remember that things that were not assigned for a grade are still required and may be used in future lessons.</p>
+
+
+
+</div>
+  </body>
+</html>
